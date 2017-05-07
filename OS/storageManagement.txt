@@ -1,0 +1,228 @@
+//File :
+	OS abstracts the physical properties of storage media and defines logical storage unit called file.
+
+//File Operations:
+	1. create file :	
+		allocate space on file system and add entry in directory
+	2. Read/write:
+		keep read/write pointer, per process per file pointer. to know at what position to read or write within file
+
+		involves open file:
+			it takes file name and first searches system wide open file table if that file is open then an entry is added to per process open file table
+
+	most of operations need to search file first, so os keeps a table called , open-file table containing information about all open files.
+
+	per process open files table is also kept by os, when saveral processes open same file, there is one entry in system wide table and entries in each of per process table, per process entries point to system wide table.
+
+	os also provide locking facility for files, two types of locks shared and exclusive locks may be provided.
+
+//File Access Methods:
+	
+	1. Sequential access : information is processed one record after other, its based on tape model of file since tape allow only Sequential access.
+
+	2. Direct Access : file is made up of fixed lenght logical records, so that we can access any record. its based on disk model of file since disk allows random access to blocks
+
+	3. Other Access Methods : other access methods are developed on top of direct access method like index files.
+
+//Directory and Disk Structure :
+
+	a disk may be partitioned before creating file system on it, so that it may have several file systems, any entity (partition) containing a fs is known as volume.
+	so volume may be whole device, part of device or several devices linked together(RAID)
+
+	//Logical Structure of Directory :
+
+	1. Tree-structured directory:
+		disadvantage of this is, it donest allow sharing of file/subdirectory.
+		if we want a file to be part of two subdirectories then its not possible with this approach
+
+	2. Acyclic-Graph Directory :
+		sharing is possible using links.
+		when we want a file to be in two subdirectories then one of subdirectory can have link to file in other subdirectory. 
+
+		one problem with the approach is when we are traversing directories then shared subdirectory will be traversed twice, causing wastage of time, to avoid this the simple solution is to ignore links while traversing directories.
+
+		with above approach we can even allow cycles in graphs since they wont affect traversing in any manner.
+
+	Device files:
+		/dev = devices
+		/dev/null = black hole
+		/dev/random = generate random no (strong) uses system noise
+		/dev/urandom genrerate random no (weaker) uses system noise but gives output even if its low noise
+	/var = variables : contains files which are changing
+
+	Unix directory contains filenames and corresponding inode no.
+	kernel maintains directories, others can read it.
+
+//Internal Fragmentation:
+	all file system operations are in terms of blocks, so file is saved in no of blocks, the last block may not be always filled completely. there is wastage of space here, called as Internal Fragmentation.
+
+// File Sharing :
+	
+	1. Multiple Users :
+		to allow sharing among multiple users we take have concept of owner and group. an owner can set permissions attributes which are saved on disk.
+		whenever a file operation is to be done, the user is checked for having permissions before allowing operation
+		
+			//File Permissions on UNIX :
+
+				(r w x) - (r w x) - (r w x)
+				(owner permission) - (group permission) - (universe permission)
+
+				r is 4
+				w is 2
+				x is 1
+
+				rwxrwxrwx
+				chmod(file, 0777)
+
+	2. Remote File systems :
+		it allows a computer to mount one or more fs from one or more remote machines.
+		to share files among remote file sytems several approaches have been given:
+
+		1. FTP :
+			manually transfer files between machines using programs like ftp.
+		2. DFS :
+			destributed file system in which remote directories are visible from local machine
+		3. WWW : 
+			it essentially uses modified version of first method.
+
+		NFS in unix allows many to many relationship. many servers can provide files to many clients .
+		the server machine in NFS maintains list of exports i.e. directories which are available to clients for mounting.
+		NFS works through RPC mechanism.
+
+
+//Special Files :
+
+	FIFO are otherwise called as 'named pipes'. FIFO (first-in-first-out) is a special file which is said to be data transient.
+	It is used in interprocess communication. created with mkfifo
+
+	The system call mknod creates special files.
+
+	Dev files : /dev directory
+	Block special file : transfer in terms of blocks like hard disk
+	character special file : transfer in terms of stream of bits in sequence like keyboard
+
+//Some Commands :
+
+	fcntl = manipulate open files with f.d.
+	ioctl = manipulate open device files
+
+//Links :
+
+	an hard link (ln) is just a rename, its used to create another name for a file, the newly created link will point to the same inode as original. even if earlier file is deleted, nothing will change in our link, so its like the same file with diff name
+
+	cant be used on directories, and doesnt work across computers, has to be on same computer
+
+	Soft link (ln -s) is another file ( having diff inode no) that contains the file name of original file, changes made are done actually in original file. if we delete original file, this link is useless, works on directories as well and across the computers too.
+
+//Implementing File System :
+
+	//Disk Structures:
+
+		1. Boot control block : usually the first block of volume contain information needed by system to boot an os from the volume. (called partition boot sector in NTFS)
+		2. volume control block : contains volume details. its called superblock in unix. (in NTFS is is stored in master file table)
+
+		in memory mount table contains information about each mount. just like PCB os maintains FCB (File control block)
+
+	//VFS
+		allows different types of fs to be used in system including nfs. 
+		there are three layers
+			1. file system interface : 
+				it gives generic functions read write open that can be used on any file system
+			2. vfs layer : 
+				it separates generic functions from their file system specific implementation. it also gives unique identifier to all files in case of nfs using vnode.
+
+				it activates fs specific functions to handle requests.
+			3. file-system type :
+				this layer implements the functions according to type of corresponding fs
+
+	//Directory Implementation :
+
+		1. Linked List :
+			it can be implemented using linked list but its very expensive, searching a file in directory, inserting or deleting is very costly.s
+		2. Hash table :
+			here we have to take care of collisions may be with linked list but its still better than linked list approcach
+			also the hash table is fixed size, even if we used hash table that doubles size on doubling we have to rehash prev entries.
+
+	//Allocation Methods :
+
+		1. Contiguous Allocation :
+			it needs minimum head movement.
+			directory entry can have only the starting block no and length for each file.
+			we can use algorithms like first fit, best fit or worst fit for allocation. first and best are more efficient than worst while first is faster than best.
+
+			the scheme suffers from external Fragmentation.
+
+			one solution to this is compacting by moving data to another disk and then copying back, this can merge all the free holes created due to external Fragmentation.
+
+			this approach needs to know the size of file before hand which is not always possible, also its not efficent to handle growth in files
+
+		2. Linked Allocation :
+			a file is linked list of blocks scattered anywhere.
+			no external Fragmentation.
+			growth of file can be easiliy handled.
+			its useful for the files that need to be accessed sequentially, we cant access ith block of file, have to traverse from the first block.
+			for each block in traversal we need to read block (involves disk seek)
+			space is wasted to store pointers.
+
+			solution to this problem is to allocate clusters of blocks instead of single blocks. (though it increases internal Fragmentation)
+
+			another problem is due to slight corruption even if single pointer get corrupted it destorys the linked list.
+
+			//FAT :
+				it is variation of linked allocation, where there is table at the beginning of volume, which has one entry for each block and table is indexed by block no. Directory entry of file contains first block no. which in turn contains no of second block and so on. it increases random access time, since you can find out ith block of a file from table itself.
+
+				for better performance FAT should be cached otherwise there will be lot of disk seek, for reading FAT and for reading actual block from disk, going back and forth.
+
+		3. Indexed Allocation :  
+
+			in linked allocation all pointer are scattered with data blocks here we bring all pointers together into index block.
+			
+			directory entry point to index block, index block contains pointers to other blocks
+			
+			there is wastage of space here since every file requires one more block as index block, even if file is really small.
+
+			for large file several index blocks can be linked if one is not sufficient or we can use multi-level indexes such as primary index will give pointer to secondary index which will have real data pointers.
+
+			UNIX used a combined scheme : where 15 pointers are stored in inode of file, out of which 12 are direct data block pointers, next ones are single indirection, double indirection and triple indirection pointers.
+
+	//Free-Space Management :
+
+		1. Bit Vector :
+			free-space list is maintained as bit map or bit vector. each block is represented as one bit.
+			here the problem is Bit vector must be stored in memory for it to be efficient, but the size if too big to store it in memory.
+		2. Linked List :
+			linked list is kept of free blocks, but to traverse the list we have to read the blocks so its very costly. (we dont usually need to traverse the list, we just use the first free block whenver request comes.)
+		3. Counting :
+			its observed that free blocks are in groups (chunks) so we can keep the first block and count of further Continous blocks. it will make the list shorter.
+	//Efficiency and Performance :
+
+		on Unix file system inodes are preallocated, so even if disk is empty there are indoes occupying some space. it does this to keep inode and its data block together to reduce disk seek time.
+
+		operation like storing last access date in directory entry for a file requires that we read the directories data block , modify and write it back.
+
+		most systems use 16 or 32 bit pointers that allows file size 64KB and 4 GB respectively. if 64 bit is used file size is increased but storage management methods take more space. (metadata becomes huge)
+
+
+		//Unified Virtual Memory :
+			some systemd cache file data using page cache. it uses Virtual memory techniques to cache file data as normal pages. this is more efficient that simply cacheing the blocks from hard disk
+
+		//Unified Buffer cache :
+			memory mapped i/o and i/o using open read use same buffer cache, this avoids double cache by memory mapping io
+
+		//Synchronous Asynchronous write :
+			Synchronous writes are in same order as recieved by system and are not buffered., thus calling function has to wait till data is actually written. e.g. its used in databases to ensure data is written in correct order.
+
+			Asynchronous writes are stored in cache and control returns to function immediately. on majority Asynchronous writes are done.
+
+	//Recovery :
+		1. Consistency checker :
+			scan of all metadata on each file system to confirm the Consistency of system. a status bit can be kept that would represent whether all changes were saved or not, if the bit indicates possible errors then fs is checked.
+
+			it is possible that some errors are not detectable by checkers. some error fixing might result in data loss, besides it takes huge amount of time, that why its not good approach.
+
+		2. Log-Structured File Systems :
+			log-based transaction-oriented file systems = journaling
+			NTFS uses journaling, and most recent os are using it.
+			
+			all metadata changes are written to log file , and then control returns to caller function. when these changes are written to actual file system they are removed from the log.
+			in case of crash, if log file contains some transactions then they were done by os but weren't written to file system, so they are completed as recovery

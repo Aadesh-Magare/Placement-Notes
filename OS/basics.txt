@@ -1,0 +1,107 @@
+OS can be classified into Multi-user, Multi-Processor, Multi-tasking, and Multi-Threading OS.
+
+//Advantages of Multi-Processor system:
+
+	1. Increased ThoughPut : more amount of work is done in given time as compared to single processor, though its not N times
+	2. Economy of scale : its cheaper to have N-processor sytem than having N singel-processor systems.
+	3. Increased Reliability : even if one of processor fails, it doesnt fail the whole system, its called graceful degradation or fault tolerance
+
+//Asymmetric and Symmetric Multi-processor systems :
+
+	Asymmetric : there is master-slave relationship, one processor acts as master giving tasks to others
+
+	Symmetric : peer to peer relationship, there's no master here.
+
+	Every CPU has its own set of registers and local cache.
+
+//Multi-Core systems : 
+
+	these are essentially Multi-processor systems, having many processors on a single chip instead of having many single-processor chips 
+
+//OS has two modes of operations : User mode and Kernel mode (privileged mode)
+
+//System calls :
+	there are 6 types of system calls:
+
+		1. Process Control : create, terminate, wait
+		2. File management : create, delete, open
+		3. device management : read write, request, release
+		4. information maintenance : time, date, file attr
+		5. Communication : send, recieve msgs
+		6. Protection : chmod, chown
+
+//OS Design Methods
+	1. Layered Approach :
+		operating system is broken into many layers, the bottom layer(0) being the hardware and top layer, the UI.
+
+		each layer will perform its operation and upper layer can directly call lower layer functionality without worring about details (abstraction)
+
+		the difficulty is maitening the order, some layer is required to be bottom somtimes while at another point of time it needs to be upper
+		e.g. sheduler and io device drivers.
+
+
+	2. Micro-Kernel Approach :
+
+		all non-essential components are removed from kernel and implemented as user or system programs, this results in smaller kernel.
+		but it may decrese the performance due to system functions overload
+
+	3. Modules Approach :
+		
+		Its the method of having dynamically loadable modules in kernel, some core functionality is provided with kernel with ability to load modules dynamically
+
+//Virtual Machines :
+
+	Each guest OS is provided with its own virtual environment, which is identical to a real machine. (cpu and memory)
+
+	the virtual machine implementation provides logical hardware to each virtual machine as its own physical hardware.
+
+	advantages :
+		host and vm are protected from each other, so its good os research and developement.
+		can have multiple os on single host
+
+	// Simulation :
+		if system has different architecture than what the program was compiled for, then the program runs on a emulator which trasforms all instructions for this new architecture, obvio its slower than old system
+
+	//Para-Virtualization :
+		rather than trick guest os to believe that it has complete system to itself, it presents the guest with system that similar to its desired system but not actually what it wants, here the guest must be modified to run on this Para-Virtualized hardware. this results in more efficient use of resources
+
+	//Implementation:
+		implementation is difficult, the switching of modes from user mode to kernel mode (for the guest os) is done by VM manager software., which itself runs in kernel mode.
+		hardware may provide support for virtualization like additional mode of operations (host mode , guest mode) 
+
+
+	//JIT (Just-in-Time) Compiler:
+		
+		used by java bytecode (in JVM)
+		first time a java method is invoked , the bytecode for method is converted into machine instructions for host sytem, these operations are then cached, further invokations of method are performed from the cache instructions
+
+
+//Debugging in OS:
+
+	//failure analysis :
+
+		when a process fails, its error info is written to log file and core dump(memory image) may be saved to a file.
+		kernel failure is called crash and similar action is taken. (writing log file and crash dump). kernel Debugging is diff from process Debugging due to complexity of kernel and hardware involved.
+
+	//Performance Tuning :
+
+		os keep trace of its operations or main events in a log like file, later on analysis programs can analyse the traces to check os performance and efficinecies
+		
+// BIG INDIAN and LITTLE INDIAN :
+
+	BIG INDIAN : store the most significant byte first					LS
+		most significant byte is stored in lower memory address.		MS
+
+	LITTLE INDIAN : store the least significant byte first				MS
+		least significant byte is store in lower memory address.		LS
+
+// What happens when key is pressed :
+
+	The keyboard sends a scan code of the key to the keyboard controller (Scan code for key pressed and key released is different).
+	The keyboard controller interprets the scan code and stores it in a buffer.
+	The keyboard controller sends a hardware interrupt to the processor. This is done by putting signal on “interrupt request line” : IRQ1.
+	An interrupt is a signal which tells the processor to stop what it was doing currently and do some special task.
+	
+	The processor invokes the “Interrupt handler”. CPU fetches the address of “Interrupt Service Routine” (ISR) from “Interrupt Vector Table” maintained by the OS (Processor use the IRQ number for this).
+
+	The ISR reads the scan code from port 60h and decides whether to process it or pass the control to program for taking action.

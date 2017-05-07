@@ -1,0 +1,2 @@
+joins in DBMS (cross join and union join)
+multivalued dependency

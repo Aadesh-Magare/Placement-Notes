@@ -1,0 +1,202 @@
+//Race Condition :
+	when several processes access and manipulate same data concurrently and outcome depend on order in which access take place, is called race condition.
+
+//Critical section : 
+	the section of code in which process changes some variables, update data.
+
+	only one process is to be allowed to execute its critical section at a time, so process must take permission before etering its critical section.
+
+//Critical-Section Solution :
+
+	solution to the problem must satisfy these requirements
+
+	1. Mutual exclusion :
+		if process Pi is executing its critical section then no other process can enter its critical section.
+	2. Progress :
+		when several processes try to enter critical section, which one will enter the critical section, this is decided by only those processes which want to enter C.S. others play no role in deciding it.
+	3. Bounded waiting :
+		a process must wait for only bounded time before entering its C.S., there shouldn't be indefinite waiting.
+
+//race conditions in Kernel :
+	the data structure maintaining list of open files, structures for memory allocation, process lists, interrupt handling.
+
+	//preemptive kernel : allows kernel mode processes to be preempted.
+	
+	//nonpreemptive kernel : doesnt allow kernel mode process to be preempted, so its free from race condition.
+
+//Peterson's Solution to critical section problem :
+
+	its a software solution.
+	there's no gurantee that this will work on modern processors since the way they do load and store instructions
+
+	its solution for two processes. Pi and Pj.
+
+	algorithm :
+		1. variable turn, gives process whoes turn it is now to enter into critical section.
+		2. flag[] is used to identify if process is ready to enter critical section.
+		3. if process i wants to enter critical section, it sets flag[i] to true and set turn = j; i.e. i want to enter C.S. but you go first.
+		4. then i waits while flag[j] is true and turn = j
+		5. after this i enter its C.S.
+		6. on leaving it sets flag[i] = false
+
+	here even if concunrrent access take place the value of turn will be either i or j, so only one process will enter critical section and once that comes out of it, other process will surely enter critical section. hence it ensure all 3 properties of critical section problem solution
+
+ //to solve the critical section problem in more efficent way, we need support from hardware. most of hardware provide some atomic instructions for this matter.
+ most processor provide TestAndSet or Swap instructions.
+
+ 	//TestAndSet :
+ 		its an atomic instructions that returns old value and sets the variable.
+
+ 		boolean TestAndSet(target){
+ 			boolan old = target;
+ 			target = true;
+ 			return old;
+ 		}
+ 	//Swap
+ 		its atomic instructions that swaps values of two variables
+
+ 		void Swap(key, lock){
+ 			temp = key;
+ 			key = lock;
+ 			lock = temp;
+ 		}
+
+ 		the key is true and lock variable is initially false, the moment one swap becomes suceesful lock becomes true so that so that swap for other processes doesnt have any effect. 
+
+//Semaphores:
+	
+	its an interger value that can be accessed through two atomic functions wait (P) and signal (V).
+
+	counting semaphoes can have any value where as binary semaphore can have either 0 or 1, so they are called mutex locks
+
+	semaphores can be used to solve critical section problem as well as synchronization problem (like P1 must follow P2)
+
+		the wait operation is :
+			wait(S){
+				while(S <= 0)
+					//do nothing
+				S--;
+			}
+			signal(S){
+				S++;
+			}
+
+	the main disadvantage of semaphores here is it requires busy waiting. such semaphores are also called "SpinLock" because process spins while waiting for lock. one advantage with SpinLock is that it doesnt need context switch, which can be costly, thus when locks are held for short period of time, we can prefer spinLock.
+
+	to eliminate the busy waiting we modify the wait and signal functions of a semaphore.
+
+	when a process execute wait and semaphore value is not positive then that process must wait so that process can block itself instead of busy waiting. block operation places that process in wait queue of semaphore, and shifts control to cpu scheduler.
+	when the semaphore value becomes +ve the process must be started again, we do this with wakeup operation, which moves process to ready queue. (later on cpu scheduler may schedule the process)
+
+	here if we use LIFO order for the wait queue of semaphore then it may cause indefinite blocking (starvation)
+
+	Implementation:
+		the structure of semaphore now contains a process list, for waiting processes.
+
+		block() and wakeup(P) functions are provided by OS as syscalls
+
+
+				typedef struct {
+					int value
+					sturct process *list;
+				}semaphore;
+
+				wait(S){
+					s->value--;
+					if(s->value < 0){
+						add process to s->list
+						block();
+					}
+				}	
+
+				signal(S){
+					s->value++;
+				//only when s->value is less than 0 there are processes in list
+					if(s->value <= 0){	
+						remove process P from list
+						wakeup(P)
+					}
+				}
+	
+	//semaphores must be executed atomically, we must guarantee that no two processes can execute wait and signal on same semaphore at the same time.
+
+	//on a single processor system we can ensure this and working of other critical section problems by disabling the interrupts, till the critical section is complete.
+
+	executing wait and signal is critical section problem, we may use spinLocks for them. (here we havent eliminated busy waiting completely, but we have reduced it from entry section to critical section which is most of times shorter)
+
+//Priority Inversion :
+
+	if Process with High Priority (H) is waiting for resource held by process with low Priority (L), in such situation if process L is preempted by a medium priority process (M), then M has delayed the execution of higher priority process (H) this is called priority Inversion.
+
+	it occurrs in systems with more than 2 priorities.
+
+	//Priority Inheritance Protocol :
+		this problem is solved by priority inheritance protocol.
+		all processes holding the resources needed by higher priority process inherit the higher priority until they release the resource.
+
+//Classical Synchronization Problems :
+
+	1. Bounded-Buffer Problem
+
+		empty semaphore : count of empty buffer. (if empty buffer is 0, producer cant produce items)
+		full semaphore : count of full buffer. (if full buffer 0, consumer cant consume )
+
+		//Producer :
+				
+				while(1){
+					wait(empty)
+					wait(mutex)
+					// add item to result
+					signal(mutex)
+					signal(full)
+				}
+
+		//Consumer :
+
+				while(1){
+					wait(full)
+					wait(mutex)
+					//remove item from result
+					signal(mutex)
+					signal(empty)
+				}
+
+	2. Reader-Writer Problem :
+
+		one variation is to allow all readers to read, unless an writer is already writing (after acquiring proper lock), i.e. never keep readers waiting (new readers coming after writer are also allowed to read)
+
+		another variation is to allow writer to write asap, if writer is waiting dont allow other readers (new readers) to read till he is finished.
+
+		we solve the first problme using two semaphores wrt and mutex.
+
+		wrt is used by writers and first reader (last reader too)
+		all other readers use mutex semaphore.
+		readcount keeps count of readers currently reading
+
+		//writer :
+			while(1){
+				wait(wrt)
+				//write data
+				signal(wrt)
+			}
+
+		//reader :
+			while(1){
+			//mutex is used to modify the readcount variable
+				wait(mutex)
+				readcount++
+				if(readcount == 1)
+					wait(wrt)
+				signal(mutex)
+				//read data
+
+				wait(mutex)
+				readcount--
+				if(readcount == 0)
+					signal(wrt)
+				signal(mutex)
+			}
+
+	3. Dining-Philosophers Problem :
+
+		its the representation of the need to allocate several resources among several processes  in deadlock-free and starvation-free manner.

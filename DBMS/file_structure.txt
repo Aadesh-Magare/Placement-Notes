@@ -1,0 +1,27 @@
+//File organisation
+ 
+ to store records in files there are two approaches.
+
+records size should be comparable to block size
+
+ 1. Fixed length records: directly stored in file, continuesly. can keep a linked list of free (deleted) records, which will be used while inserting. so while inserting new record we will check the list if found some free record then insert there if not then insert at the end of file
+
+
+2. Variable length Records:
+
+2.1	Byte-String representation: records are representated as stream of bytes
+	with some special end character to denote end of record or lenght is stored at the beginning of record, this simple scheme doesnt support deletion and growing-shrinkng properly.
+
+	Slotted-page structure: the block contains a header which contains info about all records and pointer to each record, free space is maintained contingusly and records are stored at the end of block, on deletion blocks are moved to fill up void but since size of block is small, moving is not that much costly
+
+2.2	we can store it using, fixed size records also, like : 
+	take the largest record and keep it default, smaller records will have some end characters in extra space (high space wastage) 
+	or make a linked list of fixed size records
+
+//Organization of records in file:
+
+1. sequential organisation : records are stored sequentially having pointer to next record
+2.clustering organisation : records from two relations are stored in same file. related records from different relations may appear in same block. so some query like join become very efficent but it may make other query expensive. so the choice of storing related records in same block depends on which type of query will be frequent	
+
+//pinned unpinned records
+	pinned records are those which are pointed by someone, so be careful while moving them

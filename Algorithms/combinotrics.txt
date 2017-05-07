@@ -1,0 +1,63 @@
+//Subsets :
+	there are 2^n subsets of n elements.
+
+//Permutations :
+	
+	with repetations :
+		n * n * n ... 
+
+		n ^ r
+
+	without repetations :
+		n * n-1 * n-2 ... =  n!
+
+		if upto r terms then its equal to 
+			nPr = n! / (n-r)!
+
+//Combinations :
+	
+	with repetations :
+		to choose r items from set of n items where repetation is allowed.
+
+		(n + r - 1)Cr
+
+
+	without repetations :
+
+		to choose r items from set of n items 
+			nCr = n! / r! * (n-r)!
+
+
+	//Important property for DP calculations of nCr :
+
+		nCr = (n-1)C(r-1) + (n-1)Cr 
+
+		nC0 = 1 and nCn = 1 
+
+//Fibonacci numbers :
+	
+	Fn = 1 / sqrt(5) [ (1 + sqrt(5) / 2) ^ n - (1 - sqrt(5) / 2)^ n]
+
+//Catalan numbers :
+	has many applications such as : no of balanced paranthesis, no of triangulations in polygon, no of rooted binary tree with n+1 leaves.
+
+		Cn = 1 / (n+1) * 2nCn
+
+//Eulerian numbers :
+	
+
+
+//Stirling numbers :
+
+
+//Set partitions :
+
+
+//Integer Partition :
+	how can an interger be partitioned into different sets such that sum of all integers in each set equals original no.
+
+		function F(n, k) gives no of partitions of n with largest part k
+			F(n, k) = F(n-k, k) + F(n, k-1)
+
+			F(1,1) = 1;
+			F(n, k = 0 when k > n

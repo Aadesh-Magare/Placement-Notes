@@ -1,0 +1,127 @@
+Concurrency control protocols.
+
+//Lock based protocols
+shared lock(S) : can read only cant write
+exclusive lock(X) : can read/ write
+
+transactions request appropriate locks to concurrency control manager, when it gets lock then only it can procide
+
+saveral transactions can have S lock on same data, but not X locks
+
+to avoid deadlock we  impose some locking protocols
+
+Ti --> Tj  : if Ti holds lock on Q before Tj holds a lock on same Q (both locks are incompatible)
+
+locking protocols ensure conflict serializability if for all legel schedules, -> relation is acyclic
+
+while granting locks it should check if someone is already waiting for that lock, to avoid starvation
+
+//two phase locking protocol --> does not ensure freedom from deadlock
+generates conflict serializable schedules.
+transactions can be serialized by lock point.
+
+Growing phrase: acquire locks
+shrinking phrase: release locks
+once start taking locks go on taking it, once you release a lock you cant request any more locks.
+lock point of transaction when all locks have been acquired
+e.g. lock(A) lock(B) lock(c) lock(d) * lock point of transaction * unlock(C) unlock(D) unlock(B) unlock(A)
+
+to avoid cascading rollbacks we use "strict" two phase locking protocol:
+in addition to locking being two phased, exclusive locks taken by a transaction must be held until it commits
+
+rigorous two phase locking : all locks to be held until transaction commits
+
+//conversions:
+shared to exclusive = upgrade
+exclusive to shared = downgrade
+
+//Graph Based Protocols
+needs the order in which database items will be accessed
+we impose ordering such as Di --> Dj here Di must be accessed before Dj
+
+//Tree protocol only X locks : ensure coflict serializiblity and freedom from deadlock
+
+first lock can be on any item, next locks are granted only if it already has the lock of parent, an item that's been locked and unlocked can not be locked again
+
+
+//TimeStamp based protocol : conflict serializibale, freedom from deadlock, may generate non-recoverable schedules
+
+each transaction gets a timestamp from database sytem
+for every data item Q, it maintains two timestamps 
+W timestamp = largest timestamp of transaction that write Q : W(Q)
+R timestamp = largest timestamp of transaction that read Q : R(Q)
+
+Protocol:
+if Ti does read(Q) : 
+	if TS(Ti) < W(Q) , so a later transaction wrote a value so, reading it will be wrong for Ti, roll back TI
+	if TS(ti) >= W(Q), read Q, no problems
+if Ti does write(Q):
+	if TS(Ti) < R(Q), later transaction read value, dont write now, or that one wont be consistent
+	if TS(Ti) < W(Q), later transaction wrote value, no use in writing Ti now
+	else
+		write value
+
+//Thomas write Rule :
+read rules are same as above but write rules changed:
+if Ti does write(Q):
+	if TS(Ti) < R(Q), so later transaction read value, dont write now, or that one wont be consistent
+	if TS(Ti) < W(Q), here if TS(Ti) >= R(Q) then we dont write, but we ignore the write of Ti, since its obsolute
+
+//validation based protocols
+transaction goes through 3 steps:
+1.	read phase 
+2.	validation phase: checks if changes should be written to database or aborted
+3.	write phase
+
+in this protocol, validation timestamp is used for comparison
+for TS(Ti) < TS(Tj):
+	finish(Ti) < start(Tj) or 
+	finish(Ti) should be between start(Tj) and Validation(Tj)
+this ensure serializibility, and guards against cascading rollbacks
+
+//DeadLock Handling
+prevent deadlock by two techniques.
+1. ensure no cyclic wait by : ordering the lock requests or acquire all locks together
+2. user preemption and rollbacks : a lock holding transaction maybe premepted and lock is given to new transaction, earlier transaction is rolled back and restarted
+
+
+wait-die scheme : non-preemptive, if Ti requests lock on Q which is locked by Tj then Ti allowed to wait only if its older than Tj otherwise its rolled back
+
+wound-wait : preemptive, if Ti requests lock on Q which is locked by Tj, then Ti allowed to wait only if its younger than Tj, else Tj is rolled back and preempted by Ti
+
+Timeout-based Scheme : when a transaction doesnt get lock for a time period it times out and roll back itself, does it avoids deadlock and in case deadlock has occured it can come out of it, since some of transactions will be rolled back automatically
+
+//Detection and recovery
+
+For detection directed graph is used:
+
+G(V, E) -->  
+V : transactions
+E : edge Ti--> Tj if Ti waiting for Tj to release lock
+
+if there is a cycle in graph then its deadlock
+
+For recovery :
+most common solution is roll back some transactions. Steps:
+1. selection of victim : consider many factors to decide which one is best
+2. rollback : entire rollback or upto the conflicting step only
+3. starvations : victim must not be starved in step 1
+
+//Phantom Phenomenon :
+
+if one transaction is finding sum(accont.balance) and other is inserting value, then by concurrency control point of view there shouldnt be any problem, since they will be working on different items, but there can be logical errors.
+
+so transaction like sum should have lock on whole account relation, so that there will be real conflict and not phantom
+
+//concurrency in indexed structures
+to ensure this, b+ tree structure is modified a bit, now every node contains a pointer to its right sibling. (in normal B+ trees only leaf node contains pointer to right sibling)
+
+a node must be locked in shared mode before its accessed, and lock is released before any other lock is requested
+
+if a node split occurs during a lookup(search) is going on (due to two concurrent instructions) then our desired value may no longer appear in the same node as before the split. in such case the right pointer is used to tranverse sibling nodes until you find it
+
+for insertion and deletion shared mode lock is converted into exclusive, in case parent needs to be updated then lock on parent is requested
+
+Coalescence : when node has too few keys its merged with its sibling, for this the sibling is locked in exclusive mode after the coalescence parent is updated by taking exclusive lock
+
+lookup and insertion cannot lead to deadlock while lookup and deletion may lead to it if lookup has locked the parent of nodes being coalescenced.

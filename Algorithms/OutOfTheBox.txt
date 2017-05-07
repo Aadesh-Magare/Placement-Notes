@@ -1,0 +1,162 @@
+// check if one string is rotation of other using substring function (Only once)
+	s1 and s2 strings, check if s2 is substring of s1.
+		s1 = s1 + s1 (concate)
+		if(s1.substring(s2))
+			cout << its a rotation.
+		else
+			cout << not rotation.
+
+// All permutation of string:
+		  	
+		  	void perm(s, stack st, l, m, visited){
+			  	if(m == l){
+			 		print permutation from stack
+			 		return
+			    }
+				for(int i = 0; i < s.length(); i++){
+				               if(visited[i])	
+				                       continue;
+				               visited[i] = true;
+				               st.push_back(s[i]);
+				               perm(s, st, l, m+1, visited);
+				               visited[i] = false;
+				               st.pop_back();
+				}
+			}
+
+	another method :
+		find permutation of string of lenght n :
+			find permutation of lenght n-1 except the first character.
+			insert first character at all possible positions i.e. from 0 to n-1 in each permuted string
+
+// All valid parenthesis :
+	you can insert left '(' any where, and right only in places such that count of right doesnt exceed count of left.
+
+	to find all possible sequences of n pairs, we start with n left and n right parenthesis and use them wherever is valid.
+
+	l = no of left remaining.
+	r = no of right remaining.
+
+	void print(int l, int r, char str[], int count){
+		if(l == 0 && r == 0){
+			print sequence.
+		}
+		else{
+			if(l > 0){
+				str[count] = '(';
+				print(l-1, r, str, count+1);
+			}
+			if(r > l){
+				str[count] = ')';
+				print(l, r-1, str, count+1);
+			}
+		}
+	}
+
+// no of trailing zeros in fact n!:
+	zeros are due to 5 * 2 in fact, so we just have to count no of 5 in fact.
+					
+					for(int i = 5; num / i > 0; i *= 5) {		
+						count += num / i;	
+					}
+
+// max of two nos without using > or < :
+	max(a,b)
+		c = a - b 	//check MSB of C if its 1 or 0.
+		k = (1 << 31 ) & c 	//since c is 32 bit no.
+		max = a - k * c
+
+// All pairs in array that sum up to X :
+	
+	when the array is sorted :
+
+					while(first < last){
+
+						int s = array[first] + array[last];	
+						if(s == X){
+							print both nos 		
+							++first;
+							--last;
+						}
+						else{
+							if(s < X) 
+								++first;
+							else 
+								--last;
+						}
+
+					}
+// Add without using + sign :
+	recursively add till one of no becomes zero.
+	we use the algorithm that sum of two no is equal to sum of (thier addition without considering any carry + their addition by considering only carry)
+
+	int add_no_arithm(int a, int b) {
+		if (b == 0) return a;
+		int sum = a ^ b; // add without carrying
+		int carry = (a & b) << 1; // carry, but don’t add
+		return add_no_arithm(sum, carry); // recurse
+	}
+
+//Generate random subset of size n from array :
+	
+	int * pickMRandomly(int original[], int n){			
+			int subset[n];
+			int array[] = original.clone();
+			for (int j = 0; j < n; j++){					
+				int index = rand(j, array.length - 1);	//random no between j to length
+				subset[j] = array[index];				
+				array[index] = array[j]; 	
+				// array[j] is now “dead” that wont be considerd for next choosing this is to avoid repetation of same no
+			}
+			return subset;
+	}
+
+//No of two's between 0 to n :
+			int count2sR(int n) {	
+					// Base case
+					if (n == 0) return 0;
+					
+					// 513 into 5 * 100 + 13. [Power = 100; First = 5; Remainder = 13]
+					int power = 1;
+					while(10 * power < n)
+						 power *= 10;
+
+					int first = n / power;
+						
+					int remainder = n % power;	
+					
+					// Counts 2s from first digit	
+					int nTwosFirst = 0;
+					if (first > 2) 
+						nTwosFirst += power;
+					else if (first == 2) 
+						nTwosFirst += remainder + 1;
+
+					// Count 2s from all other digits
+					int nTwosOther = first * count2sR(power - 1) + count2sR(remainder);
+													
+					return nTwosFirst + nTwosOther;
+			}
+
+//XoR of range [L,R]
+
+		//xor from 0 to no x :
+
+
+		long long xorsum(long long x){
+			  switch (x % 4){
+				 case 0:
+				   return a;
+				 case 1:
+				   return 1;
+				 case 2:
+				   return a+1;
+				 case 3:
+				   return 0;
+			}
+		}
+		find xorsum(R) : xor from 0 to R
+		find xorsum(L-1) : xor from 0 to L-1
+		now ans is xor of these two results since taking xor of R with L-1 will cancel out entries from 0 to L-1 in R's result 
+		XoR of range [L, R] :
+			xorsum(R) ^ xorsum(L-1)

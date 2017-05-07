@@ -1,0 +1,28 @@
+The computer begins the boot sequence by executing the software stored in ROM ( or EEPROM known as firmware ) at predefined address i.e. BIOS (which is in rom)
+
+BIOS has functionality to search devices which are eligible to participate in booting. and load a SMALL PROGRAM from special section i.e.boot sector of that device.
+
+Computer can only execute instructions present in ram, initially os is not present in ram, so we have to execute a relativly small program stored in rom with bare minimum of data needed to access the hard drive from which os is to be loaded into ram.
+
+the small program which start loading of os into the ram is called bootstrap loader or bootloader
+
+
+BIOS -> 
+
+	1. POST:power on self test (checks whether all necessary hardware present) 
+	2. Hardware devices are initialized.
+	3.  bios goes through list of devices to find any bootable , i.e. it checks boot sectors of devices that are specified in cmos.
+	4. loads the boot sector(mbr = in first sector of drive) which is bootable into ram 
+	->boot sector has code to load kernel
+
+Boot sector :
+	sector is of 512 bytes, boot sector is at specific position and contains 0xaa55 in final two bytes, bios looks for this value while scanning
+	boot sector may be in mbr(first sector of drive) or first sector of primary partition
+
+Grub: 
+	its too big to fit into boot sector, so its loaded in stages. mbr contains first stage of grub which in turns loads other stages
+
+	sometimes multi-level bootloaders are used. the first level bootloader must fit into some fixed size of memory. since its stored in fix location at the start of drive, and the further part of drive are used for filesystem metadata . hence boot loader must fit into the specified size (e.g. 440 byte)
+
+	the SMALL PROGRAM is a second stage bootloader such as grub, its able to load the os properly and transfer control it, the os then will initialize itself and may load device drivers needed for it. after that it starts loading normal system programs.
+	many of these (like grub) can be configured for multiple booting choices 

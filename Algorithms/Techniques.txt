@@ -1,0 +1,92 @@
+//Greedy Algorithms:
+
+		when we have a problem to be solved in optimal way
+		
+		e.g. dijkstra, prims, knapsack (not 0-1 knapsack thats dynamic)
+
+		//Knapsack Problem (partial objects are allowed):
+			capacity : M
+			object i has wight wi 
+			if fraction xi of object is selected then profit is : Pi * xi
+			Maximize profit : Pi*xi
+
+			steps:
+				we find profit/weight ratio and sort it in decreasing order.
+
+				now take these items in their order, to ensure maximum profit
+
+		//Travelling salesman Problem
+			G is network, a tour in G is path in which starting node and end node are same and remaining nodes appear exactly once. (we may want to find smallest such tour)
+			
+			This problem cant be solved with Greedy approach, the tour obtained is not smallest.
+
+			its NP complete problem.
+
+//Devide - Conquer :
+
+		we devide the problem into smaller subproblems and solve those "independently" to get solution to whole problem.
+
+		e.g. mergesort , quicksort
+
+
+//Dynamic Programming :
+
+	here when we devide problem into smaller instances, we look out for repeated calculations. repeated calculation are saved and used whenever required instead of re-calculating.
+
+	design is just like recursive solution, we take a leap of faith, assume that you know solution to some sub-problem and then think about how can you use that solution to find solution to current bigger problem.
+
+	devide and conqure is mostly top-down approach, while in DP we build solution in the bottom up manner
+		e.g. coin change problem
+
+//BackTracking :
+	
+	its like dfs in graphs.
+
+	//N-queens problem :
+		
+			place n queens on nXn chessboard such that no queens attack each other
+			let n = 8
+			we solve it by backtrack method,
+
+			we try to place one queen in each column.
+			
+			1. starting from the first column.
+			2. we try all the possible rows(8)
+				check if we can place the queen in first column and any of the row
+
+					for(tryrow = 1; tryrow <=8;tryrow++){
+						if(place(col,tryrow)){
+							//that means we can place it, if not try next row.
+						}
+					}
+
+			3. maintain an array row[n] which keeps track of which row is given to which column
+
+			4. whenever we can place a queen in particular row for a column we set 
+				row[column] = that row
+
+			5. then we call recursive function for next column
+
+			//the place function checks if you can place queen at that point 
+				for this we check if current row is given to any other column by checking the row[] array if the row isnt given to anyone then
+				we see if any queen can attack from diagonal? to check this we find absolute diff between column and abs diff between rows
+					abs(row[pre] - tryrow) == abs(pre-column)
+				if this is equal then we cant place queen here.
+
+						int place(int col, int tryrow){
+							int prev;
+							for(prev = 1; prev < col; prev++)
+								if(row[prev] == tryrow || abs(row[prev] -tryrow) == abs(prev - col))
+								return 0;
+							return 1;
+						}
+
+	//Graph-Coloring Problem :	
+
+			if G is graph , we want to find out in how many ways the nodes of G can be colored so that two adjacent nodes dont have same color.
+
+			we use backtracking algorithm to solve it.
+
+			chromatic no : minimum no of colors required to color all vertex of graph such that adjacent ones dont have same color.
+			
+			Finding chromatic no is NP-complete problem

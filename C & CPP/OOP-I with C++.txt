@@ -1,0 +1,323 @@
+//Basics :
+	Objects : 
+		instances / variables of type class
+	class : 
+		any entity
+	Encapsulation : 
+		wrapping of data and functions into single unit. data is not accessible to outside world only functions associated with it can access it.
+		secure programs that cant be modified by other code.
+	Abstraction : 
+		representing essential features without including details of implementation.
+	Inheritance : 
+		objects of one class can acquire properties of another class.
+		elimminate redundant code and extend existing classes.
+	Polymorphism : 
+		take more than one form. functions or operators
+	Dynamic Binding : 
+		Binding refers to linking of function call to its code. Dynamic Binding or late binding means code associated with the function call is not known till runtime. function call associated with polymorphic reference depends on dynamic type of that reference.
+	Message passing :
+		communication between objects.
+		e.g. object.function(arg) is a message passing
+
+	Object based language : supports objects, Encapsulation, Abstraction, overloading.
+	Object-Oriented : supports inheritance and dynamic binding also.
+
+//Limitations of structures :
+	
+	C structures :
+		cant have function
+		cannot be treated as build in data types i.e. no operator overloading.
+		no security, any function can change structure elements.
+		structure names are not stand alone i.e. need to typedef them, cant do "node a" without typedef.
+	C++ structure :
+		can have both variables and functions.
+		support private variables that cant be accessed by outsiders.
+		structure names are stand alone i.e. we dont need to typedef, we can do "node a" without typedef.
+
+	C++ structure and classes are alomost same with the only difference, the default type in class is private while in structure it is public.
+
+//Classes :
+	member functions can be defined outside class or inside the class. we want to separate implmentation from definition so its good practice to define it outside.
+	the functions defined inside class are treated as "inline" functions.
+
+	member functions can call another one from its class directly without using the dot operator.
+
+	private member functions cant be called by object with dot operator it can be called only from other member functions.
+
+	the memory for member functions is created when they are defined, only once all objects use the same memory functions. while memory space for variables is created when objects are created because that different for different objects.
+
+	a function that doesnt change any value in class can be declared as const, its prototype and definition is followed by keyword const. e.g.
+		void mul(int, int) const;
+
+//Static Variables (Class variables) :
+	
+	only one copy of static variables is used per class, not separate for separate objects
+	its visible within the class only but lifetime is throughout program.
+	its initialized when first object is created only, not on further object creation.
+
+	type and scope of static variables must be defined outside class. e.g.
+		int className :: count; 
+		//note that definition doesnt has static keyword, only 
+	it can also be given initial value
+		int className :: count = 6;
+	the statement is outside the class, just like member functions are defined outside class, static variables are also declared in class and defined outside class.
+
+	//static functions :
+		it can only access static variables or static functions.
+		it can be called by using class name
+			className :: function();
+
+//Friend Function :
+	it has access to private members of class, its as good as a member function.
+	it needs to be defined only once and any class can use it only condition is that the class should declare it as friend function. it can be declared both as private or public (that doesnt change anything).
+
+	if we want to declare a friend function which is member function of some class then in the declaration we must use scope resolution (::) e.g.
+		friend void className :: showdata();
+
+	we can declare an class as friend class, in which case all functions of that class become friend functions
+
+	the definition is just like another normal function i.e. it doesnt have :: or the friend keyword.
+
+	its called without using any object because it doesnt belong to any object, it can access members of class but it has to use the dot notation for accessing it (Object.member)
+
+//Forward Declaration :
+	sometimes we need to use a class's name before using it e.g.
+	add is an friend function in both classes.
+			add(class1 a, class2 b);
+	now we need to declare add as friend function in both classes class1 and class2, as:
+		friend add(class1, class2)
+	when we add this in class1, there's no class2 (its not declared it), to avoid this error we declare class2 above class1 as :
+		class class2;
+	its called Forward declaration.
+
+//Pointers to Members in class :
+
+	we can have Pointers to members of class just like we have normal Pointers.
+	class className{
+		int m;
+		public :
+			void show(int);
+	}
+
+	but we must add scope resolution to pointer as well as to the value its pointing to eg.
+		int no;
+		className myclass;
+
+		int *np = &no;
+		int className :: *ip = &className :: m 
+
+		className *cp = &myclass;
+
+		cp->m = 5 is same as cp->*ip = 5 
+
+		//function pointer :
+
+			void myfun(int a);
+
+			void (funpoint) (int m) = myfun;
+
+			to use function pointer to point functions of a class.
+
+			void (className :: *funpoint) (int m) = className :: show;
+
+			(myclass.*funpoint)(10); //function call
+
+//Local classes :
+	
+	the classes defined inside a function or block are called Local classes to that function or block.
+
+	the class can use global variables (with ::) declared above function and static variables inside the function but cant use local variables of that function.
+
+	the class cant have static members, and functions must be defined inside class only. the enclosing function cant access private members of class.
+
+//Constructors and Destructors :
+
+	to allow initialization of objects when they are created just like built-in data types and destruction them when are done with.
+
+	Constructor with no parameters is called default Constructor, if there is no Constructor then compiler supplies a default Constructor. properties :
+	it can be declared inside or outside the class.
+
+	1. it should be declared public.
+	2. they dont have return type, not even void (so they dont return anything)
+	3. they cant be inherited and cant be virtual , but derived class can call base class Constructor.
+
+
+
+
+	4. it can have default arguments.
+	5. we cannot refer to its address. (no function pointer to Constructor)
+	6. object with Constructor cant be used in union.
+	7. it implicitly calls new and delete for memory operations.
+	8. it can be overloaded.
+
+	parameterized Constructor :
+		we pass arguments to Constructor. during object creation we can pass arguments by explicit call or implicit call to Constructor.
+
+		integer int1 = integer(5); //explicit.
+		integer int1(5);	//implicit or shorthand method.
+
+	//Copy Constructor :
+		a Constructor can take any arguments except the variable of its own class 
+			e.g. 
+				A(A a) is illegal since its Constructor of class A, it cant take object of same type.
+
+		we cant pass object by value to copy Constructor 
+		but it can take reference of same type i.e.
+			A (A &a) is fine and its called copy Constructor.
+
+		Copy Constructor :
+			A b(a);
+			A b = a;	//both of these invoke copy Constructor.
+
+			A c;
+			c = b //does not invoke copy Constructor. uses = overloading
+
+		when no copy Constructor is given compiler create its own copy Constructor which does nothing
+
+	//Difference between assignment (=) and copy constructor.
+		copy constructor is called when new object is created from existing object
+			myClass m1 = m3;	//copy constructor
+		assignment operator is called when already initialized object is initialized new value.
+			m1 = m3; 	//assignment operator
+
+	//once we write our Constructor then we must include one default Constructors (without parameters). (if no Constructor is written then compiler writes default Constructor but if we wrote one parameterized Constructor then it must have default also)
+	if it doesnt have default Constructor then we cant do :
+		className c1; 	// this needs default Constructor.
+
+	//we can specify default arguments to Constructor like :
+		className(int m, int l = 0)
+
+		when we have default arguments like className(int i = 0), then it may be called as className() or className(6) but when we use first case then it create ambiguity whether to call default Constructor or to call this Constructor with default values.
+
+	//Constructor in Derived Class :
+
+		if base class Constructor takes one or more arguments then derived class must have a constructor and pass arguments to base class constructor.
+
+		when both have constructor then base class constructor is executed first and then the derived class constructor.
+
+		derived class constructor needs to pass values to base class constructor :
+
+			Granparent --> mother -->child
+			Granparent --> father -->child
+
+			class child : public mother, public father {
+				public :
+				child(int cid, int mid, int pid) : father(pid), mother(mid){
+
+				}  
+			} 
+
+			constructor will be called in order, mother then father not the other way around. order depends on order in which they are inherited.
+		constructor for virtual class is envoked first and then for other base classes.
+
+	//Const object :
+		we can create const object that doesnt change any value.
+			const className my(5, 6)	//called Constructor.
+			a const object can only call const methods.
+
+	//Destructor :
+		its used to free up the memory reserved by object before destroying it.
+		memory allocated by new should be freed by delete in destructor.
+
+		declared by tilde followed by classname :
+			~className(){
+
+			}
+		doesnt not take any arguments  and does not return anything.
+
+//Name Hiding :
+	
+	Suppose Base class has one overloaded method with two parameters and three parameters
+	its derived class, overrides two parameters method but not the three parameters one.
+
+	so derived class can only call two 	parameters method. we expect that it should be able to call three parameters method from base class, but since you have overriden the method its name is hidden, to use it you must override the three parameters version also.
+
+//Operator Overloading :	
+	
+	These cannot be overloaded :
+		1. operator to access class members (. or .*)
+		2. scope resolution
+		3. sizeof
+		4. conditional operator (? : )
+
+		the reason why we cant overloade these is, they take names as operand (e.g. class names) instead of values. where normal operators take valuse as operands.
+
+		complex operator+(complex, complex)
+
+		it must be declared in public section of class, it can be member of class or a friend function.
+
+		C = A + B is same as C = A.operator+(B)
+		so the overloaded operator can access values of A directly and values of B by using dot notation.
+
+		1. only existing operators can be overloaded, new cant be created.
+		2. overloded operator must have at least one user-defined type's operand.
+		3. some operator cant be overloaded by using friend function but can be by using member function only ( = , (), [], -> )
+		4. + - * and / must return value and not change arguments.
+
+	//Overload << and >> operators 
+		originally these are overloaded operators which return istream and ostream objects, to overloade these in our program :
+
+			istream & operator >>(istream &din, array &a){
+				for(int i = 0; i < size; i++)
+					din  >> a[i]
+				return din
+			}	//this return a variable of istream (by reference )
+
+			ostream & operator << (ostream &dout, array &b){
+				for(int i = 0; i < size; i++)
+					dout << b[i]
+				return dout
+			}
+
+	//Type conversion :
+
+		1. from Basic to Class :
+			it uses constructor of class. e.g.
+			class string{
+
+				public :
+				string(char *a){
+					p = new char(len+1)
+					strcpy(p, a)
+				}
+			}
+
+				char *name = "aadesh"
+				string s1 = name; //this calls constructor of class string
+				//this is as good as calling s1 constructor with arg name.
+
+		2. class to basic :
+			we overload the casting operator like
+
+			className :: operator int(){
+				return n;
+			}
+
+			there must be no reurn type and argument to this overload function.
+
+			value = s1 //here s1 is object, so its overloaded casting operator is called.
+			//the casting function gets all data of s1 without using dot operator.
+
+		3. Class to another class :
+
+			we can use the casting operator :
+
+				className :: operator anotherclass(){
+					anotherclass temp;
+					temp.member1 = 23;
+					temp.member2 =2;
+					return temp;
+				}
+
+				anotherclass p1;
+				className a;
+				p1 = a;
+
+			or we can use constructor of one class, that takes argument of object as another class
+
+				anotherclass :: anotherclass(className a){
+					member1 = a.get1()
+					member2 = a.get2()
+				}
+
+				p1 = a //constructor of p1 is called with a as argument.

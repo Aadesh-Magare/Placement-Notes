@@ -1,0 +1,67 @@
+functional dependency 
+
+if	a --> b
+then
+ if two tuples have same value for "a" they will have same value for b
+ i.e. t1 and t2 are two tuples
+ if t1[a] = t2[a] then t1[b] = t2[b]
+ the value of a uniquely determine value of b
+ its property of entrire schema and not of any particular tuple
+if set of attributes can uniquely determine entire tuple then its called super key.
+
+
+ some F.D. are trivial because they are satisfied by every relation
+ like A --> A is trivial
+ generally a --> b is trivial F.D if b is subset of a
+
+ we say F.D. F holds on relation R when every tuple in relation R must satisfy the F.D
+ we say r satisfiyes F.D. F when relation R satisfies F.D F
+
+ //Closure
+ if F is functional dependency , the closure of F is (F^+)the set of all functional dependencies logically implied by F.
+
+ Armstrong's axioms
+
+ Reflexivity = a --> b holds if b is subset of a
+ Augmentation = a--> b holds then Ca --> Cb also holds
+ Transitivity = a --> b holds and b --> c holds then a --> c holds
+ additional rules:
+ union rule = a-->b and a-->c holds then a-->bc holds.
+ decomposition rule: a-->bC hold then a-->b holds and a-->C holds
+ pseudotransitivity rule: a-->b and Cb-->f holds then Ca-->f holds 
+if a-->b and c-->d then ac-->bd
+
+
+
+how to find closure of AG (AG^+):
+given F :
+	a->b
+	a->c
+	cg->h
+	cg->i
+	b->h
+	
+take result = AG initially
+take one F.D. from F at one time and check if left side is subset of Result if so append the right side to result, repeat this for all F.D in F and when result stops changing stop process.
+
+// if two F.D. have the same closure then they are almost equivalent. i.e. if database satisfies one of them it will surely satisfy the other as well.
+
+//Canonical Cover
+
+an attribute is extraneous if we can remove it without changing the closure.
+A canonical cover for F is (Fc) set of F.D. such that F logically implies all of F.D.in Fc and Fc logically implies all F.D. in F
+also 
+no F.D. in Fc contains extraneous attributes, each left side of F.D. in Fc is unique.
+
+conside F :
+a-->bc
+b-->c
+a-->b
+ab-->c
+then Fc will be.
+a-->b
+b-->c
+
+steps to find canonical cover:
+1. convert F.D in such way that right side has only one term
+2. remove duplicates

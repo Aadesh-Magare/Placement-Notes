@@ -1,0 +1,293 @@
+An undirected graph with n vertices can have at most n * (n-1) / 2 edges. such graph is said to be complete graph. for directed graph max edges are n * (n-1)
+
+adjacent vertices means they have a edge between them
+
+simple path is one in which all vertices are distinct except first and last.
+
+cycle is simple path in which first and last vertex is same
+
+sum of degree of all vertices is twice the no of edges.
+no of vertices with odd degree in any graph is even.
+
+regular graph - all vertices of equal degree.
+
+//Representation:
+
+	1. Adjacency Matrix :
+
+		a 2D array, having 1's and 0's or true and false values.
+
+		a[i][j] = 1 (true) means there is a edge in graph G from vertex i to j
+							or we can say there is path from i to j of length of 1
+
+		a[i][j] = 0 (false) means no such edge
+
+		multiplying matrix a with itself we get matrix a2, now value 1 in this matrix represent that there is path of length 2 from i to j.
+
+		for matrix aN (obtained by multiplying aN-1 with a) if value is 1 it means there is path from i to j of length n
+
+	2. Adjacency List:
+
+		there is one list for each vertex, ith list contains all vertices that are adjacent to vertex i, in such way we can have an array of lists.
+
+		each node in array will contain its value and pointer to next node.
+
+//Weighted Graph :
+	graph in which edges have some value i.e. cost or something.
+
+//Spanning Tree :
+	tree which contains edges from graph and include all the vertices.
+	
+	MST : spanning tree with minimum cost of construction.
+
+	//Algorithm for finding MST:
+
+		1. Prims algorithm :
+				1. start with any vertex.
+				2. select edges of minimum cost such that, after selecting it the resultant figure remains a tree (no disconnected components and no cycles) 
+				for this to work out, select minimum edge coming out of any of vertices that are already included in MST (ensure no cycles)
+
+			in this alorithm, at any stage we have a tree (connected vertices)
+
+			steps:
+
+				1. assign keys to all vertices,initially all keys are maximum. (as the vertices are discovered their keys will be updated.)
+				2. 	make the key of first vertex 0 (min). (we want first vertex to be selected )
+				3. use getminkey function. (this function will search all vertices that are not included in MST and return the vertex with min key value) 
+				4. the vertex with minimum key is included into MST, and its adjacent vertices are discovered.
+				5. Discovered : 
+					to discover vertices adjacent to vertex i
+					check all adjacent vertices of i (from adjacency list)
+					if a vertex is not included in MST and its key is greater than its weight from current vertex i
+					then update its key. (equal to weight from i)
+				6. loop to step 3 until, MST has included all vertices, to check this keep count of vertices added to mst.
+
+
+		2. Kruskals algorithm:
+			1. select the minimum edge
+			2. select minimum edges while ensuring that there are no cycles. 
+
+			in this algorithm , at any stage we may not have a tree (i.e. there can be disconnected components, which gets connected at the end of algorithm)
+
+			steps:
+
+				1. sort the edges on weights
+				2. take one edge check if it forms a cycle
+				--> for this use union-find algorithm
+
+					//Union-Find Algorithm :
+
+					1. all connected nodes will have a common parent (maybe the last node or first node)
+					2. if two nodes have same parent, then edge joining them will form a cycle.
+
+					find function : returns parent of given node
+					unionfind : takes two nodes, makes second one's parent, parent of first i.e. makes them connected
+
+				--> find on both vertices of edge 
+					if both have same parent, ignore edge and continue
+					if both have diff parents, include edge in mst and do unionfind on vertices
+
+//DFS : O(V + E)
+	
+	traverse a path as long as it can get i.e. till you find a node with all adjacent vertices as visited.
+
+	recursive version:
+		1. mark the current node as visited
+		2. traverse its adjacent nodes
+		3. for each unvisited node call dfs on that node
+
+
+	for non-recursive version use stack:
+
+		1. push the root into stack
+		2. while stack is not empty
+		3. pop element, mark it visited
+		4. traverse its adjacent nodes, and push them into stack if they aren't visited.
+
+
+
+//BFS : O(V + E)
+
+	visite all vertices in order of level i.e. from a vertex i, all of its adjacent vertices are visited first, then their adjacent are visited in same order
+
+	non-recursive verion use Queue:
+		
+		1. enqueue the root into Queue
+		2. while Queue is not empty
+		3. dequeue an element, mark it visited
+		4. traverse its all adjacent nodes and enqueue them into Queue if they aren't visited
+
+	BFS finds the shortest paths from starting vertex if edges are not-weighted
+
+
+//Shortest Path :
+	
+	//Dijkstra (Single Source Shortest Path) : O(V^2) (Greedy)
+		complexity can be reduced to O(VlogV) by using Binary Heap and adjacency list representation.
+
+	//It doesnt work for graphs with -ve weights
+		
+		Given a starting vertex S, find shortest path from S to all other vertices, in Graph G
+
+		This is similar to Prims algorithm for MST, here we construct Shortest Path Tree, in same way, we maintain two sets of vertices - those included in tree and those still not included. each time we select one vertex from second set such that its distance from source is minimum.
+
+		steps:
+			1. set distance of all vertices as inf 
+			2. set distance of source as 0 (so its picked at first)
+			3. while all vertices are not included in tree
+			4. pick vertex thats not included in tree and has minimum distance from source (in first iteration it'll be source)
+			5. include it in our tree (vertex u) and update distances of its adjacent vertices
+			6. to update the distances of vertices : 
+				iterate to all adjacent vertices, for each vertex (v) if sum of distance from source to u + weight of edge (u, v) is less than distace of v from source then update the distance of v to that value. 
+
+			void dijkstra(int graph[V][V], int src){
+     			int dist[V];
+     			bool sptSet[V];
+			    for (int i = 0; i < V; i++)
+			        dist[i] = INT_MAX, sptSet[i] = false;
+	 			dist[src] = 0;
+			//when count = V-1, all vertices are included in SPT
+				for(int count = 0; count < V-1; count++){
+		        	int u = minDistance(dist, sptSet);
+    				sptSet[u] = true;
+				    for (int v = 0; v < V; v++){
+				         if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX &&  dist[u]+graph[u][v] < dist[v])
+				            dist[v] = dist[u] + graph[u][v];
+				     }
+				}
+			}
+
+	//Bellman-Ford Algorithm : O(VE) (Dynamic Programming)
+
+		Given a starting vertex S, find shortest path from S to all other vertices, in Graph G
+
+	//works with -ve edge weights also, if there is -ve weight cycle in graph, then shortest distance comes out to be -inf, hence in such cases, -ve cycle is reported instead of calculating shortest path
+
+		steps:
+			1. set distance of all vertices as inf 
+			2. set distance of source as 0 (so its picked at first)
+			3. iterate the loop throgh V-1 times 
+			4th step is known as "Relaxation"
+			4. for each edge u-->v
+				if dist[v] > dist[u] + weight(u, v)
+				then dist[v] = dist[u] + weight(u, v)
+			5. again run a single loop,
+				for each edge u-->v
+				if dist[v] > dist[u] + weight(u, v)
+				then graph contains -ve weight cycle, since we have calculated min distance in prev step, if distance reduces in this step then it means there's -ve weight cycle 
+
+				void BellmanFord(struct Graph* graph, int src){
+				    int dist[V];
+		   			for(int i = 0; i < V; i++)
+			    	    dist[i]   = INT_MAX;
+			    	dist[src] = 0;
+		 
+				    // Relax all edges |V| - 1 times.
+				    for (int i = 1; i <= V-1; i++)
+				    {
+				        for (int j = 0; j < E; j++)
+				        {
+				            int u = graph->edge[j].src;
+				            int v = graph->edge[j].dest;
+				            int weight = graph->edge[j].weight;
+				            
+				            //dist[u] != INT_MAX this check is imp if you didnt' check it, it may cause interger overflow on addition
+
+				            if (dist[u] != INT_MAX && dist[u] + weight < dist[v])
+				                dist[v] = dist[u] + weight;
+				        }
+		    		}
+		 
+				    // check for negative-weight cycles.  The above step guarantees
+				    // shortest distances if graph doesn't contain negative weight cycle.
+				    // If we get a shorter path, then there is a cycle.
+				    for (int i = 0; i < E; i++)
+				    {
+				        int u = graph->edge[i].src;
+				        int v = graph->edge[i].dest;
+				        int weight = graph->edge[i].weight;
+				        if (dist[u] != INT_MAX && dist[u] + weight < dist[v])
+				            printf("Graph contains negative weight cycle");
+				    }
+		 
+	   			}
+
+
+	//Flyod-Warshall algorithm : O(V^3)
+
+	its all-pairs shortest-path algorithm, it works with +ve or -ve weight edges, but not with -ve weight cycles.
+
+	Given a Graph G, it finds shortest-path between every pair of vertices.
+
+	here we consider, every vertex as possible intermediate point between, some shortest path, so for every path from i to j, we check if vertex k (from 1 to V) can be an intermediate on the path or not
+
+	for every path (source, dest) there are two possible cases:
+		case 1: k is not an intermediate vertex on path from source to dest, so we keep value of dist[source][dest] as it is.
+
+		case 2 : k is an intermediate vertex on path from source to dest, so we update the distance dist[source][dest] = dist[source][k] + dist[k][dest]
+
+		//pick intermediate vertex one by one
+		for (k = 0; k < V; k++){
+	        
+	        // Pick all vertices as source one by one
+	        for (i = 0; i < V; i++){
+	            
+	            // Pick all vertices as destination for the above picked source
+	            for (j = 0; j < V; j++){
+	                
+	                // If vertex k is on the shortest path from i to j, then update the value of dist[i][j]
+	                if(dist[i][k] + dist[k][j] < dist[i][j])
+	                    dist[i][j] = dist[i][k] + dist[k][j];
+	            }
+	        }
+	    }
+
+//Topological Sorting:
+	
+	its an ordering of vertices of a graph in such a way that if there is an edge from i to j then i precedes j in topological sorting.
+
+	its useful in cases where, we need to organise some things such that some of them have prerequisites of other.
+	like courses in univeristy, some courses must be before some others due to prerequisite in such case we can use topological sorting
+
+	we can use dfs-like traversal to find topological sort.
+
+	steps:
+
+		1. have a visited array in same manner
+		2. for all unvisited vertices call toposort with that vertex
+		
+				for (int i = 0; i < V; i++)
+		      		if (visited[i] == false)
+        				topologicalSortUtil(i, visited, Stack);
+
+
+		3. mark that vertex visited, for all of its adjacent vertices if they are not visited, call toposort on them.
+		4. when a vertex has been visited and all of its adjacent ones have been visited then push that vertex to stack
+
+		        topologicalSortUtil(int v, bool visited[], Stack){
+				    visited[v] = true;
+		 			for (i = adj[v].begin(); i != adj[v].end(); ++i)
+				        if (!visited[i])
+		        		    topologicalSortUtil(i, visited, Stack);
+		    		Stack.push(v);
+		    	}
+		5. pop everything and you get topo sorted order.
+				
+				while (Stack.empty() == false){
+				        cout << Stack.top() << " ";
+				        Stack.pop();
+				}
+
+//Euler Circuit - Euler Tour:
+
+	Find the path in graph which visites every edge only once, and as an extra challenge, finishes on the same vertex as the starting one.
+
+	Euler circuit (which ends on the starting vertex) is possible only when graph is connected and every vertex has an even degree, (one for entering and one for leaving the node).
+
+	Euler Tour(must visit every edge once but need not return to starting vertex)
+		if exactly two vertices have odd degree then euler tour is still possible if we start at start at one odd degree vertex and finish on other one but if more than 2 have odd degree then Euler tour is not possible
+
+	Any connected graph, with all of vertices having even degree must have an Euler circuit, that circuit can be found in linear time
+
+
+//Finding a simple cycle in undirected graph , that visites evey vertex, is known as hamiltonian cycle problem and doesnt have efficient algorithm

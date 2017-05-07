@@ -1,0 +1,6 @@
+Java :
+	Garbage Collection (reference counting).
+	C++ vs Java
+
+Python :
+	lambda functions.

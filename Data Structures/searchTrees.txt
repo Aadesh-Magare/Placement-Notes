@@ -1,0 +1,111 @@
+//AVL TREES :
+
+		AVL trees (height balanced trees):
+			the height of children differ by no more than 1.
+
+		AVL balance factor :
+			diff between heights of left and right subtree, for a tree to be valid AVL balance factor should be 1, 0 or -1.
+
+			if bf > 1 : left subtree is unbalanced
+			if bf < -1 : right subtree is unbalanced
+
+		//Rotation:
+			
+			Left rotate:
+
+					temp = root;
+					rchild = root->right;
+					gchild = rchild->left;
+
+					root = rchild;
+					rchild->left = temp;
+					temp->right = gchild;
+
+
+			Right rotate:
+
+					temp = root;
+					lchild = root->left;
+					gchild = lchild->right;
+
+					root = lchild;
+					lchild->right = temp;
+					temp->left = gchild;
+
+		//Balancing trees:
+
+			after insertion or deletion tree maybe become unbalanced, so balancing is required.
+
+//B-Trees :
+
+	when we want to store data in secondary storage, prime concern is to reduce disk access, so we reduce the height of tree and store more data in one node, thats why B trees are created
+
+	//Multi-way search tree of order n can store n-1 values and can have n children
+
+	//B-tree satisfies following properties:
+		1. it can be only one node (root)
+		2. every non-leaf node (except root) must have at least ceil(n/2) children and at most n children	
+		3. node having n children must have n-1 values in ascending order
+		4. all leaves should be on same level
+		5. subtree on left of a value has all values less than that one while a subtree on right side must have all values greater than that one.
+
+
+	//Searching in B-tree :
+
+		to search a value n in B-tree, its first compared with value[0] if n is less than that then search is continued in 0th child of current node, if n is greater than value[5] but less than value[6] then search is continued in 6th child.
+		if n is greater than last value (value[m]) then its searched in last child  
+		same recursive procedure is followed in child for search.
+
+	//Insertion in B-tree (order of tree is m):
+
+		value is always inserted into a leaf node, to insert its searched, on search we get the node in which we should insert the value, there are two cases here, the node is full or has space for insertion
+
+		case 1 : node  isnt full
+		
+			we can directly insert the value in node, in proper place to maintain the sorted order and we are done.
+
+		case 2: node is full
+
+			if node is full then its split in two halves, first half contains (m/2 -1 ) values and second half contains m/2 values. the middle value at index m/2 is promoted to the parent and pointers from parent to these two children are adjusted accordingly, new value inserted goes into appropriate node depending upon whether its smaller or greater than promoted value
+
+			if parent becomes full due to this then same procedure is applied to parent
+
+	//Deletion from B-tree(order of tree is m):
+
+		value to be deleted is searched and removed from the node, on its removal the node is checked if it violates any property of B-trees, there are two cases here.
+
+		case 1 : node doesnt violate the property of minimum values, so deletion is complete.
+
+		case 2 : here after removal node contains less values than required for a valid B-tree node. (m/2)
+
+			here again two cases occur:
+
+			case 1 : sibling contain more values than required
+				
+				we try to take value from sibling, so if sibling has more values than required (m/2) to be a valid node, then we follow this case.
+
+				a value from parent is transfered to current node, and sibling's extra value is promoted to parent.
+
+			case 2 : sibling has only required no of values no extras
+
+				in this case, value from parent is transfered to the node, and current node is merged with its sibling, corresponding pointers are adjusted in parent.
+
+				after this parent is checked if it contains less than required values if so, same procedure is applied to the parent as well.
+
+//B+ Tree:
+
+	Major drawback of B-trees is difficulty in traversing the keys sequentially, since its binary tree like structure, accessing sequential keys is costly since for it you need to travel up to parent and then continue.
+
+	here in B+ trees all values are contained in leaves , and replicated in non-leaf nodes just to traverse the tree, those non-leaf nodes may not contain actual data pointers.
+
+	leaves are linked together (like linked list) to provide easy sequential access. this linked list is called sequence set.
+
+	during search operation, a value is searched till its found in one of leaves, cause actual data pointers are present in leaf, non-leafs are just for traversing the tree.
+
+	Search involves --> traverse path in B+ tree till leaf --> read block of data associated with leaf --> then search the block of data for required record.
+
+	B+ tree can be considered as extension of indexed sequential search, since each level in B+ tree is like index for next level, which gives just the pointer to appropriate place, while the last level (leaf) is like index for actual files
+
+	insertion is same as that of B tree, just that when node is split and value is promoted to parent, value is also retained in child.
+
+	while deleting, when a key is deleted from a leaf it may be retained in non-leaf since its still a valid pointer

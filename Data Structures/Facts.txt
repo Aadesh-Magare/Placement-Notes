@@ -1,0 +1,3 @@
+//ADT:
+
+abstract data types: this is a model to describe the data type from the point of view of user of data in terms of values and operations

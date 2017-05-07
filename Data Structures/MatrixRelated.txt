@@ -1,0 +1,65 @@
+//Search an element in Matrix with sorted row and column:
+	start with upper right corner if element found return index
+	if element is greater than that move down (i++)
+	if element is smaller then move left side (j--)
+
+//Print matrix in spiral form:
+	while(startrow < endrow && startcol < endcol){
+		print firstrow 
+		increment startrow
+		print lastcol
+		decrement endcol
+		print lastrow
+		decrement endrow
+		print firstcol
+		increment startcol
+	}
+
+//Boolean matrix :
+	in matrix if a[i][j] is true then make all of row i and column j as true.
+	we can keep two arrays row and column, for every a[i][j] that is true mark row[i] and column[j] in that array as true.
+	traverse the matrix second time if for any a[i][j] either row[i] or row[j] is true then make that true.
+
+	to make it space efficient we can use the first row and first column of given matrix as auxillary array. by using two variables for initially storing their states (whether they should be true or false in final solution)
+
+//Print Unique rows of boolean matrix
+
+	the matrix contains either 0 or 1 only, so convert each row into equivalent decimal no.
+	now store this no if hash or BST, you can detect the repetations and so print only unique rows.
+
+//Maximum NxN matrix with all 1's :
+	construct a new matrix s[m][n] where s[i][j] denotes the size of max NxN matrix ending at a[i][j]. i.e. a[i][j] is the right most bottom element in square matrix.
+	find max value in matrix s and size of it, by using this you can find the required square matrix.
+
+		how to construct s :
+			first row and first column are same as in a
+			for next entries :
+				if(a[i][j] == 1)
+					s[i][j] = min(s[i-1][j], s[i-1][j-1], s[i][j-1]) + 1;
+					else
+					s[i][j] = 0;
+
+//No Paths from 0,0 to n,n when you can move only right or down :
+	total no of paths for X*Y matrix
+		you have to move Y-1 times to right and X-1 times to down
+		for 5 * 5 matrix : 
+			rrrrdddd is valid move, ie. you have to move right Y-1 times hence 
+			Y-1 out of X-1 + Y-1 combinatinos is the ans.
+			C(n, r) = C(X+Y-2, Y-1)
+			 
+	path for all of first row and first column is 1.
+	path[i][j] = path[i-1][j] + path[i][j-1]
+
+	to print paths use recursive version and move up from destination 
+
+						printpath(arr, i, j){
+							push arr[i][j] onto path
+							if(i == 0 && j == 0){
+								print path
+							}
+							if(i > 0)
+								printpath(arr, i-1, j)
+							if(j > 0)
+								printpath(arr, i, j-1)
+							pop arr[i][j] 
+						}

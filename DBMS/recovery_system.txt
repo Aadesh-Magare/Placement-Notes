@@ -1,0 +1,75 @@
+assumption that hardware errors and bugs in software bring system to halt but do not corrupt non-volatile storage is called fail-stop assumption
+
+Stable-storage : provide guarantee that information is never lost. its implemented using RAID locally, however to guard against fire or flooding, backup in form of tapes is kept off-site. even better way, each block when written to local machine, its also written to a remote machine over network.
+after recovery from failure the block should have either new content or untouched old content, partially written blocks are inconsistent
+
+// one way to insure this is to keep two copies and update them one after other. in case of recovery both are checked if they are same then its fine, if they are different, we can restore to old state
+
+//blocks on disk are physical blocks while in memory are buffer blocks, space where buffer blocks reside is called disk buffer
+
+//when transactions write data its written in the buffer area database system then later on writes this blocks to disk, (when writing is most efficient), thus after successful write by transaction if system crash before block is written to disk then we loose information 
+
+//Recovery and atomicity:
+1. Log based recovery : 
+log of all transactions is kept maybe on stable -storage, so that its not lost.
+each log record contain Transaction start, commit/abort, data modified, its initial value, final value (after completion).
+
+log is updated before database is modified so that in case of error we can use log to undo the changes.
+
+// deferred database modification: 
+complete log is updated before modifying database i.e. upto the commit instruction, now log doesnt need initial values, only final values. after log is  updated till commit then actual write starts, in case of error log is used to redo the transaction since log contains everything it needs to know i.e. all final values.
+
+// immediate update modification :
+modifications to database are done immediately after its written to log, log contains old value as well as new value fields in case of failure, log is used to undo or redo operations. if log has start and commit both tag for a transaction then redo is executed for that transaction, if log contains only start and no commit then undo is executed for that transactions.
+
+undo and redo should be idempotent i.e. multiple executions should have the same effect as one execution.
+
+
+//Checkpoint
+
+database system keeps checkpoint so that in case of recovery it begins analysis from  the most recent checkpoint, while taking checkpoint system writes all unsaved changed to the disk
+
+it is required that when system is taking a checkpoint no transaction should make any changes to disk blocks or buffer blocks (checkpoint system which allows changes to be done while taking checkpoint is called fuzzy checkpoint).
+
+//Shadow Paging:
+
+database in devided into pages just like os memory management
+there are two page tables, current and shadow, current in memory and shadow in stable-storage, initially both are same, as per transactions changes are done to current page table e.g. for write(X) operation, a new block is created with the new value of x and current page table is updated with it, whereas old page containing old value remains same. in case of failure shadow page table is brought into memory and renamed as current page table, since all its old data is at right place . in case of commit the current page table is written into stable -storage which replaces shadow table, thats all we need to do
+
+shadow paging overhead :
+
+1. on a commit we have to write data blocks, current page table to the disk
+2. there is data fragmentation due to our write policy
+3. garbage collection needs to be done (when new blocks are written old ones become useless after the commit)
+
+//in case of concurrent transactions , concurrency management and recovery management system work together. e.g. if we are usign strict two phase locking scheme for concurrency then rolling back the transaction from log is easy and obvious.
+
+//Restart recovery
+when system recovers from a crash, the system starts the recovery procedure, it first does all the undo tasks and then the redo tasks, its imp to do the undo first and then redo , doing the opposite will result in incorrect data state
+
+//Buffer Management : 
+
+log-record buffering : log is kept in buffer until its written to stable-storage. for this to work out some rules are to be followed -> transaction enters into commit state only when its commit log record is written to stable-storage, before commit is written all previous log records of transaction must be written to storage, before a data block is written to memory, the commit of transaction must be writen to stable storage (its called write-ahead logging)
+log force = writing buffered blocks to disk
+
+
+Database buffering : blocks of database are kept in memory as buffer blocks, when a new block is to be loaded it must replace some in memory block, this creates some problem, since the in momory block has some unfinished transactions data. whenever such condition arise we shold follow some rules :
+suppose block B1 is to be replced from memory ->
+all transaction whoes data lies in B1, there log must be written to stable-storage, before B1 is replaced.
+
+//role of os in buffering :
+
+the buffered blocks can be kept in database systems memory or OS memory area, both has some pros and cons,
+first case, it wastes memory area of os since there isnt good utilization of memory.
+second case, if os does the job, then it may write out blocks to swap area any time, at times when dbms system wants to write out blocks to disk, it may have to read blocks first from swap and then write out to disk, this slows down the task
+
+//For B+ trees (indexed files):
+
+//Logical Undo Logging:
+
+physical logging : logging of old value and new value information.
+logical logging : logging of the form which contains how to undo the operation i.e. if its an insertion opertaion then undo operation is delete
+
+so in case of B+ trees the transactin is undone loggically
+
+//on restart of the system, we redo and undo the steps, here repeating history step is followed, which means all steps from last checkpoint are repeated (all steps no matter transaction was successful or not) during it, an undo list is made for trasaction which doesnt have a commit log. after this step, undo step begins which follow the undo list 

@@ -1,0 +1,133 @@
+//Magnetic Disks :
+	contains platters like CDs coated with magentic materials on both sides, the read-write head flies just above platters its attached to disk arm.
+
+	the surface of platter is divided into circular tracks, which are further divided into sectors
+
+	positioning time or random-access time consist of time necessary to move disk arm to desired cylinder called as seek time and rotaional latency i.e. time to rotate to required sector.
+
+	head crash = when head touches platter.
+
+	block is smallest unit of transfer to disk.
+	disk is considered as large 1D array of blocks. this array is mapped on sectors of disk starting from outermost cylinder's outermost track is sector 0 it follows the pattern.
+
+//Disk Scheduling Algorithms :
+
+	1. FCFS :
+		lots of head movement that can be easily reduced.
+	2. SSTF : 
+		Shortest seek time first algorithm.
+		it chooses the pending request closest to current head position.
+		its like SJF algorithm.
+		there can be indefinte starvation here since requests closer to any one end can keep coming leaving other end starved.
+	3. SCAN :
+		its also called as elevator algorithm
+		arm keeps moving in one direction servicing requests till it reaches end then it reversese direction and does the same job so it keeps moving back and forth like this.
+	4. C - SCAN :
+		if head is currently at one end and about to change its direction then the chances that requests will be in front of head are less, while chances are tha requests are at other end, since there has been long time since head has been there. this algorithm is based on this idea.
+
+		its called circular scan algorithm.
+		when its moving in one direction it goes on servicing requests on the way but when it reaches the end instead of changing direction it comes back to starting. treating it like a circular queue.
+
+		LOOK and C-LOOK algorithm are similar to SCAN and C-SCAN but they dont traverse till end, they traverse in each direction till the last entry only.
+
+	Operating Systems prefer to do the disk Scheduling themselves rather than giving the control to the disk controller because os may have other constraints on the order of requests like demand paging may be urgent than application i/o, writes are more urgent that reads if cache is running out. also it may be required that certain writes are done in particular order.
+
+//Disk Management :
+	
+	//Disk Formatting :
+		low-level formatting or physical formatting : dividing the disk into sectors so that disk controller can access it.
+		each sector has a data structure which contains header, tailer and data (usually 512 bytes) header and tailer contains sector no and error correcting code. (ECC)
+		when data is written/read disk does ECC its able to recover data from some minor corruptions.
+
+		os does most file system I/O in terms of clusters (groups of blocks) so as to have more sequential acess and less random access.
+
+		some applications prefer raw i/o i.e. bypassing all file system functions and doing raw i/o. 
+
+	//Boot Block :
+		a disk contains boot block at fixed location on disk (maybe the first block) that contains bootstrap loader.
+		the bootstrap loader in rom is primitive whoes only job is to load the actual bootstrap loader into memory.
+
+		//windows boot :
+			it stores the bootstrap loader in sector 0 of hard disk which it calls master boot record (MBR). 
+			the boot code in rom reads this MBR and loads bootstrap loader in memory.
+			MBR also contains partition information so it knows which partition to load os from.
+
+	//Bad Blocks 
+		sophisticated disks like SCSI does sector sparing i.e. they keep aside some blocks in case one block become bad its logically replaced with spare block by the controller.
+
+//Swap - Space Management :
+	
+	it may be used to swap entire process or pages of process.
+
+	raw partition or fs can be used for swap. but using raw partition is more faster since it avoids all fs concepts.
+
+	code segment pages are avoided to be swapped because its better to read code from disk rather than write it to swap and read again. 
+
+	linux creates swap slots of 4kb in swap area, and it maintains an array that keep mapping of swap slots. the value of 0 means slot is available, non zero value means that slot is mapped that many processes' page.
+
+//Stable-Storage :
+	storage on which information is never lost.
+
+	two physical blocks are kept for one logical block, first block is written then second block and then operation is marked successful.
+	in case of recovery both blocks are checked. if same then no error, if one block contain error its written with content of other block, if both contains no error and diff contents then content of new block is kept.
+
+	may use non-volatile ram as cache.
+
+//Tertiary Storage:
+	optical disks, removable disk, magnetic tapes etc.
+	magentic tape library which does automated tape changeing is called nearline storage, where as hard disk is called on-line storage.
+
+	solid-state disk (SSD) is faster than hard disk and use less energy but have short life span.
+
+//RAID 
+	Redundant array of independent disks.
+
+	1. Mirroring:
+		keeping extra copy, every write is carried out to two disks
+		here to prevent against the power loss, we dont write to same blocks of both at same time, first one block is written of 1st disk on its completion 2nd disk's block is written, so in case of failure at least one is in consistent state.
+		we can also use non-volatile ram as cache
+
+		high reliability but expensive
+
+	2. Parallelism : Data Striping.
+		bit-level striping : each bit is stored in diff disk, and these disks are accessed in parallel
+		block-level striping : diff blocks of file are stored in diff disks and accessed in parallel 
+
+		high transfer rates but no reliability.
+		
+	//Raid-levels :
+
+	level 0 :
+		block level striping, no redundancy so no increase in reliability.
+		does not require any extra disks.
+	level 1 :
+		disk Mirroring.
+		it requires double no of disks.
+	level 2 :
+		memory style error correcting code.
+
+		there is parity bit associated with each byte of data, so depending upon saved value of parity and calculated value of parity we can detect one bit error. to correct the error we need to store two more bits as error correcting code per byte.
+
+		it requires 3 extra disks.
+	level 3 :
+		bit-interleved parity.
+		its improvement to level 2.
+		instead of 3 extra disks it only needs one disk, to store the parity.
+
+		for error correcting it uses the parity disk only as follows:
+			if some disk is corrupted, we can find out parity of remaining disks if it matches saved parity then corrupted disk's bit was 0, if parity doesnt match then corrupted disk had bit 1.
+
+		it has low storage overhead and since N way splitting of data is done, read write are faster.
+
+		the problem with parity based RAID is that it consumes lot of time for parity calculations and writing parity. so it becomes slower than non parity Raid. to overcome this hardware parity can be used. the Raid array has hardware parity functionality with NVRAM.  this improves the speed to large extent.
+	level 4 :
+		Block-interleved parity 
+		same as level 3 only in terms of blocks
+		only problem here is for even small change, we have to read data block, parity block and modify then write both blocks.
+	level 5 :
+		block-interleaved distributed parity.
+		same as above but parity is not stored in parity disk its destributed over all disks, so that one disk is not over used by parity.
+
+		this is most common Raid system
+	level 6 :
+		just like level 5 but stores additional ecc to be able to handle failure of two disks.

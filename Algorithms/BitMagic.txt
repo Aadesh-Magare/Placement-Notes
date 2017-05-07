@@ -1,0 +1,118 @@
+//Count no of set bits in no:
+	subtract 1 from n gives all bits toggled till the rightmost 1 bit., so when you & it with n-1 you get no with rightmost bit unset, do it till no has set bits and you get ans when all bits are unset.
+
+					while(n){
+						n = n & n-1;
+						count++;
+					} 
+	or 
+		for(n; n != 0; n >> 1){
+			if(n & 1)
+				count++
+		}
+
+//Use of Bitwise operator :
+	(if you want to check/modify 5th bit use 00100000)
+	Bitwise AND is used to CHECK / TEST a particular bit.
+	Bitwise OR is used to SET a particular bit.
+	Bitwise XOR is used to TOGGLE (1to0 or 0to1) a particular bit.
+	Bitwise AND is also used to RESET a particular bit (if ANDed with 11110111, say I have to reset 4th bit).	
+
+//generate power set :
+
+	int A[] = {1,2,3,4,5};
+	int N = 5;
+	int Total = 1 << N;
+	for ( int i = 0; i < Total; i++ ) {
+		for ( int j = 0; j < N; j++) {
+			if ( (i >> j) & 1 )
+				cout << A[j];
+			}
+		cout << endl;
+	}
+
+//if memory is not available for hashing we can use int (4 byte) to hash a-z characters.
+						flag = 0;
+						while(){
+							bit = s[i] - 'a';
+			                if(flag & (1 << bit))	//check bit^th bit is set or not
+			                        break;
+			                flag |= 1 << bit;		//mark bit^th bit as set.
+			              }
+
+	int is of 4 byte, so it can be used to store bitmap of 32 nos. so an array of 100 ints can be used for bitmap of 3200 of no
+		to bitmap k follow:
+			no in which bit should be changed = bitmap[k/32]
+			the bit which should be changed = k % 32
+			bitmap[k/32] | (1 << (k % 32))	//set that bit to 1
+
+//In 32 bit no n, set bits from i to j to bits from no m. 
+	m should  become substring starting from i to j in no n.
+	clear all bits in n from i to j , make them all 0
+	shift m by i bits and then or it with n.
+
+	how to clear bits i to j in n.
+	make 1 to j all zeros.
+		max = ~0 	//all 1
+		left = max - (1 << j - 1)	//make 1 to j 0
+		right = (1 << i - 1)
+		no = left | right
+		no = (no & n ) | (m << i)
+
+//Float no to binary
+	before decimal in standard way.
+	after decimal :
+						d = 0.2341
+						while(d > 0){
+						
+							d = d << 1
+							if(d > 1){
+								no.add(1)
+								d = d - 1
+							}
+							else{
+								no.add(0)
+							}
+						}
+//given a no n, next smallest and largest no having same no of 1s :
+	Next largest :
+		Traverse from right to left. Once we’ve passed a 1, turn on the next 0
+				Example: xxxxx011100 becomes xxxxx111100
+		Turn off the one that’s just to the right side of that
+				xxxxx111100 becomes xxxxx101100
+		Make the number as small as possible by rearranging all the 1s to be as far right as possible xxxxx101100 becomes xxxxx100011
+
+	Next smallest :
+		Traverse from right to left. Once we’ve passed a zero, turn off the next 1
+			Example:xxxxx100011 becomes xxxxx000011.
+		Turn on the 0 that is directly to the right
+			xxxxx000011 becomes xxxxx010011.
+		Make the number as big as possible by shifting all the ones as far to the left as possible. xxxxx010011 becomes xxxxx011100
+
+		boolean GetBit(int n, int index) {
+			return ((n & (1 << index)) > 0);
+		}
+
+		int SetBit(int n, int index, boolean b) {
+			if(b){
+				return n | (1 << index);
+			}else {
+				int mask = ~(1 << index);
+				return n & mask;
+			}
+		}
+
+//Check if n is power of two :
+	if n & n-1 == 0 then n is power of 2.
+
+	the expression means n and n-1 have no bits in common. 
+	n-1 will change all the zero bits to 1 until it finds first 1, to which it changes to 0. since the result is zero it means n had only one 1 bit, hence its power of two.
+
+//no of bits required to convert one int to another :
+	xor them and count no of ones in result.
+
+//swap odd and even bits in a no :
+		Mask all odd bits with 10101010 in binary (which is 0xaaaaaaaa),then shift them left to put them in the even bits.
+		Mask all even bits with 01010101 in binary (which is 0x55555555),then shift them right to put them in the odd bits.
+
+		take | of both the nos and you get ans which is the number with all odd bits swapped with even in minimum moves.

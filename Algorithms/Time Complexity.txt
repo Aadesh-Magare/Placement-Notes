@@ -1,0 +1,12 @@
+Time Complexity:
+
+the order of time is 
+ 
+ logn < n< nlogn < n^2 < 2^n < n!
+
+ Big Oh (O) : Upper Bound
+ Big Omega : lower bound
+ Big Theta :  in between, both upper and lower bound
+
+ //Profiling :
+ 	 The process of generating a statistical analysis of a program that shows processor time and the percentage of program execution time used by each procedure in the program.

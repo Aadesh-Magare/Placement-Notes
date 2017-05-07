@@ -1,0 +1,113 @@
+Searching :
+
+// Sequential search : O(n)
+	search till you find the value. in classical way we check for finding of value and for termination of loop i.e. there are two comparisons  that can be avoided by using sentinel value at the last
+
+	sentinel value is a dummy value that we place in original data for ease of access, if we are searching for x then put x at the end of array, and search without checking for end of array once we found x see if its at the end or in-between.
+
+// Indexed sequential search:
+
+	here we keep an index that points to actual data, both are sorted on some key.we do sequential search but the amount of data to be searched is reduced by large amount
+
+// Binary Search :
+
+	array is sorted and you search for a key by updating the lower and upper after each pass
+
+	int bsearch(arr, n, low, high)
+		while(low < high){
+			mid = low+high / 2
+			if(arr[mid] == n)
+				return mid
+			if(arr[mid] < n)
+				low = mid + 1
+			else
+				high = mid - 1
+		}
+
+// Interpolation search :
+
+	for sorted array. if keys are uniformly destributed then it may be better than binary search O(log(logn))
+
+	the algorithm is same as binary search except that for finding mid we use interpolation formula
+
+	lowest_key = key[low]
+	highest_key = key[high]
+
+	mid = low + (high - low ) * ((key - lowest_key)/ (highest_key - lowest_key))
+
+	but if keys are not uniformly distributed then in worst case it becomes sequential search. in reality keys tend to be clustered and non-uniform thats why binary search is preferred.
+
+//Fibonaaci Search
+
+	1. search a no x in array of n numbers.
+	2. let n is mth fibonacci no (if n is not a fibonacci no, take the first fib no greater than n, and padd array n with remaining values)
+	3. set k = m, if k == 0 then no match
+	4. test whether x == Fk-1 (if x equal to k-1 th fib no)
+	5. if matched then finish we got the no
+	6. if x is less than Fk-1 then , discard entries form Fk-1 + 1 to n and set k = k-1 and go to 3
+	7. if x is greater than Fk-1 then, discard entries from 1 to Fk-1 and search in remaining
+
+
+
+// Hashing for Searching :
+	
+	can find items in O(1) constant time if no collisions
+
+	some hash functions :
+	
+		1. Mid - Square : 
+			square the given no and use some middle bits from the answer. if r bits are used we can map it to 2^r buckets, so the hash table will have 2^r buckets
+
+		2. Modulus :
+			take mod (% M) of no, ans is used as index. size of hash table is M
+
+		3. Folding:
+			the given no is divided into smaller groups then these groups are added together to get hash value
+
+	Collision Handling technique :
+
+		1. Linear probing : 
+			if theres a collision then we use the next available slot, to find it we sequentially search from the next location, so its called linear probing
+
+		2. Rehashing: 
+			on collision, we use another hashing function on the first hash value to locate another place for this key, we go on doing rehashing until we find proper place
+
+		3. Chaining:
+			all collided keys are stored in form of linked list, which is sequentially traversed when needed
+
+		4. have buckets with more slots, like have a 2D array	
+		
+	//Hashing in external storage.
+
+		on external storage, space is not an issue but time for I/O is too much, so we try to optimize disk access at the expense of storage.
+
+		hash table in converted into buckets, each bucket map to physical device as a physical block or track.
+
+		or we can store hash table in some continous location, at start load it into main memory and have data in non-continous fashion. to search we use in-memory hash table to find pointer to actual data on disk, such hashtable is called index.
+
+		while reading we load entire bucket into memory and then do sequential search on it, since size of bucket is small, its quite efficient.
+
+		for files that changing rapidly and unpredictively such simple hashing technique is not effiecient in terms of space or time, so we use dynamic hashing.
+
+	//Dynamic Hashing :
+
+		h() is a hash function that produce w bit hash values, out of which we use b bits and construct a no, hb(key), the no is between 0 to m, where m is the no of buckets in hash table.
+
+		Overflow :
+			whenever a overflow occurs, the current bucket is split into two, left and right buckets. now we use the next bit --> (b+1)st bit from the hash value. so the entries which were present in our current bucket must go to either left or right bucket. we decide this by the  (b+1)st bit. if the bit is 1 record goes to left bucket, else goes to right bucket, hence they are called 1-bucket and 0-bucket.
+			in general when a bucket with i bits overflows, its split and i+1 th bit is used to redistribute records
+
+			to locate a records in dynamic hashing: first find hash value using : h(key), use first b bits to arrive at root (one of initial buckets)
+			then use one bit at a time from the hash value, and traverse to left or right child until you find a leaf ( i.e. no further child) the leaf will contain pointer to record.
+
+		we cant sequentially access records with search keys, since we search them by hash values only, this is major limitation of hashing technique.
+
+//Selection rank algorithm :
+	to find ith max/min no in array :
+		note that ith min no will be in ith position in sorted array, using this :
+
+	pick a pivot element and move all no less than it on one side and greater than it on other side.
+		
+	if there are exactly i nos on left of it find smallest of them.
+	if either side is bigger then repeat algorithm on that side.
+	

@@ -1,0 +1,173 @@
+//Basics :
+	Object based programming language : all features except inheritance and dynamic binding. e.g. Ada
+	object oriented = all object based + inheritance & dynamic binding.
+
+	persistance = process of storing objects (in their proper form)
+
+	cout cin are objects reperesenting std streams
+
+	<< insertion (put) operator in cout is operator overloading.
+	>>  extraction (get)
+
+	lines with # are pre-processor directives.
+
+	old compilers use <iostream.h> while ansi c++ (new one) use <iostream>
+
+	default return type is int in C++, so function without return type will run with a warning.
+
+	L'abc' is wide character constant, just like char but longer. (wchar_t)
+
+	Namespace  : define scope for identifiers (names created by programmer) that are used in program
+
+//Main Function :
+	
+	in C main function does not return anything, its not compulsary, program without return type and return statement doesnt show any warning.
+
+	while in C++ its compulsary that main function should return int.
+	
+//Function Prototype (Declaration ) :
+	in C++ the declaration 
+		void display() is identical to void display(void) i.e. both represent function doesnt take any argument. while in C, void display() represent that function takes any no of arguments.
+
+		for any no of arguments :
+			void display(int n, ...)
+
+//Void pointer :
+	void pointer can be assigned to any other without typecast
+		void *p1;
+		int *p2;
+		p1 = p2 //valid in c and c++
+
+	in c we can assign a void pointer to any other pointer without any typecast but in c++ its not allowed we have to typecast first
+		
+		p2 = p1 //valid in c but not in c++
+		p2 = (int *) p1
+
+//function pointer :
+
+	function pointer is called as callback function. function ponters can be passed as arguments but they cant be dereferenced. (*)
+
+//Structure and Unions :
+	the basic difference betweent the two is in size
+	Struct{
+		int a
+		char b
+		float c
+	}
+	size of struct will be sum of sizes a + b + c;
+	Union{
+		int a
+		char b
+		float c
+	}
+	size of Union will be size of largest element i.e. equal to size of c
+	same memory space is used to represent diff elements. so it cant provide simultaneous access. you can use only one element of it, when you change an element it overwrites prev ones value.
+
+//Enum :
+	its used to create symbolic constants.
+	enum{red, blue, black} or enum color{red, blue, black}
+	Enum in C are globals while in C++ they are local to class or struct in which declared
+
+//Storage Class
+	auto : local variables stored in stack segment
+	extern : global variables stored in data segment
+	static : local variables stored in data segment but retain their value throughout program execution, and if function is called again it resumes from last value.
+	register : local, if possible stored in cpu register for faster access.
+
+//Const vs #define
+	const allows us to create constans with type while #define doesnt give any type.
+	in C const are initialized to 0 where as in C++ they are not.
+	C++ allows consts to use in expressions while c doesnt
+
+//Type compatibility :
+	C++ requires exact type match, i.e. unsigned char != char, short int != int for these also it needs typecast.
+
+	sizeof ('x') == sizeof( int) //in C 
+	sizeof('x') == sizeof(char) //in C++
+
+//Dynamic Initialization :
+
+	variables can be declared anywhere and their value can be initialized by a expressions that will be evaluated at runtime.
+
+//Reference variables : used in call by Reference
+
+	it creates alias for a variable i.e. another name which points to same memory address, same object.
+	
+	int i = 50;
+	int & j = i;
+	j = 5 ; //i is also changed to 5. both i and j are now same with diff names.
+
+	call by Reference uses this .
+
+	i = fun(m)
+
+	int fun(int &n){ //n is same as m with diff names
+		n = 0
+	}(
+	
+		in C we do this with pointer dereferencing that works in C++ also but this is neat way.
+	
+//Deep copy and shallow copy :
+	deep copy is when we allocate memory and do actual copy where as shallow copy is when we just set pointers
+					void deep(Test &u, Test &v){
+						u.str = malloc(sizeof(str));
+						strcpy(u.str, v.str)
+					}
+					void shallow(Test &u, Test &v){
+						v.str = u.str;
+					}
+	
+//Return by Reference :
+		just like call by Reference we can also return Reference to any value.
+	
+		int &max(int &x, int &y){
+			if(x > y)
+				return x
+			return y
+		}
+
+		it will return the Reference to max value, not a pointer i.e. it will return a variable out of two which is max.
+
+		max(a, b) =  -1
+		this will set the greater value to -1 between two , so here function can come on LHS which is not generally possible.
+
+//Scope Resolution Operator ::
+	
+	::n it will refer to global declaration of n even if its used in local function due to this operator we will get global value. simple use like n will give us local value
+
+//Chained assignment :
+	it cant be done at time of declaration 
+	int a, b;
+	a = b= 5 // this is right
+
+	int a = b= 5 //this is wrong
+
+//Memory management Operators:
+	
+	free and delete are used to create and delete objects, ones created with new has lifetime equal to that of program they must be freed with delete command
+	int *p = new int(5)
+	int *q = new int;
+	*q = 6;
+	delete p;
+
+//Inline Function :
+
+	for small function the overhead of calling a function is too much, to avoid this we may use macro definitions but for macros error checking does not occur.
+
+	so inline function is the one which is expanded in the line, the function call is replaced by its statements. it  makes program run faster because the overhead of function call and return is eliminated.
+
+	it must be defined before its called.
+
+//Default Arguments :	
+	we can specify default arguments in the function prototype (declaration)
+
+		int amount(int a, int b, int c = 5)
+
+	only trailing argumnets can have default values
+
+	function prototype can be written inside main function too.
+
+	//we can pass arguments as const so that called function cant modify it.
+
+		int strlen(const char *p)
+

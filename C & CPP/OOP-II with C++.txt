@@ -1,0 +1,220 @@
+//Inheritance :
+	to allow reuse of code, powerful tool for incremental program development.
+
+	class newclass :: public oldclass{
+
+	}
+
+	here public is visibility of of inherited properties by default its private. here the inherited properties will be public in newclass.
+
+	when privately inherited public members of base class become private in derived class.
+	so they cant be accessed by objects of derived class by dot notation, they can only be accessed by member functions of derived class.
+
+	private members of base class are never inherited be it public or private inheritance
+
+	//Single Inheritance :
+
+		derived class D inherits base class B.
+		derived class can only inherit public members not the private members but the inherited functions can access private members of base class from D. e.g.
+
+				class B{
+					int p;	//private cant inherit.
+					public :	//public can be inherited.
+						int getdata(){
+							return p;
+						}
+				}
+
+				class D : public B{
+					int c;
+					public :
+						int myfun();
+				}
+
+				D d;
+				d.getdata();	
+				
+				//this works fine and return value of p from base class even though its not inherited by D.
+
+		privately inherited members can be called from other member functions only and not by using dot notation
+
+		if base class and derived class contains same function names then derived class function is invoked not the base class.
+		
+		// Protected :
+
+			Protected members are accessible by the class and the class immediately derived from it.
+
+			when Protected members is inherited it remains Protected in the derived class
+
+			a class can be inherited in protected mode, it makes both public and protected members as protected.
+
+		//Mode of Inheritance :
+			1. private : makes all members private
+			2. public : protected remains protected, public remains public.
+			3. protected : makes all members protected.
+
+		//Access controls :
+
+			private and protected members can be accessed :
+				1. friend functions 
+				2. friend class 
+				3. derived class's methods. (indirect accesse to private)
+
+	//Multi-Level Inheritance :
+
+		Grandparent --> parent --> child relationship.
+		it forms a chain known as inheritance path.
+
+	//Multiple Inheritance :
+
+		A class can inherit from several classes.
+			class father{
+				public :
+					void speak();
+			}
+			class mother{
+				public :
+					void speak();
+			}
+			class child : public father, private mother{
+				public :
+					void speak(){
+						mother :: speak();
+					}
+			}
+
+		here if base classes have same function names then it create ambiguity. which function should be inherited by the derived class.
+
+		it can be solved by derived class overriding the function by creating new function in itself with the same name.
+
+			child c;
+			c.speak() 
+			//function in child class will be invoked, which invokes mother function.
+
+	//Hierarchical inheritance :
+
+		its used to create hierarchical structure from classes.
+		a base class can be derived by Multiple classes.
+		e.g. engineering, medical and law students all inherit student class.
+
+	//Hybrid Inheritance :
+
+		it combines two or more types of inheritances like Multiple and Multilevel 
+		inheritance.
+
+//This pointer :
+	its a special pointer that always points to the address of object to which current function belongs to.
+
+	it useful it you want to return current object.
+		return *this;
+
+//Virtual Base Classes :
+	
+	Multiple inheritance path creates problem. e.g.
+	mother and father classes derive from Grandparent.
+	child is derived from both mother and father, now child includes Grandparent's members twice. (once from mother and once from father)
+
+	we need to avoid such repetation (to maintain data integrity). so we inherit Grandparent class as Virtual, then C++ takes care that its members are not repeated in derived classes.
+
+	we make base class as Virtual base class by applying Virtual modifier to inheritance.
+		class mother :: Virtual public Grandparent{
+
+		}
+		class father :: Virtual public Grandparent{
+
+		}
+
+//Abstract Class :
+	
+	its not used for creating objects, its only purpose is to be used as base class in inheritance. it is very important in logical program design.
+
+	a class can be Abstract class only if it has at least one pure Virtual function.
+
+
+//Member Classes (Nested class) :
+	
+	one class contains objects of other classes, its called nesting or containership.
+
+	the constructor for member classes is executed first then the outer class is created, the inner class constructor are called from outer classes constructor.
+
+		classe gamme{
+			int n;
+			alpha a;
+			beta b;
+			public :
+				gamma(2, 3, 4): a(2), b(4){
+					n = 3;
+				}
+		}
+
+// Polymorphism :
+	
+	one name multiple forms.
+
+	//compile time Polymorphism :
+		early binding or static binding or static linking :
+			object is linked to its corresponding function at compile time, depending upon no of arguments and type of arguments of function compiler can determine which function to call at compile time, so its early binding.
+
+		this is possible due to function overloading
+
+	1. compile time Polymorphism :
+		1. function overloading
+		2. operator overloading
+	2. runtime Polymorphism: (dynamic binding or late binding)
+		1. Virtual function.
+
+	//Derived Class Pointer :
+		father --> child
+
+		a pointer of base class can even pointer to Derived class.
+
+		father *p;
+		father po;
+		child co;
+		p = &po;
+		p = &co;
+
+		but parent pointer can only access those member that were Derived from parent and not the ones that belong to child originally.
+		if base class and Derived class has same names for some members then this parent pointer will always access members from parent class only.
+		however we can typecast base pointer to Derived class pointer and then access members of Derived class.
+
+	//Virtual function :
+
+		we want to have dynamic binding i.e. decide at the runtime which function to call from several available.
+		e.g.
+			student is base class , boy and girl are derived classes , depending on its boy or girl we want to call specific uniform function. (which is defined in respective classes with same name)
+
+			we use base pointer of class student, depending on whether its boy or girl the base pointer will point to either boy object or girl object. we simply call uniform function on base pointer and expect it to decide which one to actually call at runtime.
+
+			naturally it will call function from base class ignoring other functions in derived class, to make it (base class pointer) call derived class functions we use Virtual function.
+
+			declare the function in base class as Virtual. then C++ determines which function to call based on type of object to which base pointer is pointing to instead of just seeing which type the pointer belongs to.
+
+		runtime Polymorphism is achieved only when Virtual function is called through to pointer to base class.
+		//Rules :
+			1. it cant be static function.
+			2. they must be accessed by using object pointers.
+			3. it can be friend of another class.
+			4. it must be defined, even if not used.
+			5. cant have Virtual constructor but can have Virtual destructor.
+			6. derived class pointer cant point to object of base class.
+			7. base pointer pointing to derieved type cant be incremented decremented to point to next prev objects of derieved type.
+			8. its ok to not define Virtual function in derieved classes if its defined in base class. all calls will invoke base class version.
+
+	//Pure Virtual function :
+
+		Virtual function in base class is mostly used as placeholder so most of times its empty (does nothing)
+			do-nothing function can be defined as:
+				virtual void display() = 0;
+			such function are called Pure virtual function.
+
+		compiler requires each derieved class to define such functions or redeclare it has pure virtual function.
+
+		A class containing pure virtual function cannot be used to create objects of its own. it can only be used to be inherite by other classes and to create a base pointer used during runtime Polymorphism. such classes are called abstract base class.
+
+	//Virtual destructor :
+		virtual constructor is not possible but we can have virtual destructor.
+		base *ptr = Derived d;
+		delete ptr;
+
+		here if we delete ptr then base class destructor will be called and the derieved class destructor will not be called, in reality we want both of them to be deleted. so we declare base class destructor as virtual. so that derieved class destructor is called first.

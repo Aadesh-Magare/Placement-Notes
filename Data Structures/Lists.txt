@@ -1,0 +1,104 @@
+//List vs Array :
+	linked list allows dynamic memory allocation with no wastage. inserting element at particular position is easy where as in array you have to move elements to insert another one at that place.
+
+	array gives better performance in cache due to locality of reference.
+
+	linked list can be implemented using an array where the next pointer in node points to array index of next element.
+//Changing A node :
+	whenever you need to change any pointer remember that variables are local in functions, so to change you should pass referrence pointers e.g.
+
+	void change_head(struct node *head){
+		head = NULL;	//wont set head to null in caller function
+	}
+
+	void change_head(struct node **head){
+		*head = NULL;	//will set head to null in caller function
+	}
+//Middle of list:
+	1. traverse once to get count and then go to middle
+	2. fast and slow pointer, move fast by 2 and slow by one, when fast reaches end of list, slow is at the mid of list.
+
+//Nth element of list from end:
+	use two pointers, both point to head at start.
+	increment first to n times and keep second at head.
+	now increment both one by one till first becomes null, then return second.
+
+//Delete a node given a pointer to it:
+	Copy the content of next node into that node and delete the next node.
+	(Doesnt work when the node is last node)
+
+//Detect a Loop :
+	1. Hash :
+		Use hashing keep hashtable of address of nodes and in case some nodes have same hash value then there's a loop.
+	2. Visited flag:
+		if you can modify the structure of node then keep a visited flag in the node and mark it when its visited first time, when you come to a node again you'll know there's cycle
+	3. Flyod's cycle :
+		take two pointer fast and slow, move fast by two and slow by one ,if they meet then there's cycle. (used to detect if list has end or not)
+
+//return pointer to start of loop :
+	if both pointers start at the same location (fast 2x and slow x) then they'll meet again at the start point only.
+	however if fast pointer starts k meters ahead of slow, then they'll meet k meters before the start point.
+
+	now in loop linked list, when fast pointer reaches start of loop, slower is somewhere behind, so fast pointer gets some lead, so when they meet, the meeting point is some distance before the loopstart.
+	the lead that fast pointer has got is equal to no of nodes before the start of loop from the head. so they'll meet that no of nodes before the loopstart. hence to find the loopstart:
+		after they meet, keep fast pointer on same place
+		keep slow pointer at the head position.
+		move both by same pace.
+		when they meet that will be loopstart.
+
+//MoveNode :
+	for linked list problmes have a moveNode function that can move node from one list to another, you can use it in places like mergesort.
+		
+		void MoveNode(node** destRef, node** sourceRef){
+			node* newNode = *sourceRef;
+			*sourceRef = newNode->next;
+			
+			newNode->next = *destRef;
+			*destRef = newNode;
+		}
+
+//Reverse a linked list:
+	
+	you have moveNode function that moves a node from a list to the front of another list, here moveNode doesnt create new list it moves nodes so no extra memory
+
+	do moveNode on all nodes of linked list and you get reversed.
+
+	or you can do it using 3 pointers prev, node and next
+
+	recursive :
+
+	take leap of faith:
+	reverse(first):
+		if null return
+		else
+			reverse(second)
+
+		now second onwards list is reversed i.e. second is now the last element in the list, so all you have to do is append first to second and set first's next to null
+
+		first->next (still second)
+		first->next->next (seconds's next) = first
+		first->next = NULL
+
+		return second
+
+//Merge Sort :
+	split list into two halves just like array
+		split(&list, &first, &second)
+	recursively call mergesort on these two
+	have base condition to terminate recursion i.e. list of length 0 or 1
+	collect the result with a join function that works same as join in case of arrays it will join two list in increasing order
+
+//Doubly Linked List using single Pointer (XOR list) :
+	
+	here instead of storing prev and next pointers we store XOR of prev and next address. (take address of NULL as 0)
+	i.e. 
+		node *next = add(prev) XOR add(next)
+
+	to traverse the list we remember the prev address i.e.  if list is
+		a -> b -> c -> d
+
+		if we are at c we must remember add of b then next pointer of c can be calculated as :
+			originaly Cnext = add(b) XOR add(D)
+			next = Cnext XOR add(b)
+			next = add(b) XOR add(D) XOR add(b)
+			i.e. next = add(D)

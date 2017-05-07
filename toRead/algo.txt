@@ -1,0 +1,9 @@
+no of 2's between 0 to n
+rotate matrix
+Graph Coloring.
+String Matching Algorithms (rk, KMP)
+cycle detecting algorithms(implement it)
+search in rotated array  
+to print word form of no --> 234 two hundred thirty four.
+lines intersecting, how to find y intercept.
+huffman algorithm
