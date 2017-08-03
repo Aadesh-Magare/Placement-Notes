@@ -46,7 +46,7 @@
 	// I/O bound process : spends more time doing I/O 
 	   CPU bound process : spends more time doing calculations
 
-	   a long term scheduler must select good mix of these to ensure good efficiency
+	   a long term scheduler must select good mix of these to ensure good efficiency. It decides degree of multiprogramming (number of processes in memory)
 
 	there may be a medium-term scheduler which swaps processes out of memory and swaps in when required, this can improve the mix of I/O bound and cpu bound processes.
 

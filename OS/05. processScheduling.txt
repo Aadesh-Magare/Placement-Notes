@@ -1,6 +1,6 @@
 CPU scheduling is possible because a process is mix of alternate CPU burst and I/O burst.
 
-Scheduler selects process from ready Queue to schedule. ready queue may be a fifo queue, priority queue, tree or linked list.
+Scheduler (short term schedular / cpu schedular) selects process from ready Queue to schedule. ready queue may be a fifo queue, priority queue, tree or linked list.
 
 //Scheduling may occur when :
 	
@@ -9,7 +9,7 @@ Scheduler selects process from ready Queue to schedule. ready queue may be a fif
 	3. process switch from waiting state to ready state.
 	4. process terminates
 
-	non-preemptive scheduling : once cpu is allocated to process it keep cpu until it releases cpu on its own due to termination or moving to wait state.
+	non-preemptive (co-operative) scheduling : once cpu is allocated to process it keep cpu until it releases cpu on its own due to termination or moving to wait state.
 
 	preemptive scheduling : 
 		cpu is taken from a process due to interrupt like (end of its time slice)
@@ -53,7 +53,7 @@ Scheduler selects process from ready Queue to schedule. ready queue may be a fif
 
 			all processes wait for one big process to get off cpu, this results in lower cpu utilization
 
-	2. Shortest-Job-First :
+	2. Shortest-Job-First (shortest next cpu burst) :
 
 			CPU is assigned to process with smallest next cpu burst, if cpu burst are same, then to break the tie, FCFS is used.
 
@@ -98,7 +98,13 @@ Scheduler selects process from ready Queue to schedule. ready queue may be a fif
 
 		rule of thumb is 80% of cpu bursts should be smaller than time quantum
 
-	5. Multi-level Queue Scheduling :
+	5. Highest Response Ratio Next (HRRN):
+
+		In this scheduling, processes with highest response ratio is scheduled. This algorithm avoids starvation.
+
+		Response Ratio = (Waiting Time + Burst time) / Burst time
+
+	6. Multi-level Queue Scheduling :
 
 		this class of scheduling is useful if processes can be easily classified into different groups e.g. foreground(interactive), background (batch) etc
 
@@ -106,7 +112,7 @@ Scheduler selects process from ready Queue to schedule. ready queue may be a fif
 		each of these queues have thier internal scheduling algorithms, that can be different for different queues. there is again a scheduling algorithm to schedule these queues.
 		e.g. the exterior algorithm might be priority based scheduling. and each queue uses FCFS internally, then depending upon the priority process will be selected from one queue
 
-	6. Multi-level Feedback Queue Scheduling :
+	7. Multi-level Feedback Queue Scheduling :
 
 		in Multi-level Queue Scheduling processes cannot move from one queue to another but this is inflexible.
 
@@ -137,7 +143,7 @@ Scheduler selects process from ready Queue to schedule. ready queue may be a fif
 
 	1. Processor Afinity :
 
-		when a process in running on a processor, its data is cached into that processor but if we move that process to some other process, there's cost of cache clearing and reloading on that processor, so most of SMP systems try to keep process on same processor, this is called Processor Afinity.
+		when a process in running on a processor, its data is cached into that processor but if we move that process to some other processor, there's cost of cache clearing and reloading on that processor, so most of SMP systems try to keep process on same processor, this is called Processor Afinity.
 
 		soft-afinity : process is allowed to be moved to other processors
 		hard-affinity : process is not allowed to be moved.

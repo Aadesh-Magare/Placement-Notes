@@ -11,6 +11,20 @@
 
 	~ (not) > & (bitwise and) > ^ (xor) > | (or) > && (logical and ) > || (or)
 
+//Macro substitution :
+	if parameter name is preceded by #, it will turn into "value_of_parameter", i.e. value of paramater inside quotes.
+	## is concatenation operator
+	e.g. 
+	#define paste(front, back)	front ## back
+	paste("name", 1);
+	output:	name1
+
+	conditional macros like
+	#if, #elif, #else, #endif
+	#ifdef, #ifndef
+
+// C does not have call by reference, only call by value is there, we use address of variable (&) as a workaround for call by reference.
+
 //Pointer to specific location :
 	unsigned int *ptr = (unsigned int *) 0x123;
 	//typecast is important.
@@ -22,7 +36,7 @@
 	calloc will initialize memory to zero while malloc doesnt.
 
 //sprintf :
-	its used to print output to a string buffer instred of stdout.
+	its used to print output to a string buffer instead of stdout.
 
 //Function Pointers array :
 	// array of 3 function pointers.

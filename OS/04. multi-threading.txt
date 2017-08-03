@@ -7,10 +7,10 @@
 	useful in client-server architecture, where a server will create a thread for each client request.
 
 	//Benefits of Multi-threading :
-		1. Responsiveness : increases Responsiveness even if some part of process is doing length computation, another thread can respond to user
+		1. Responsiveness : increases Responsiveness even if some part of process is doing lengthy computation, another thread can respond to user
 		2. Resource sharing : its costly to share resources with a process, where threads of a process share resources implicitly
-		3. Economy : creation of threads is much cheaper than process
-		4. scalability : benefits of multi-threading are large on multi-processor system
+		3. Economy : creation of threads is much cheaper than process. e.g. (in solaris creation is 30x cheaper and context switch is 5x faster when compared to process)
+		4. scalability : benefits of multi-threading are large on multi-processor system. multithreading on multi-processor system increases concurrency. 
 
 	//Multi-Core programming :
 		Multi-Core means having many processors on single chip, here concurrency is more relative to single core processors.
@@ -52,7 +52,7 @@
 		sometimes we want to cancell the thread before it completes its work, its called target thread.
 
 		Asynchronous cancellation : one thread immediately kills other thread
-		deferred cancellation : target thread periodically checks whethe it should terminate
+		deferred cancellation : one thread indicates that target is to be cancelled. target thread periodically checks whether it should terminate, allowing it to terminate in an orderly fashion.
 
 		aysnchronous cancellation may lead to situation where some resources were granted to target thread and werent freed when its terminated
 
@@ -75,7 +75,10 @@
 		in Unix some threads may block certain signals, then those threads wont recieve those signals
 
 		kill(pid, sig) is syscall in unix to signal a process
-		pthread_kill(tid, sig) function in PThread to signal a thread
+		pthread_kill(tid, sig) function in PThread to signal a thread.
+
+		windows does not explicitly support signals, it can be emulated using asynchronous procedure call (APC). It allows a specific thread to specify a function that will be called when the thread receives notification of particular event.
+		
 
 	4. Thread Pool :
 

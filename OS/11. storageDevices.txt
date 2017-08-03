@@ -39,7 +39,7 @@
 		each sector has a data structure which contains header, tailer and data (usually 512 bytes) header and tailer contains sector no and error correcting code. (ECC)
 		when data is written/read disk does ECC its able to recover data from some minor corruptions.
 
-		os does most file system I/O in terms of clusters (groups of blocks) so as to have more sequential acess and less random access.
+		os does most file system I/O in terms of clusters (groups of blocks) so as to have more sequential access and less random access.
 
 		some applications prefer raw i/o i.e. bypassing all file system functions and doing raw i/o. 
 

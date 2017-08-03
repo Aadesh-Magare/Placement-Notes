@@ -98,7 +98,7 @@
 
 				typedef struct {
 					int value
-					sturct process *list;
+					struct process *list;
 				}semaphore;
 
 				wait(S){

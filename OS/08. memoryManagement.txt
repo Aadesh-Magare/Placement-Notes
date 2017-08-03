@@ -30,10 +30,10 @@
 
 		user processes always work with logical address, not knowing anything about the physical address. the mapping is done at execution time by MMU.
 
-		user considers process is running is logical address (0 to max) while the MMU maps it with relocation register at execution time.
+		user considers process is running in logical address (0 to max) while the MMU maps it with relocation register at execution time.
 
 //Dynamic Loading :
-	with dynamic Loading logical a routine is not loaded until its called. it kept on disk in relocatable form, and execution starts with main routine, when another routine is called then its loaded into memory.
+	with dynamic Loading a routine is not loaded until its called. it kept on disk in relocatable form, and execution starts with main routine, when another routine is called then its loaded into memory.
 
 	it doenst require special support from os. programmer can do it with proper coding.
 
