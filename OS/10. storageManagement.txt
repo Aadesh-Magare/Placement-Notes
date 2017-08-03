@@ -138,7 +138,7 @@
 	//Directory Implementation :
 
 		1. Linked List :
-			it can be implemented using linked list but its very expensive, searching a file in directory, inserting or deleting is very costly.s
+			it can be implemented using linked list but its very expensive, searching a file in directory, inserting or deleting is very costly.
 		2. Hash table :
 			here we have to take care of collisions may be with linked list but its still better than linked list approcach
 			also the hash table is fixed size, even if we used hash table that doubles size on doubling we have to rehash prev entries.
@@ -169,7 +169,7 @@
 			another problem is due to slight corruption even if single pointer get corrupted it destorys the linked list.
 
 			//FAT :
-				it is variation of linked allocation, where there is table at the beginning of volume, which has one entry for each block and table is indexed by block no. Directory entry of file contains first block no. which in turn contains no of second block and so on. it increases random access time, since you can find out ith block of a file from table itself.
+				it is variation of linked allocation, where there is table at the beginning of volume, which has one entry for each block and table is indexed by block no. Directory entry of file contains first block no. which in turn contains no of second block and so on. it decreases random access time, since you can find out ith block of a file from table itself.
 
 				for better performance FAT should be cached otherwise there will be lot of disk seek, for reading FAT and for reading actual block from disk, going back and forth.
 

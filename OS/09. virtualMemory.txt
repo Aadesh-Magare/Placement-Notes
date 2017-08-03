@@ -313,7 +313,7 @@
 
  //Program structure
  	if programs are written keeping in mind locality concept it can significantly improve performance.
-
+`
  //I/O interlock:
  	if we are doing I/O using demand paging then its not acceptable that pages related to i/o gets swapped out by some other process to prevent this we allow locking of pages, by keeping a lock bit with each frame. locked pages cannot be paged out.
 
