@@ -6,7 +6,7 @@ heapify can be applied to a node only if its children are already heapified, so 
 
 we start with the lowest level non-leaf, i.e. the node which has only one level of children below it
 
-//TO Build HEAP:
+//TO Build HEAP: works in linear time
 
 if array a[0..n] then we start from a[n/2] down to index 0
 	on each index we call heapify procedure
