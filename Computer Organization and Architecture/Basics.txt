@@ -1,0 +1,2 @@
+// Moores law : 
+    It's an observation that the number of transistors in a dense integrated circuits doubles every two years. 
