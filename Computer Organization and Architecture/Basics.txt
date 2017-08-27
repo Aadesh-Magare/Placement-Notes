@@ -1,2 +1,93 @@
+// components of computer system:
+    CPU, memory, I/O and Interconnection system
+
 // Moores law : 
-    It's an observation that the number of transistors in a dense integrated circuits doubles every two years. 
+    It's an observation that the number of transistors in a dense integrated circuits doubles every two years.
+
+// Instruction Cycle :
+    Instruction fetch => zero or more operand fetch => zero or more operand store => interrupt check (if interrupts are enabled)
+
+// Interconnection structures   :
+    Major computer system components are interconnected in order to exchange data and control signals by using shared system bus consisting of multiple lines.
+
+    Design Elements for buses:
+
+        // Arbitration:
+            whether permission to send signals on bus lines is controlled centrally or in a distributed fashion.
+
+        // Timing:
+            whether signals on the bus are synchronized to a central clock or are sent asynchronously
+
+        // Width:
+            number of address lines and number of data lines.
+
+// CPU :
+    exchanges data with memory.
+    PC = program counter : holds the address of next Instruction to be fetched.
+    IR = Instruction register : fetched Instruction is loaded into IR.
+    MAR = memory address register : specifies address in memory for next read / write
+    MBR = memory buffer register : contains data to be written into memory in next Instruction or receives data read from memory.
+    I/O AR = I/O address register. same as MAR
+    I/O BR = I/O buffer register. same as MBR
+
+// I/O module :
+    transfers data from external devices to CPU and memory and vice versa, it contains internal buffers for temporarily holding these data until they can be sent on.
+
+// Interrupts
+    a way to improve processor efficiency, since most of I/O devices, memory are slow.
+    user program does not have to contain any special code to accomodate the interrupts,  the processor and os are responsible for suspending and resuming the user programs.
+    
+    For interrupt supporting, interrupt cycle is added to Instruction cycle, i.e. at the end of every Instruction cycle it checks for presence of any interrupt signal.
+    when interrupt signal is present it suspends the current program, and saves its state (PC and registers). and sets the PC to the starting address of an interrupt handler routines.
+
+    // Handling multiple Interrupts
+        two ways :
+
+        1. Disable interrupts while one interrupt handling is going on, so that they will be pending and checked once the current handling is over. it doesn't take care of priorities.
+
+        2. Define priorities, where an higher priority interrupt can interrupt the handler of a lower priority interrupt (ISR interrupt service routine).
+
+// I/O module:
+    it can exchange data directly with processor, but in some cases its desirable to allow exchange between memory and I/O directly, in that case processor grants authority to I/O module to read / write to memory location, this relieves processor of its duty. its DMA
+
+// System Bus:
+    consist of multiple lines of communication, each line can contain 1 bit, they work in parallel. e.g. to transmit 8 bit data, 8 lines can work in parallel.
+
+    mezzanine architecure for bus desgin consist of high speed bus in addition to regular bus.
+
+    bus lines are classified into 3 categories i.e. control, data and address lines. in addition to this power lines may also be present which provide power to that component.
+
+    data lines are referred as data bus, and no of lines is the Width of bus.
+    
+    address lines are used to to access memory at particular address or I/O device at particular port. e.g. in 8 bit address bus, 01111111 maybe used to access locations in memory module (module 0) and 100000000 maybe used to refer to I/O modules (module 1)
+
+    control lines are used to control the access to address and data lines, it transmits commands and timing information.
+
+    // bus types:
+        dedicated : permanently assigned to either one function (e.g. address line) or one component (e.g. hard disk)
+        multiplexed : address and data information may be transferred on same lines at diff times i.e. time multiplexed
+
+    // method of Arbitration:
+        centralised : single hardware (bus controller or arbiter) allocates time on the bus to others
+        distributed : each module contains access control logic and act together to share the bus.
+        the one initiating transfer is called master and receiver as slave for that transfer.
+    
+    // Timing :
+        the way in which events are co-ordinated on the bus.
+        synchronous : clock line is used. single 1-0 transmission from clock line is considered as 1 clock cycle or bus cycle. all devices on the bus can read the clock line and operate wrt the clock cycle.
+
+        asynchronous : occurrence of one event on bus follows and depends on occurrence of previous event.
+
+
+// Timing Diagrams:
+    two levels : binary 0 (lower) and binary 1 (upper)
+    signal transition from 0 to 1 (/) is referred as leading edge.
+    signal transition from 1 t0 0 (\) is referred as trailing edge.
+
+    overbar on signal name indicates its active low i.e. its active when value is 0.
+
+
+
+
+
+

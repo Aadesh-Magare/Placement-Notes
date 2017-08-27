@@ -1,0 +1,25 @@
+two forms are SRAM and DRAM. SRAM is faster, expensive, less dense. SRAM is used in cache and DRAM is used in main memory.
+
+// DRAM :
+    it's made with cells that store data as charge on capacitors. presence or absence of charge is 1 or 0. capacitors have natural tendency to loose charge, so need to periodically refresh hence called as dynamic.
+
+    although dram cell is used to store 1 or 0, it's essentially anaglog device. The capacitor can store any charge within a range, a threshhold value determines whether the charge is interpreted as 1 or 0.
+
+    DRAM cell is simpler and smaller than SRAM cell, thus DRAM is more dense and less expensive.
+// SRAM :
+    uses traditional flip-flop logic gate configurations to store bit.
+
+
+// ROM :
+    read only memory.
+    
+    // PROM : programmable ROM, needs special equipment to program.
+
+    // Read-Mostly memory :
+        frequest reads, rare write.
+        
+        // Erasable PROM : can be erased with special equipment and written again.
+
+        // Electically Erasable PROM : does not require special equipment, can be written again.
+
+        // Flash memory : performance and cost in between EPROM and EEPROM

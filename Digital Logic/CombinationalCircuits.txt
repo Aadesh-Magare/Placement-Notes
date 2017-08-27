@@ -1,0 +1,58 @@
+interconnected set of gates whose output at any time depends only on input at that time.
+
+a boolean function is simplified cause simplified one will required less no of gates for construction. simplification method:
+    Algebric simplification
+    Karnaugh maps
+    Quine-McKluskey tables
+
+    // K-map :
+
+        00  01  11  10
+    00  -   -   -   -
+    01  -   -   -   -
+    11  -   -   -   -
+    10  -   -   -   -
+
+    find group by 1's of size 2,4,8 that are adjacent.
+    Minimize the groups : in the group the value which is different will get dropped and common ones will be retained.
+
+    // Quine-McKluskey :
+        1. create table with rows as product terms in given equation and columns as variables, sorted according to number of 1's in columns.
+        2. find pairs of terms which differ in only one variable, mark the rows where such match is found
+        3. combine the pair by eliminating the variable that differs in two terms.
+        4. the result is new table with expressions formed after elimination in 3rd step
+        5. new table is formed with result from 4th step and the process is continued until a table is formed which has no matches.
+        6. after this the terms which have not been eliminted are used to formed final matrix, its rows are the entries that have not been eliminated in any of the tables. and columns are the expressions in the original matrix.
+        7. a X is placed at the intersection where the row is compmatible wit column, i.e. column contains row.
+        8. X that are alone in column are circled.
+        9. put those x in square which has circled x in its row.
+        10. if every column has squared or circled x then we are done.
+        11. the rows which contain circled and squared x are part of solution.
+        
+// Multiplexer :
+    4 to 1 Multiplexer: 4 input lines and 1 output line, 2 signals lines to select one value out of 4.
+
+    It's used in digital circuits to control signal and data routing. e.g. loading of program counter (PC), it might get one of the following values:
+        binary counter, in case it has to be incremented for next intersection.
+        instruction register
+        output of ALU.
+    
+// Decoder :
+    it has number of output lines, only one of which is asserted at a time, dependent on the pattern of input lines.
+    in-general it has n input and 2^n output lines.
+
+// ROM are basically combinational circuits since it's fixed and is created during fabrication process, 
+
+// Adder :
+    in normal adder, every bit adder has to depend on the carry from previous adder, so the gate delay repples through and becomes significant till it reaches most significant bit.
+    solution to this problem is carry lookahead.
+    
+        C0  = A0B0
+        C1  = A1B1 + A1(C0) + B1(C0)  (substitue C0 value)
+            = A1B1 + A1A0B0 + B1A0B0
+        C2  = A2B2 + A2(C1) + B2(C1)
+            = A2B2 + A2(A1B1 + A1A0B0 + B1A0B0) + B2(A1B1 + A1A0B0 + B1A0B0)
+            = A2B2 + A2A1B1 + A2A1A0B0 + A2B1A0B0 + B2A1B1 + B2A1A0B0 + B2B1A0B0
+        
+        using this way the carry does not depend on the previous carry's and can be computed by using inputs only.
+

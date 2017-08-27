@@ -1,0 +1,52 @@
+// Disk :
+    disk has circular surfaces, which are devided into tracks. 
+    adjacent tracks are separated by gaps, to prevent errors due to misalignment of head.
+    tracks have same width as head.
+    tracks are again devided into sectors, data is transferred to and from sectors.
+    sectors are generally of size 512bytes but can be variable, they are also separated by gaps for same reasons.
+
+    // seek time :
+        time required to move disk arm to required track.
+    
+    // Rotational Delay :
+        time required for track to rotate to reach required sector.
+
+// RAID :
+    Redudant array of independant disks : Redudancy is added to improve reliability.
+
+    its set of physical drives that is viewed by os as single logical drive.
+
+// Raid 0 (NonRedundant) :
+    No Redudancy, no error handling.
+    Striping, data are striped across the available disks.
+
+// Raid 1 (Mirrored) :
+    Striping with Redudancy (data is simply stored in multiple places, different from other raid levels wher some sort of parity is stored)
+    each strip is stored in two separate physical drives.
+
+// Raid 2 (Redudancy through hamming code) :
+    Striping (very small stripes byte or word size) 
+    error correcting code is calculated across corresponding bits on each data disk, and bits of this code are stored in multiple parity disks. Hamming code is used which can correct single bit error and detect double bit errors.
+
+// Raid 3 (Bit-interleaved parity) :
+    similar to Raid 2 but requires single redudant disk
+    instead of error correcting code simple parity bit is used.
+
+    // Parity :
+        e.g. 4 data disks are there x0, x1, x2, x3
+        parity is stored in x4.
+            x4 = x0 xor x1 xor x2 xor x4 
+        when any one of disk fails we can recover data as follows:
+            x1 fails :
+                x1 = x4 xor x3 xor x2 xor x0
+// Raid 4 (block-level parity) :
+    Striping (stripes are larger)
+    parity is stored in a redudant disk.
+
+// Raid 5 (block-level distributed parity)
+    similar to raid 4 except that parity strips are stored across disks.
+
+// Raid 6 (Dual Redudancy) :
+    two different parity calculated and stored in separate blocks in different disks.
+    3 disks need to fail to cause data to be lost.
+    

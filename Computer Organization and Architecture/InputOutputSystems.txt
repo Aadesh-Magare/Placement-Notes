@@ -1,0 +1,19 @@
+I/O module interfaces process and memory via system bus/ switch to one or more peripheral devices.
+
+// Programmed I/O :
+    there are no interrupts, processor issues read/write request to I/O module and later on has to periodically check for its completion.
+
+// Interrupt-driven I/O :
+    processor issues read/write request and goes on to do other work, its interrupted when I/O operation is complete.
+
+// Direct memory access :
+    other methods require active participation by processor during data transfer from I/O to memory.
+    in dma additional module is present on system bus which mimicks processor during data transfer and releaves processor from the job.
+
+    processor initiates the transfer and delegates the operation to dma module which gives an interrupt when transfer is complete, so processor is involved only during starting and ending.
+
+    // Cycle steling :
+        dma module needs to use system bus to transfer data, so it must use bus when processor is not using it or suspend processor's operation temporarily.
+
+        latter technique is more common and is called as Cycle steling, cause dma module steals a bus Cycle. 
+

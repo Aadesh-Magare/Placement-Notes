@@ -1,0 +1,86 @@
+caching works on the principle of locality of reference which states that memory references tend to cluster.
+
+temporal locality is, a recently executed instruction is likely to be executed again soon. It is exploited by keeping recently used instructions and data in the cache.
+spatial locality is, instructions in close proximity to a recently executed instruction are likely to be executed again soon. It is exploited by using larger cache blocks.
+
+// Memory Hierarchy:
+    closest to the processor.
+    Register => one or more level of cache (L1, L2) => main memory (all these are considered internal to the computer system)
+    then comes hard disk => Zip cartridges / optical disks / Tape
+
+    as one goes down the Hierarchy cost/bit decreases, capacity increases and access time also increases
+
+    // word : is natural unit of organization of memory, it's typically equal to number of bits used to represent a number and instruction length.
+
+    // Addressable units : some systems it's equal to word but in many systems it's done at byte level.
+    if x is length in bits of address then number N of Addressable  units is 2^x. 
+        N = 2^x
+
+    // Memory cycle time : this is time concerned with system bus, its time required for the bus to reset and get ready for next data.
+         
+    // unit of transfer : for internal memory is equal to no of data lines into and out of memory module. for main memory its no of bits read out of or written into memory at a time.
+
+
+    // Method of accessing : 
+        sequential : variable access time  e.g. tapes
+        direct : variable access time e.g. Disk units
+        random : fixed access time e.g. main memory
+        associative : random access type memory, that enables one to make comparisons for all words simultaneously. Here a word is retrieved based on its contents instead of location. it has fixed access time as well.
+    
+// Cache Design :
+
+    // cache size : should be such that overall cost per bit should be close to that of ram and overall access time should be close to that of cache. 
+
+    larger cache tends to be slower than smaller ones, even with same configuration.
+
+
+    // Mapping Function :
+        There are fewer cache lines in cache than memory blocks, hence an algorithm is needed for mapping main memory blocks into cache lines.
+
+        // Direct Mapping :
+            maps each block of main memory into only one possible cache line.
+                cache line number = memory block no % cache size
+            
+        // associative mapping :
+            allows each main memory block to be loaded into any line of cache.
+
+        // set-associative mapping :
+            allows each main memory block to be loaded into any line of particular set of cache.
+
+    // Replacement algorithm :
+        implemented in hardware for high speed.
+        
+        // LRU : replace the one which has been in cache for longest time without any reference. This should give best hit ratio.
+
+        // FIFO : Replace the one which has been in cache for longest.
+
+        // LFU : replace the block withe least no of references.
+
+    // Write Policy :
+        before a block is replaced from cache, its necessary to verify whether it has been changed in cache but not updated in main memory.
+
+        a complex problem is in case of multiple processors each with its own cache, it's difficult to keep them all in sync with each other and the main memory. if any one is modified then others become invalidate, a system that prevents this problem is said to maintain cache coherency.
+
+        // write through : writes are done immediately to the memory, so main memory is always valid.
+
+        // write back : writes are done in cache and when block is replaced from cache at that time, its written back to memory.
+
+        // cache coherency approaches:
+            
+            // Bus watching with write through :
+                cache controller watches the bus for writes to memory for the blocks present in cache, when such write is detected it marks the block in cache as invalid. it needs all cache to have write through policy.
+
+            // Hardware transparency :            
+                additional hardware is used to ensure that all updates to memory are reflected across all the cache in appropriate position.
+            
+            // Noncacheable memory :
+                the portion of memory which is shared by processors are is marked as Noncacheable, so that none of the processors cache it.
+            
+
+    // Number of Cache :
+        multilevel cache tends to peroform better than single cache as per experiments, so most systems have multilevel cache such as L1 and L2 
+
+        Unified / Split cache :
+            unified cache means a common cache for both instructions as well as data, split cache will have separate cache for instruction and data.
+
+            split cache gives better performance, since its more suitable for concepts like instruction pipelining.

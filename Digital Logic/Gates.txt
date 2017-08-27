@@ -1,0 +1,5 @@
+when input values are changed output is changed almost instantaneously, delayed only by the propagation time of singals through gate, known as gate delay.
+
+// Functionally complete set of gates :
+    any boolean function can be implemented by using only gates in the set.
+    
