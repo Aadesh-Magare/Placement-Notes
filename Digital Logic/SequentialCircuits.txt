@@ -1,0 +1,64 @@
+combinational circuits provide no memory or state info, hence for that a more complex form of digital logic is used i.e. Sequential circuits.
+
+The current output of Sequential circuits depends on not only the current input but also the history of inputs.
+Sequential circuits make use of combinational circuits.
+
+// Flip-Flop :
+    simplest form of Sequential circuits.
+    
+    // S-R Latch / Flip Flop:
+        characteristic table for SR latch:
+
+        S   R   Qn+1
+        0   0   Qn
+        0   1   0
+        1   0   1
+        1   1   Not allowed
+
+        there is slight delay in output when input changes due to gate delay.
+
+    // Clocked S-R Flip Flop:
+        generally events in digital computers are synchronized to a clock, so that changes occur only when pulse occurs.
+
+        a clock line is used in this flip flop and inputs S and R passed on only during the clock pulse.
+
+    // D Flip Flop :
+        uses single input to avoid the "not allowed" condition from S-R flip flop (11 condition):
+        also called as Data flip flop or delay flip flop.
+    // J-K Flip Flop:
+        uses two inputs but there are no invalid inputs.
+        top 3 outputs are similar to S-R and 11 condition is known as toggle, it toggles the previous output value.
+
+// Registers:
+    It's an application of flip flops.
+
+    // Parallel Registers:
+        consist of set of 1 bit memories that can be read / written simultaneously.
+
+        a 8 bit Parallel register can be easily constructed by using 8 S-R flip flops.
+
+    // Shift Register:
+        accepts and/or transfers information serially.
+
+        data are input only to teftmost flip flop, with each pulse data are shifted to the one right position and rightmost is transferred out.
+        can be constructed by using D flip flops.
+
+        can be used to interface serial I/O devices or in ALU to perform shift, rotate operations.
+    
+// Counters:
+    is a register whose value can be easily incremented by 1 modulo capacity of it.
+
+    register with n flip flops can count up to 2^n - 1
+
+    counts are of type synchronous and asynchrous. synchronous are faster since one flip flop does not depend on the output of earlier one.
+
+    // asynchrous counter (Ripple counter):
+        change to increment counter occurs at one end and Ripples to other end.
+
+        can be constructed using set of J-K flip flops.
+    
+    // Synchronous counter :
+        all flip flops change at the same time, makes use of clock cycle.
+        
+        can be constructed using set of J-K flip flops.
+
