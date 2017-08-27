@@ -1,0 +1,28 @@
+// Decimal system:
+    base or radix : 10
+    
+    47.56 = 4 * 10^1 + 7 * 10^0 + 5 * 10^-1 + 6 * 10^-2
+
+// Binary system:
+    base or radix : 2
+    
+    101.11 = 1 * 2^2 + 0 * 2^1 + 1 * 2^0 + 1 * 2^-1 + 1 * 2^-2
+
+    // Binary to Decimal :
+        multiply by proper powers of 2 and sum 
+
+    // Decimal to Binary :
+
+        // Integar part :
+            repeated division by 2 gives Binary representation of number from lsb to msb.
+
+        // Fractional part :
+            multiply Fractional part by 2, the integar part of multiplication result is the msb of binary number.
+            consider fractional part of result for further calculation, stop when desired no of bits are found.
+
+// Hexadecimal system:
+    base or radix : 16
+
+    // Hex to binary or binary to hex :
+        group of 4 digits in binary forms a digit in hex.
+        
