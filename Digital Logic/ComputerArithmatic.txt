@@ -1,0 +1,71 @@
+a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
+
+// Sign-Magnitude representation:
+	used to represent negative numbers, MSB is considered as sign bit.
+	
+	// Disadvantage :
+		there are two representation of 0, so checking for 0 becomes slower.
+		addition and subtraction requires considering signs of both numbers.
+
+// Twos complement representation :
+	universally used in computers to represent negative numbers.
+	to convert number to negative take 1's complement and add 1 to result.
+
+	
+// Converting the bit length:
+	when sign Magnitude method is used, simply move the sign bit to new leftmost position and fill in with zeros
+
+	when two complement mehtod is used, move the sign bit to new leftmost position and fill in with copies of sign bit.
+
+// Fixed point representation :
+	for whole numbers radix point is fixed and assumed to be to the right of rightmost digit, same representaion can be used for binary fractions.
+
+// Integer Arithmatic :
+	
+	// Negation :
+		in sign Magnitude method just invert the sign bit.
+		in two complement method, take complement and while treating it as unsigned number add 1 to it.
+
+	// Addition & Subtraction :
+		if the result of operation is positive, we get positive number in ordinary binary notation.
+		if the result of operation is negative, we get negative number in twos complement form.
+
+		if there is carry bit beyond the end of word (more no of bits than the operands) then extra bit is ignored.
+
+		// overflow :
+			when two numbers are added and both are positive or negative then overflow occurs iff the result has opposite sign.
+
+			it can occur whether or not there is carry.
+
+	// Multiplication :
+		M = multiplicand
+		Q = multiplier
+		A = store result
+		C = to store overflow bit.
+
+		start with A, C = 0
+
+			M
+         C  A  Q 
+
+		 take 1 bit at a time from Q:
+			if bit is 1 add M to A, shift right by 1 bit. C bit will flow in A and A's bit will flow in Q.
+			if bit is 0, just shift right by 1 bit, don't add.
+			
+	// Twos complement Multiplication :
+
+		// Multiplier is positive :
+
+			if multiplier is positive and multiplicand is negative we can use simple Multiplication where partial multiplications are 2n bits long and instead of padding left side of partial multiplication with 0 here we pad them with 1.
+
+					1001 * 0011		-7 * 3
+
+					11111001
+				+   11110010
+				=	11101011
+
+		// Multiplier is negative :
+
+			can't use simple multiplication.
+
+			
