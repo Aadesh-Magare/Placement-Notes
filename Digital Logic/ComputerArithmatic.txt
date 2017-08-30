@@ -68,4 +68,5 @@ a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
 
 			can't use simple multiplication.
 
+		// Booth's algorithm for twos complement multiplication :
 			
