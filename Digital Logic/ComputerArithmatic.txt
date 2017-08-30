@@ -69,4 +69,25 @@ a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
 			can't use simple multiplication.
 
 		// Booth's algorithm for twos complement multiplication :
-			
+
+			M = multiplicand
+			Q = multiplier
+			A = store result
+			q = to store shifted bit.
+
+			start with A, q = 0
+
+				M
+			  A  Q q 	
+			 
+			  take 1 bit at a time from Q :
+			  	bit to its right is also examined.
+				  
+				if two bits are same, then all of bits of A, Q and q are shifted to right by 1, but the leftmost bit of A is not made 0 on shift, its original value is kept, its called Arithmatic shift.
+
+				if two bits differ and they are 01 then M is added to A 
+				if two bits differ and they are 10 then M is subtracted from A
+				it's followed by Arithmatic shift.
+				
+				 
+
