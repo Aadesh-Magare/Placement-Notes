@@ -90,4 +90,5 @@ a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
 				it's followed by Arithmatic shift.
 				
 				 
-
+	// Division :
+		
