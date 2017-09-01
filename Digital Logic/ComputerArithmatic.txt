@@ -114,6 +114,43 @@ a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
 		3. remaining 23 bits are significand or mantissa.
 		This is called biased representaion.
 
-	normalized number : MSB of significant is nonzero (1 for binary). convertion is that there should be 1 bit to left of radix point. since msb is 1 implicitly, no need to store it. so 23 bits significant can be used to store 24 bits where 1st bit will be 1 by default.
+	normalized number : MSB of significand is nonzero (1 for binary). convertion is that there should be 1 bit to left of radix point. since msb is 1 implicitly, no need to store it. so 23 bits significant can be used to store 24 bits where 1st bit will be 1 by default.
+
+	
+	// Addition / Subtraction :
+		1. Zero check, if one number is zero return the other one
+		2. Significand alignment : make the exponent match for both numbers since it can result in loss of some digits generally smaller number is shifted. 
+		3. Addition of significands. in case of overflow result significand is shifted right and exponent is incremented, in case of exponent overflow it is reported and operation is halted.
+		4. Normalize the result.
+
+	// Multiplication / Divison :
+
+		// Multiplication:
+			1. If either operand is 0 result is 0.
+			2. Add the exponents : if they are stored in biased form then it got doubled so subtract the bias from the sum. exponent overflow / underflow is reported, ending the operation.
+			3. Multiply the significands just like integer multiplication taking into account their signs.
+			4. Result is normalized.
+
+		// Division :
+			1. If divisor is 0, report error or set result as infinity.
+				dividend is 0, result is 0.
+			2. Subtract exponent : subtract exponent from divisor from dividend. This removes bias so it has to be added again.
+			3. Divide the significands just like integer division.
+			4. Result is normalized.
 
 
+	// Precision Consideration :
+		// Guard Bits :
+			Register contains more bits than the length of significand which are used to pad out right end of significand with 0s. these extra bits are called Guard bits.
+			These are useful to save intermediate numbers during calculations since intermediate numbers might be bigger than end result.
+
+		// Rounding :
+			Rounding to nearest : nearest represntable value is chosen. if there are two values which are equally near the one with LSB 0 is chosen.
+
+			Round to -inf / +inf : used in case of range values.
+
+			Round to zero
+    
+	// IEEE Standard :
+		give specification for Infinity, Quiet and Signaling NaNs and denormalized numbers.
+		
