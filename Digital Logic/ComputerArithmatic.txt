@@ -152,5 +152,4 @@ a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
 			Round to zero
     
 	// IEEE Standard :
-		give specification for Infinity, Quiet and Signaling NaNs and denormalized numbers.
-		
+		give specification for infinity, quiet and signaling NaNs and denormalized numbers.

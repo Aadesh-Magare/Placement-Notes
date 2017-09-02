@@ -2,4 +2,13 @@ when input values are changed output is changed almost instantaneously, delayed 
 
 // Functionally complete set of gates :
     any boolean function can be implemented by using only gates in the set.
-    
+
+General gate outputs:
+input : A, B
+
+AND : A.B
+OR : A + B
+NOT : ~A
+NAND : ~(A.B)
+NOR : !(A + B)
+XOR : A~B + B~A
