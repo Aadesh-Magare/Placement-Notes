@@ -108,7 +108,7 @@ a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
 // Floating Point Numbers:
 	32-bit floating point number.
 		1. leftmost bit is sign bit
-		2. next 8 bits store exponent : but not directly, a fixed value called bias is 	subtracted from teh field to true exponent value.
+		2. next 8 bits store exponent : but not directly, a fixed value called bias is 	subtracted from the field to get the true exponent value.
 			bias = 2^k-1 - 1 (k : no of bits in exponent) 
 			For 8 bit exponent bias is 127.
 		3. remaining 23 bits are significand or mantissa.

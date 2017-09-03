@@ -56,3 +56,8 @@ a boolean function is simplified cause simplified one will required less no of g
         
         using this way the carry does not depend on the previous carry's and can be computed by using inputs only.
 
+        no of AND gates in carry generator circuit of n bits adder = n(n+1) / 2
+        and no of OR gates = n
+        
+         
+

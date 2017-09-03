@@ -10,3 +10,13 @@ De morgans theoram :
 Important simplifications:
 ~a + ab = ~a + b    (can be proved by taking complement)
 a + ~ab = a + b
+
+Functionally complete operation set :
+    set of logic functions from which any arbitrary boolean function can be realized.
+    e.g.
+        1. OR, AND, NOT
+        2. NAND
+        3. NOR
+        4. XOR, AND
+        5. 2 to 1 multiplexer.
+        
