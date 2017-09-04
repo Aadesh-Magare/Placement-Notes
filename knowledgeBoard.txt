@@ -1,0 +1,31 @@
+Features:
+    bookmark / pin an item (maybe external items in future)
+    ability to add/remove from public board (history of this activity should be maintained)
+    ability to merge similar knowledge boards (union like operation, should not be manual merging like code merging)
+    ability to share knowledge board with unique urls
+    ordering of items in board e.g. by name, types, custom by user
+    suggestions of content/board based on topics and usage 
+    public boards can have filter by user where only content added by that user will be presented.
+
+Ideas:
+
+    1. public namespace i.e Khub/Java => will be same for everyone
+        Pros:
+            1. will work like wiki (community driven)
+            2. Gamification can be done here on the usage of your contribution to public board
+        Cons:
+            1. different boards with similar names e.g. jsp, j233, java (solution: ability to merge them / suggestions about existing similar boards)
+            2. namespace will get dirty
+
+    2. user namespace i.e. khub/rajeev/java => will be different for everyone, can be shared and all
+        Pros:
+            1. private space can be created (user can decide the board to be private, public, shared with some people)
+
+        Cons:
+            1. multiple boards with same names/content => confusion for user at the time of adding item to board. (solution: can have ranks for boards by using content, usage, personalization)
+            2. Lots of addition to development => more time 
+            
+    3. Mixed :
+        merge 1 and 2
+            1. similar to google photos share
+            2. public boards can be like wiki  

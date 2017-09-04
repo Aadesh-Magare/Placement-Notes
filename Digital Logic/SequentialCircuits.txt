@@ -24,7 +24,11 @@ Sequential circuits make use of combinational circuits.
 
     // D Flip Flop :
         uses single input to avoid the "not allowed" condition from S-R flip flop (11 condition):
+        e.g. input is A and ~A (by using extra NOT gate)
         also called as Data flip flop or delay flip flop.
+            Input   Output
+            0       0
+            1       1
     // J-K Flip Flop:
         uses two inputs but there are no invalid inputs.
         top 3 outputs are similar to S-R and 11 condition is known as toggle, it toggles the previous output value.
@@ -40,7 +44,7 @@ Sequential circuits make use of combinational circuits.
     // Shift Register:
         accepts and/or transfers information serially.
 
-        data are input only to teftmost flip flop, with each pulse data are shifted to the one right position and rightmost is transferred out.
+        data are input only to leftmost flip flop, with each pulse data are shifted to the one right position and rightmost is transferred out.
         can be constructed by using D flip flops.
 
         can be used to interface serial I/O devices or in ALU to perform shift, rotate operations.
