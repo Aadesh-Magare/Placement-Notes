@@ -1,0 +1,44 @@
+Essential elements of instruction : opcode (action to be performed), source and destination of operands reference and next instruction reference.
+
+Common architectures makes use of stacks for various features like procedure calls, typically stacks grow from higher addresses to lower addresses.
+
+A machine language expresses operations in basic form involving movement of data to and from registers.
+
+Common architectures involves machine instruction with 0(uses stack) to 4 memory addresses where 4 address instructions are very rare. Most CPU designs involve variety of instruction formats (e.g. having 2 and 3 address instructions)
+
+// Types of operands :
+
+    // Addresses : basically unsigned integers
+    // Numbers : integer, floating point, Decimal also in some cases.
+            Decimal numbers are represented in backed decimal format, using 4 bits for all decimal digits, its less compact since remaining bits are wasted.
+    // Characters : mostly represented with ASCII
+    // Logical data : individual bits of data are considered.
+
+// Types of Operators :
+
+    // Data transfer :
+        different cases to consider while designing the instructions like transfer from register to register, register to memory, memory to memory, I/O to memory.
+    // Arithmatic :
+        add, sub, mul, div, absolute, negative, increment, decrement etc
+        Most processors provide these instructions for integers but may provide for floating point or packed decimal numbers also.
+    // Logical :
+        instructions for bit-twiddling.
+        Logical shift, Arithmatic shift, rotate etc.
+    // Conversion :
+        instructions that change format of data e.g. EBCDIC to IRA 
+    // Input/ Output:
+        deals with I/O devices
+    // System Control :
+        reserved for operating System
+    // Transfer of Control
+        e.g. branch, skip and procedure call used in loops, if-else blocks, function calls.
+
+        // Branch : jump instruction.
+            most of time its conditional branch.
+        // Skip : skip the instruction, usually used with some condition.
+                 e.g. ISZ : increment and skip if zero
+        // Procedure Call :
+            call and return instructions, its form of branch.
+            mostly stack is used to store the return address as well as parameters to be passed and returned all these together is called stack frame.
+        
+    

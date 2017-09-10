@@ -1,5 +1,20 @@
 for evaluation of prefix and postfix the notations used are polish and  reverse polish.
 
+// Evaluate postfix expression :
+	scan from left to right:
+		if operand push it on the Stack
+		if operator pop two items from stack, perform the operation and push output on stack.
+
+// Convert infix expression to postfix :
+	scan from left to right :
+		if operand, output it.
+		if opening parenthesis, push it on the stack.
+		if closing parenthesis, pop operators to ouput till you get opening parenthesis, pop and discard it.
+		if operator:
+			if top of stack is opening parenthesis, push the operator.
+			if top of stack is operator with less priority, push it on stack.
+			if top of stack is operator with more priority, pop it to output. 
+
 //Implement Stack using Queue :
 	
 	using two queues it can be implemented. we can do either push or pop at constant time but not both for either one of them, we have to transfer all elements from one queue to another.
