@@ -6,39 +6,106 @@ A machine language expresses operations in basic form involving movement of data
 
 Common architectures involves machine instruction with 0(uses stack) to 4 memory addresses where 4 address instructions are very rare. Most CPU designs involve variety of instruction formats (e.g. having 2 and 3 address instructions)
 
-// Types of operands :
+// Instruction Set characteristics :
+    // Types of operands :
 
-    // Addresses : basically unsigned integers
-    // Numbers : integer, floating point, Decimal also in some cases.
-            Decimal numbers are represented in backed decimal format, using 4 bits for all decimal digits, its less compact since remaining bits are wasted.
-    // Characters : mostly represented with ASCII
-    // Logical data : individual bits of data are considered.
+        // Addresses : basically unsigned integers
+        // Numbers : integer, floating point, Decimal also in some cases.
+                Decimal numbers are represented in backed decimal format, using 4 bits for all decimal digits, its less compact since remaining bits are wasted.
+        // Characters : mostly represented with ASCII
+        // Logical data : individual bits of data are considered.
 
-// Types of Operators :
+    // Types of Operators :
 
-    // Data transfer :
-        different cases to consider while designing the instructions like transfer from register to register, register to memory, memory to memory, I/O to memory.
-    // Arithmatic :
-        add, sub, mul, div, absolute, negative, increment, decrement etc
-        Most processors provide these instructions for integers but may provide for floating point or packed decimal numbers also.
-    // Logical :
-        instructions for bit-twiddling.
-        Logical shift, Arithmatic shift, rotate etc.
-    // Conversion :
-        instructions that change format of data e.g. EBCDIC to IRA 
-    // Input/ Output:
-        deals with I/O devices
-    // System Control :
-        reserved for operating System
-    // Transfer of Control
-        e.g. branch, skip and procedure call used in loops, if-else blocks, function calls.
+        // Data transfer :
+            different cases to consider while designing the instructions like transfer from register to register, register to memory, memory to memory, I/O to memory.
+        // Arithmatic :
+            add, sub, mul, div, absolute, negative, increment, decrement etc
+            Most processors provide these instructions for integers but may provide for floating point or packed decimal numbers also.
+        // Logical :
+            instructions for bit-twiddling.
+            Logical shift, Arithmatic shift, rotate etc.
+        // Conversion :
+            instructions that change format of data e.g. EBCDIC to IRA 
+        // Input/ Output:
+            deals with I/O devices
+        // System Control :
+            reserved for operating System
+        // Transfer of Control
+            e.g. branch, skip and procedure call used in loops, if-else blocks, function calls.
 
-        // Branch : jump instruction.
-            most of time its conditional branch.
-        // Skip : skip the instruction, usually used with some condition.
-                 e.g. ISZ : increment and skip if zero
-        // Procedure Call :
-            call and return instructions, its form of branch.
-            mostly stack is used to store the return address as well as parameters to be passed and returned all these together is called stack frame.
-        
+            // Branch : jump instruction.
+                most of time its conditional branch.
+            // Skip : skip the instruction, usually used with some condition.
+                    e.g. ISZ : increment and skip if zero
+            // Procedure Call :
+                call and return instructions, its form of branch.
+                mostly stack is used to store the return address as well as parameters to be passed and returned all these together is called stack frame.
+
+// Addressing Modes :
     
+    Most of computer architectures provides more than one addressing modes.
+    often different opcodes will use different addressing modes or one or more bits in the instruction format can be used as mode field, which determines which addressing mode is being used.
+
+    The effective address in system without virtual memory is actual physical address or register while in system with virtual memory its virtual address or register.
+
+    // Immediate addressin :
+        the operand is actually present in the instruction itself.
+        it saves memory reference.
+            operand = A
+
+    // Direct addressing :
+        the address field in instruction contains effective address of the operand.
+        one memory access is required to fetch operand from that location.
+            EA = A
+
+    // Indirect addressing :
+        the address field in instruction contains intermediate address at which location is the effective address of the operand.
+            EA = ( A )
+
+    // Register Addressing :
+        the address field in instruction contains register reference instead of memory address (its similar to Direct addressing)
+            EA = R
+    
+    // Register Indirect Addressing :
+        similar to indirect addressing, instead of intermediate address, register reference will be provided.
+            EA = ( R )
+
+    // Displacement Addressing :
+        it requires that instruction has two address fields.
+        the value of one field is used directly. The other address field or implicit reference refers to a register whose content is added to first to produce the EA.
+            EA = A + ( R )
+
+        // Relative addressing :
+            implicitly referenced register is PC, i.e. current instruction address is added to address field to get EA.
+            it exploits the locality of reference by assuming that most memory reference are Relatively near to instruction beingn executed.
+
+        // Base-Register addressing :
+            The register contains base address and address field contains the displacement.
+        
+        // Indexing :
+            it's same as base-register addressing but with roles swapped.
+            The register contains displacement and address field contains the base address.
+    
+    // Stack addressing :
+        stack pointer points to the top of the stack, its maintained in a register. thus reference to stack locations are in fact register indirect addresses.
+
+
+// Instruction Formats :
+
+    // Instruction length :
+        no of opcodes, operands, addressing modes and address ranges affect it.
+        It should be equal to memory-transfer length (data-bus length) or one should be multiple of other.    
+
+    // Allocation of Bits :
+        for given instruction length there is trade off between number of opcodes and the power of addressing capability.
+        
+
+
+
+
+
+
+
+
+
