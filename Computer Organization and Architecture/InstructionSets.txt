@@ -112,8 +112,29 @@ Common architectures involves machine instruction with 0(uses stack) to 4 memory
     // Variable length instruction :
         increases the complexity of CPU.
         
+ 
+// Instruction Cycle :
+    // Indirect Cycle :
+        it's part of instruction execution cycle where operands given by indirect addressing are fetched or stored.
 
+    // Data Flow :
+        how the data flows from memory to data bus to MBR and address from MAR to address bus
 
+// Instruction Pipelining :
+
+    Instruction prefetch or fetch overlap : next instruction is fetched while current is still being executed.
+
+    Instruction cycle is decomposed into following components for Pipelining :
+        FI : fetch instruction
+        DI : decode instruction
+        CO : calculate operands
+        FO : fetch operands
+        EI : execute instruction
+        WO : write operand
+
+        Issues with Pipelining :
+            1. condition branch (or interrupt) , we don't know till the end of this instruction what will be the next instruction so all the Pipelining after this may become useless.
+            2. CO may depend on some other register content that has been overwritten due to Pipelining mechanism, this kind of register memory conflicts are a issue.
 
 
 
