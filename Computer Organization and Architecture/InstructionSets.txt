@@ -100,7 +100,18 @@ Common architectures involves machine instruction with 0(uses stack) to 4 memory
     // Allocation of Bits :
         for given instruction length there is trade off between number of opcodes and the power of addressing capability.
         
+        factors that affect Allocation of bits :
 
+            // Number of addressing modes : some bits are needed for this.
+            // Number of operands : more number of operands means fewer bits per operand.
+            // Register vs memory : less no of bits are required to specify register.
+            // Number of register sets : a register set can be implicit from the opcodes so even fewer bits are needed to select the register in set.
+            // address range .
+            // address granularity.
+
+    // Variable length instruction :
+        increases the complexity of CPU.
+        
 
 
 
