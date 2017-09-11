@@ -135,9 +135,4 @@ Common architectures involves machine instruction with 0(uses stack) to 4 memory
         Issues with Pipelining :
             1. condition branch (or interrupt) , we don't know till the end of this instruction what will be the next instruction so all the Pipelining after this may become useless.
             2. CO may depend on some other register content that has been overwritten due to Pipelining mechanism, this kind of register memory conflicts are a issue.
-
-
-
-
-
-
+            3. 
