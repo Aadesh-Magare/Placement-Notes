@@ -132,7 +132,54 @@ Common architectures involves machine instruction with 0(uses stack) to 4 memory
         EI : execute instruction
         WO : write operand
 
-        Issues with Pipelining :
-            1. condition branch (or interrupt) , we don't know till the end of this instruction what will be the next instruction so all the Pipelining after this may become useless.
-            2. CO may depend on some other register content that has been overwritten due to Pipelining mechanism, this kind of register memory conflicts are a issue.
-            3. 
+    Issues with Pipelining :
+        1. condition branch (or interrupt) , we don't know till the end of this instruction what will be the next instruction so all the Pipelining after this may become useless.
+        2. CO may depend on some other register content that has been overwritten due to Pipelining mechanism, this kind of register memory conflicts are a issue.
+    
+        No of stages in instruction :
+            at each stage of the pipeline there are some overhead in moving data from buffer to buffer and performing other preparation and delivery functions. This can have significant effect on execution time of single instruction. hence no of stages of the pipeline cannot be too high even though it may feel like having large no of stages is more efficient.
+
+            The amount of Control logic required to handle the stages increases enormously with number of stages, too many number of stages may make the logic more complx than actual logic of operation.
+
+    // Pipeline Performance :
+        cycle time (t) : time needed to advance a set of instructions one stage through pipeline. (time needed to move pipeline by one unit)
+
+        t = maxinum stage delay (tm) + d  (d is time delay of latch)
+        k = number of stages in pipeline.
+        time to execute all n instructions (Tk) = (k + n-1) * t
+        total k cycles are required to complete first instruction and remaining n-1 instructions take n-1 cycles.
+
+                speedup factor = nk / ((n-1) + k)
+    
+    // Dealing with Branches :
+
+        // multiple streams :
+            allow the pipeline to fetch both instruction at the point of branch, making use of two streams.
+            // issue with this approach :
+                1. increased contention delay for access to registers and memory by both streams
+                2. recursive nature of problem i.e. if the prefetched instruction is conditional it will again require two streams.
+
+        // Prefetch branch target :
+            when conditional branch is found, its target is prefetched in addition to the next instruction. the target is saved till branch instruction is executed.
+
+        // Loop buffer :
+            small, high speed memory maintained by instruction fetch stage of pipeline, it contains n most recently fetched instructions in sequence.
+
+            the buffer will contain next few instructions of the current executing instruction thus branch not taken condition is taken care of.
+            if branch occurs to a target just few instructions ahead of current instruction, the target may be present in buffer already.
+            for loops its possible that entire loop instructions are already present in the buffer.
+
+        // Branch prediction:
+            predict whether the branch will be taken or not
+            1. Predict never taken
+            2. Predict always taken
+                in paged system prefetching the branch target is likely to cause page fault than prefetching next instruction, this should be taken into account while deciding the approach.
+            3. Predict by opcde : assume that for certain opcodes branch will be always taken while for some it won't be, so decide it by looking at opcode.
+            4. Taken / not taken switch 
+            5. Branch history table
+                both these approaches predict the branch outcome by monitoring its past behaviour. some of implementations store the branch instruction, couple of history bits and target address in a table, this table is used to decide prefetching.
+
+        // Delayed branch :
+            pipeline Performance can be improved by automatically rearranging instructions within program such that branch instructions occur later than actually desired.
+
+        
