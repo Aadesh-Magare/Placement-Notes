@@ -1,0 +1,6 @@
+according to chomsky hierarchy grammers are divided into four types:
+
+// Type 0 : Unrestricted grammer 
+    type 0 grammers include all formal grammers.
+    type 0 grammer language are recognized by turing machine and known as recursively enumerable language.
+    

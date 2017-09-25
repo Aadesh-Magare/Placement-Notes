@@ -1,2 +1,3 @@
+horizontal, vertical micro-programming, RISC
 Disk cache => it's not same as paging.
 advanced topics of CO : e.g. parallel processing, cache coherncy, NUMA

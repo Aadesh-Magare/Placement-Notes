@@ -1,0 +1,59 @@
+symbol = a, b, c, 0, 1 etc
+Alphabet (sigma) = {a, b} set of symbols. always finite.
+string = sequence of Alphabets.
+language = set of strings of a particular alphabet. it can be finite or infinite language.
+sigma^1 : set of all strings of length 1
+sigma^2 : set of all strings of length 2
+sigma^n : set of all strings of length n.
+sigma^0 : set of all strings of length 0 i.e. Null string (epsilon)
+sigma^* : set of all strings possible for given alphabet of all lengths
+languages are subsets of sigma^* for given alphabet
+
+we want to determine whether a string is present in language or not, since language can be infinite we need some finite representation of language so that we can compare and determine whether the string is present in language or not.
+this finite representation is called finite automata.
+
+
+// Finite automata :
+finite automata is a simplest machine to recognize patterns.
+Q : finite set of states
+q : initial state
+F : set of final states
+sigma symbol : input alphabet.
+delta symbol : transition function.
+set of these symbols is the formal specification of machine.
+
+Types of FA :
+    // FA with output 
+        // Moore machine
+        // Mealy machine
+
+    // FA without output
+        // DFA
+        // NFA
+        // e-NFA (epsilon NFA)
+
+// DFA : deterministic finite automata
+    consist of 5 tuples : Q, q, F, delta, sigma.
+
+    // For one input machine goes to one state only.
+    // transition function is defined for every state on every input.
+    // Null or e move is not allowed i.e. it cannot change state without any input.
+
+    transition function delta : Q * sigma = Q 
+    There can be many possible DFA for given pattern, a DFA with minimum states is preferred.
+
+// NFA : Non deterministic finite automata
+    similar to DFA with following additional features:
+
+    // Null or e moves are allowed i.e. it can change state without any input.
+    // ability to transit any number of states for particular input (including null or e input)
+
+    in NFA if any path for a input string leads to final state then the input string is accepted.
+    if all strings in a language are accepted and all strings not in language are rejected then the language is said to be accepted.
+
+// Comparative points :
+    // every DFA is NFA but not vice versa.
+    // both DFA and NFA have same power and each NFA can be translated to DFA.
+    // there can be multiple final states in DFA and NFA.
+    // NFA is more of theoratical concept.
+    // DFA is used in lexical analyser in compiler.
