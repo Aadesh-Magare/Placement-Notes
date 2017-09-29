@@ -1,0 +1,21 @@
+These are FA with output. Both are deterministic.
+Described by 6 tuple :
+    Q : finite set of states
+    q : initial state
+    Sigma : input alphabet
+    delta : transition function Q * Sigma = Q
+    triangle : output alphabet. (symbols which will be outputed)
+    lambda : output function. (will determine what will be the output)
+
+// Moore machine :
+    lambda : Q -> triangle
+    i.e. the output depends on state only.
+
+    for input of length n, it will produce output of length n+1. since the initial state will also produce output without any input.
+
+// Mealy machine :
+    lambda : Q * Sigma = triangle.
+    i.e. the output depends on state as well as input alphabet.
+
+    for input of length n, it well produce output of length n. because each output depends on input symbol.
+
