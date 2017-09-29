@@ -1,0 +1,31 @@
+on seeing a particular input, you can end up in many states from the current state.
+
+most of real life machines are DFA.
+NFA machines are not real, theoratical concept.
+
+if for some state, its not defined where it goes on seeing a particular symbol, we say that it goes to null state.
+
+// Conversion of NFA to DFA :
+
+    first draw NFA.
+    construct state transition table :
+        states as rows and input symbols as columns.
+        add entries for all transitions in NFA.
+    
+    e.g.
+
+                a       b
+        A       {A,B}   {A}
+
+        B       {C}     {C}                
+
+        C       {}      {}
+
+
+    convet the table into state transition table for DFA:
+        for fields with multiple states ( {A,B}) create a new combined state with the name of those states (AB)
+        only include those states which are reachable from state symbol.
+        for adding transitions for combined state, take union of rows for those states from NFA's transition table.
+        initial state will remain same in both cases
+        final state in DFA will be all those states which contain final state from NFA.
+

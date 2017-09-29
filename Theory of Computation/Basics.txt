@@ -48,6 +48,7 @@ Types of FA :
     // Null or e moves are allowed i.e. it can change state without any input.
     // ability to transit any number of states for particular input (including null or e input)
 
+    transition function : Q * sigma = 2^Q
     in NFA if any path for a input string leads to final state then the input string is accepted.
     if all strings in a language are accepted and all strings not in language are rejected then the language is said to be accepted.
 

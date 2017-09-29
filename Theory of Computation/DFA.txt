@@ -1,0 +1,15 @@
+on seeing particular input, it can go to only one state from the current state.
+
+
+complement of DFA :
+    all other properties in tuple remain same excep the final state.
+    change all final states from original DFA to non-final and non-final states to final .
+
+Reversal of DFA :
+    draw the states as it is.
+    swap initial and final states.
+    change the direction of arrows. (i.e. transition on given input)
+
+    on reversal it's possible to get NFA for DFA's reversal.
+
+
