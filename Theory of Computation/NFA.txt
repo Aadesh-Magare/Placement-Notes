@@ -5,6 +5,8 @@ NFA machines are not real, theoratical concept.
 
 if for some state, its not defined where it goes on seeing a particular symbol, we say that it goes to null state.
 
+NFA will always have less no of states than corresponding DFA. hence no of states in minimal DFA will be greater than or equal to no of states in corresponding minimal NFA.
+
 // Conversion of NFA to DFA :
 
     first draw NFA.
@@ -29,3 +31,9 @@ if for some state, its not defined where it goes on seeing a particular symbol, 
         initial state will remain same in both cases
         final state in DFA will be all those states which contain final state from NFA.
 
+// Complement of NFA:
+    when DFA is complemented language getting accepted by it gets complemented as well but that's not the case with NFA.
+
+    the language accepted by NFA need not get complemented when NFA is complemented, it may get complemented but not always.
+
+    

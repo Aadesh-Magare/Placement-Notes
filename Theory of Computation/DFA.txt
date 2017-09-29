@@ -1,11 +1,13 @@
 on seeing particular input, it can go to only one state from the current state.
 
 
-complement of DFA :
+// Complement of DFA :
     all other properties in tuple remain same excep the final state.
     change all final states from original DFA to non-final and non-final states to final .
 
-Reversal of DFA :
+    when you complement a DFA, the language getting accepted by DFA also gets complemented. 
+
+// Reversal of DFA :
     draw the states as it is.
     swap initial and final states.
     change the direction of arrows. (i.e. transition on given input)
@@ -13,3 +15,14 @@ Reversal of DFA :
     on reversal it's possible to get NFA for DFA's reversal.
 
 
+// Minimization of DFA:
+    // Equivalent states:
+        two states are said to be equivalent if both of them go to final state on seeing a input w (the final states need not be same) or both of them do not go to final state on seeing a input w.
+
+        if length of w is n then the states are called n-equivalent states.
+
+    1. remove all the states which are unreachable from initial state.
+    2. create state transition table.
+    3. find 0-equivalent states : it will give you two sets i.e. set of final states and set of non-final states.
+    4. find 1-equivalent to n-equivalent states : use sets from previous step. go on finding n+1 equivalent states unless you get two steps whose outputs are same.
+    5. the sets in last step will be the states in minimized DFA.
