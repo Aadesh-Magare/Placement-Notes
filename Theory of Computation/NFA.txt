@@ -37,3 +37,25 @@ NFA will always have less no of states than corresponding DFA. hence no of state
     the language accepted by NFA need not get complemented when NFA is complemented, it may get complemented but not always.
 
     
+// Conversion of E-NFA to NFA :
+
+    E-NFA is NFA with espilon moves.
+
+    E-closure of state : set of states you can reach from the current state with espilon input.
+    E-closure of a state always contains the state itself.
+
+    DFA, NFA and E-NFA have same power and are interconvertible.
+
+    1. create state transition table for NFA
+    2. include only non-epsilon moves in the table since its for NFA and not E-NFA.
+    3. For a transition, to get set of destination states : use this
+                E* input symbol E*
+        i.e. 
+            a) Find epsilon closure of current state.
+            b) Consider transitions with given input symbol for all states in the closure.
+            c) Find epsilon closure of all states from step b
+            d) The obtained set of states goes to the transition table against the input symbol.
+     
+
+There are some languages for which constructing a FA is not possible. (.e.g a^nb^n n>= 1)
+because FA does not have infinite memory.

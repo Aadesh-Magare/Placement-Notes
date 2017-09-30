@@ -19,3 +19,20 @@ Described by 6 tuple :
 
     for input of length n, it well produce output of length n. because each output depends on input symbol.
 
+// Conversion of Moore to Mealy : Both have same power and can be interconverted.
+
+    1. remove output associated with the states.
+    2. for each transition, see the state to which it is going (destination) and associate the output from that state to the transition.
+
+    No of states does not change during this conversion.
+// Conversion of Mealy to Moore :
+
+    Procedure is opposite to that of Moore to Mealy.
+    1. For each transition, move the output from transition to the destination state.
+    2. If the destination state already has output associated with it, create a new state with same name and this new output.
+    3. If at the end some state does not have any output (because it did not had any incoming edge) then the state can have any output it won't matter.
+
+    From the process it's clear that during this Conversion the number of states may increase.
+
+    For Mealy machine, if we have N states and M outputs then the corresponding Moore machine can have N * M number of states.
+

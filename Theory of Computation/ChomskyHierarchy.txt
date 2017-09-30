@@ -3,4 +3,35 @@ according to chomsky hierarchy grammers are divided into four types:
 // Type 0 : Unrestricted grammer 
     type 0 grammers include all formal grammers.
     type 0 grammer language are recognized by turing machine and known as recursively enumerable language.
+
+
+
+Type of grammer                Type of language                                 Machine 
+(Generator of language)                                                   (Acceptor of lang)
+
+RG                          Regular language (a^n n >= 1)                       => FA
+CFG                         Context free language (a^nb^n n >= 1)               => PDA
+CSG                         Context sensitive language (a^nb^nc^n n >= 1)       => LBA
+UG                          Recursively enumerable set (a^p p = prime number)   => TM
+
+
+
+// Regular Language :
     
+    Representor : Regular expressions
+    Acceptor : Finite automata (FA)
+    Generator : Regular Grammar (RLG and LLG : Right / Left Linear Grammar)
+
+    If a language is accepted by FA then its regular language and we can represent it using regular expressions.
+
+    You can convert FA to RE and vice versa.
+
+    RE can be converted to FA by simply observation.
+    
+    // FA to RE :
+        1. make sure initial state does not have any incoming edges : if it has create a new initial state and a epsilon transition from this new state to earlier initial state
+
+        2. make sure final state does not have any outgoing edges and there is only one final state : it its not the case, create a new final state and a epsilon transition from current final state to the new state.
+
+        3. eliminate other states between initial and final states such that there is no change in path and transitions.
+
