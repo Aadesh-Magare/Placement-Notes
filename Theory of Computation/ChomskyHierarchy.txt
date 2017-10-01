@@ -35,3 +35,42 @@ UG                          Recursively enumerable set (a^p p = prime number)   
 
         3. eliminate other states between initial and final states such that there is no change in path and transitions.
 
+
+    a finite language is always regular language.
+    a infinite language may be regular but not always : if the language strings have some pattern like (ab, abab, ababab...) then a FA with loop can accept that language and hence it can be a regular language.
+
+    // Pumping lenma : if an infinite language does not have any repeating pattern then it's not regular language. if such pattern exists then it may be regular.
+
+    so failing Pumping lenma guarantees that the language is not regular but passing the lenma does not necessarily mean its regular language. hence Pumping lenma is negativity test.
+
+    these patterns mostly form an AP (arithmatic progression) if no such pattern can be found then we can say its not regular language.
+
+    e.g. a^n where n is even 
+        a^n where n is odd
+        both of these forms AP with common difference of 2 between terms so we can generate these with a loop, hence its regular language.
+
+        a^n where n is prime
+        a^n^2    where n >= 1 
+        a^2^n where n >= 1 all 3 of these are not regular, cause the terms don't form an AP hence there is no suitable pattern.
+
+    a language which needs infinite memory is not regular
+    e.g. a^nb^n where n > 1 here first we need to count no of a and then compare with no of b. but no of a can be infinite we can't count them all with finite memory hence its not regular language.
+
+    a^nb^m where n, m > 1 is a regular language because we don't need to count no of a or b. both are independent we can have any no of a followed by any no of b. hence its possible to construct FA for it.
+
+
+// Regular Grammar :
+    tuple V, T, P, S 
+        V : set of all vertices
+        T : set of all terminals
+        P : set of all productions
+        S : start symbol
+
+        Derivation : getting the string from the grammer 
+        if you start replacing left most vertex its called left most Derivation and for right most vertex its called right most Derivation.
+
+        intermediate string got in the Derivation are called sentential forms or sequential forms.
+        
+
+
+
