@@ -1,0 +1,19 @@
+// For Regular Languages:
+    It's used to prove irregularity of languages.
+    If a language does not satisy pumping lemma then its not regular language. but it can't be used to prove that language is regular.
+
+    For regular language L, there exists a number n (pumping length), such that for all x belongs L with length(x) >= n following holds true:
+        x = uvw ie devide the string in three parts such that
+        1. length(uv) <= n
+        2. length(v) >= 1
+        3. for all i >= 0 : uv^iw belongs to L.
+
+// For Context-Free Languages:
+    It's used to prove that language is not Context-Free.
+    If a language does not satisy pumping lemma then its not Context-Free language. but it can't be used to prove that language is Context-Free.
+
+    For Context-Free language L, there exists a number n (pumping length), such that for all x belongs L with length(x) >= n following holds true:
+        x = uvxyz ie devide the string in five parts such that
+        1. length(vxy) <= n
+        2. length(vy) >= 1
+        3. for all i >= 0 : uv^ixy^iz belongs to L.

@@ -1,0 +1,38 @@
+Push down automata : FA + Stack.
+// 7 tuple consisting of :
+
+    Q : finite set of states
+    sigma : input symbol
+    delta : transition function.
+    q : initial state.
+    Z0 : bottom of the Stack
+    F : set of final states.
+    ~ : stack alphabet (symbols that can be present in stack)
+
+    PDA is of two types just like FA:
+        // Deterministic PDA:
+            same as DFA where along with input symbol it also considers a symbol from top of the stack and goes to a single state and push output on top of stack.
+        // Non-Deterministic PDA :
+            same as NFA where along with input symbol it also considers a symbol from top of stack and can go to many states and push output on top of stack.
+        
+        there are some languages that Non-Deterministic PDA can accept but Deterministic PDA cannot.
+    
+    sample transition function for PDA :
+        transition function delta:
+            delta(q0, a, Z0) = (q0, aZ0)
+            currently in state q0, on seeing input a and top of stack is Z0, then go to state q0, and push a and Z0 onto stack (pushing Z0 because while checking the top of stack it got removed)
+
+            delta(q0, b, a) = (q1, e)
+            currently in state q0, on seeing input b and top of stack a, then go to state q1, and push epsilon onto stack (i.e. nothing, we want to remove a for every matched b in input)
+
+    PDA can accept strings in two ways : acceptance by final state and acceptance by empty stack.
+
+    if PDA comes accross a transition that is not defined it goes into dead state and program is halted.
+
+    PDA cannot accept a language like a^nb^mc^nd^m :
+        since we have to match no of a with no of c but till the time c comes up in input we have already pushed b onto the stack, no way to compare c against a. hence PDA can't accept this language.
+
+        language like a^nb^nc^n :
+        since we have to match no of a, b and c. by the time c comes up in input the stack is already empty nothing to compare against. hence PDA won't accept language like this.
+
+    Non-Deterministic PDA is used to match a string like ww^r while Deterministic PDA can match wcw^r string.
