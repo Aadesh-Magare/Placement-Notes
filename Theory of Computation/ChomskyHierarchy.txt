@@ -6,6 +6,8 @@
 
     If a language is accepted by FA then its regular language and we can represent it using regular expressions.
 
+    regular language is closed under union, intersection, concatenation, complement and kleen closure as well, hence if two languages are regular these operations on them will also produce regular language only.
+
     You can convert FA to RE and vice versa.
 
     RE can be converted to FA by simply observation.
@@ -113,7 +115,7 @@
         symbols that are unreachable from the start symbol.
         a usefull symbol is one which can derive some terminal in final string.
 
-    Union, concatenation and kleen closure of CF Languages is also CF language.
+    CF language is closed under Union, concatenation and kleen closure. hence union, concatenation and kleen closure of CF Languages is also CF language.
     but intersection and complement of CF Languages need not be CF language always.
 
 // Type 1 : Context-sensitive grammar (CSG)

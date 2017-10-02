@@ -35,7 +35,10 @@ NFA will always have less no of states than corresponding DFA. hence no of state
     when DFA is complemented language getting accepted by it gets complemented as well but that's not the case with NFA.
 
     the language accepted by NFA need not get complemented when NFA is complemented, it may get complemented but not always.
-
+        if L = (a + b)*`
+        L1 is some subset of L, obtained by NFA M1.
+        if L2 is language obtained by Complement of M1.
+        L2 = L - L1 is not always true.
     
 // Conversion of E-NFA to NFA :
 
