@@ -1,0 +1,14 @@
+// Lexical Analyser :
+
+    Only phase which reads actual program character by character, only this phase knows about the line numbers where each token appears.
+
+    Main tasks of the phase :
+        1. Convert lexems into tokens.
+        2. Removing comments and whitespace.
+
+// Syntax Analyser :
+
+    takes grammar and tokens as input.
+
+    If grammar generates more than one parse trees or LMD or RMD for a string then the grammar is ambiguous.
+    Most parsers don't allow ambiguous grammars so we have toconvert
