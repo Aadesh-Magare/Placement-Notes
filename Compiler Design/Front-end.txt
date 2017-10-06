@@ -110,10 +110,44 @@
                 // Operator relation table takes n^2 size for n operators hence to save space operator function table is used that takes 2n size for n operators. when using operator function table additional error handling needs to be done since this table will have entries for even those comparisons which are not present in operator relation table so a separate data structure should be used to remember such cases.
 
             // LR parsers:
-                LR(0)
-                SLR(1)
-                LALR(1)
-                CLR(1)
+                // LR(0) : Does not look at next symbol while reducing hence called LR(0).
+                    Canonical collection of LR(0) items is used to construct LR parsing table.
+                    Not all grammars can be handled by LR(0) parser since there might be Shift-Reduce conflicts (S-R conflicts) or Reduce-Reduce conflicts (R-R conflicts)
+                    
+                    // Construction of parsing table :
+                        1. create augmented grammar by adding one more production in the beginning, this will change the start state.
+                        2. Introduce dot (.) in the starting production.
+                        3. Find closure of starting production.
+                        4. Find goto of the production i.e. move the dot by one place to right. also find closure of the output of goto.
+                        
+                        5. No of states after final operation goes into the table as rows, columns have two parts action and goto.
+                        6. Action part contains only terminals (including $) while goto will contain variables.
+                        7. All transitions on variables are written in goto part i.e. to which state it goes on seeing this variable.
+                        8. All transitions on terminals are written in action part, it's in terms of shifts.
+                        9. State which has final items are treated differently than normal ones, augmented state having final item indicates accepted string.
+                        10. other states with final items, find corresponding production for the state and add it as reduce production in action part of table.
+                        (for all terminals i.e. fill entire row)
+                    
+                    // Parsing example :
+                        1. start the stack with initial state.
+                        2. do look-up in the table, if it gives shift move : push the input symbol on the stack followed by shift number. increment input.
+                        3. If the look-up gives reduce move : 
+                            a) reduce the previous input character of the current one using the production number given by reduce move.
+                            b) pop out 2n characters from stack if length of RHS of the production is n 
+                            c) push the LHS of the production onto stack.
+                            d) do lookup of last two characters in table and push the result onto stack.
+                            e) don't increment the input pointer.
+                        4. If the look-up gives accept : string is accepted. 
+                        5. If the look-up gives empty cell then it's an error.
+                SLR(1) : Simple LR, more powerful than LR(0). has more empty cells hence more error detection.
+                    Canonical collection of LR(0) items is used to construct LR parsing table.
+                    // Construction of parsing table:
+                        1. All procedure is same as LR(0) except the reduce moves, unlike LR(0) the reduce does not fill the entire row.
+                        2. place the reduce move in Follow() of LHS only.                
+                LALR(1) : Look ahead LR
+                    Canonical collection of LR(1) items is used to construct LR parsing table.
+                CLR(1) : Canonical LR
+                    Canonical collection of LR(1) items is used to construct LR parsing table.                
 
     
 
