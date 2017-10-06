@@ -59,11 +59,15 @@
         None of the parsers would work with ambiguous grammar except the operator precedence parser.
 
         // Top Down Parsers (TDP) : 
-        here main descision is which production to choose at every stage of constructing parse tree. The parse tree is built in left-most derivation fashion.
+            here main descision is which production to choose at every stage of constructing parse tree. The parse tree is built in left-most derivation fashion.
             // TDP with full backtracking
                 Bruteforce method
             // TDP without full backtracking : No Left-Recursion, No Non-Determinism
-                Recursive descent
+                Recursive descent : Does not need extra stack, uses OS stack directly.
+                    write an actual program (C language mostly) for the grammar.
+                    1. one function for each variable in productions.
+                    2. match function that will match the current input with given character.
+                    3. main function that will call function corresponding to initial variable and check the end of input string after return from initial call.
                 Non-Recursive descent LL(1) :
                     LL(1) : Left to right, Left-most derivation, look ahead of 1 symbol.
                     // First() :
@@ -73,8 +77,30 @@
                         for right-most symbol its follow is follow of LHS. also for some variable everything on its right can become epsilon then its follow will include follow of LHS.
 
         // Bottom Up Parsers (BUP) : 
-        here main descision is when to reduce a terminal into variable. The parse tree is build in reverse order of right-most derivation. (bottom-up)
+            here main descision is when to reduce a terminal into variable. The parse tree is build in reverse order of right-most derivation. (bottom-up)
             // Operator precedence parser : can work with ambiguous grammar as well.
+                // Operator grammar : grammar in which no two variable are adjacent.
+                // Operator relation table :
+                    rows as well as columns are terminals (operators)
+                    basically we are comparing precedence of operators against each other.
+                    e.g.    grammar is :
+                                E ->  E + E | E * E | id 
+                            Operator relation table is :
+                                id      +       *       $
+                            id  -       >       >       >
+                            +   <       >       <       >
+                            *   <       >       >       >
+                            $   <       <       <       -
+                // Generating parse tree:
+                    A stack is used which initially contains $, the input string ending with $ is compared against the contents of stack.
+
+                    if item is stack has less precedence than input symbol : push the symbol onto stack.
+                    if item in stack has more precedence than input symbol : pop the symbol from stack and reduce it using its production.
+
+                    following the procedure we get a parse tree in bottom-up fashion.
+
+                // Operator relation table takes n^2 size for n operators hence to save space operator function table is used that takes 2n size for n operators. when using operator function table additional error handling needs to be done since this table will have entries for even those comparisons which are not present in operator relation table so a separate data structure should be used to remember such cases.
+
             // LR parsers:
                 LR(0)
                 SLR(1)
