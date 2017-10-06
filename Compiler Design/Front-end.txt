@@ -75,7 +75,15 @@
                     // Follow() :
                         Follow of a symbol is first of the group that follows it in the production RHS.
                         for right-most symbol its follow is follow of LHS. also for some variable everything on its right can become epsilon then its follow will include follow of LHS.
+                    // Parsing table :
+                        LL(1) parser cannot be used for all grammars, for some grammars we might get multiple entries in one cell of parse table those grammars won't work with LL(1) parser.
 
+                        Rows are variables from productions and columns are terminals along with $. we have to write all productions into the cells of this table.
+
+                        Now each production will go into the row of that symbol on its LHS. The cell in row will be decided as follows :
+                            1. if the RHS contains some variables/terminals : find first() of the LHS, the production goes into the results cell.
+                            2. if RHS is epsilon only : find Follow() of the LHS, the production goes into the results cell.
+                             
         // Bottom Up Parsers (BUP) : 
             here main descision is when to reduce a terminal into variable. The parse tree is build in reverse order of right-most derivation. (bottom-up)
             // Operator precedence parser : can work with ambiguous grammar as well.
