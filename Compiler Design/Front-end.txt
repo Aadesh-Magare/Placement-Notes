@@ -58,6 +58,13 @@
     // Types of parsers :
         None of the parsers would work with ambiguous grammar except the operator precedence parser.
 
+        // Parser Hierarchy (all need unambiguous grammar)
+            // CLR
+                // LALR
+                    // SLR              |
+                        // LR           | LL might overlapp with these two but its totally 
+                    // LL               | contained in LALR.
+                    
         // Top Down Parsers (TDP) : 
             here main descision is which production to choose at every stage of constructing parse tree. The parse tree is built in left-most derivation fashion.
             // TDP with full backtracking
@@ -139,16 +146,44 @@
                             e) don't increment the input pointer.
                         4. If the look-up gives accept : string is accepted. 
                         5. If the look-up gives empty cell then it's an error.
-                SLR(1) : Simple LR, more powerful than LR(0). has more empty cells hence more error detection.
+                // SLR(1) : Simple LR, more powerful than LR(0). has more empty cells hence more error detection.
                     Canonical collection of LR(0) items is used to construct LR parsing table.
                     // Construction of parsing table:
                         1. All procedure is same as LR(0) except the reduce moves, unlike LR(0) the reduce does not fill the entire row.
                         2. place the reduce move in Follow() of LHS only.                
-                LALR(1) : Look ahead LR
+                // CLR(1) : Canonical LR
                     Canonical collection of LR(1) items is used to construct LR parsing table.
-                CLR(1) : Canonical LR
-                    Canonical collection of LR(1) items is used to construct LR parsing table.                
+                    LR(1) items = LR(0) items + look ahead. No of states in LR(1) might be greater than no of states in LR(0) due to look-aheads.
 
-    
+                    Look aheads are used to determine where the items in final state are placed in parsing table.
+                    // Construction of parsing table:
+                    1. Start with augmented production, look ahead is always $ for this.
+                    2. For the production : A -> a.Bb, a/b
+                        here a/b are two look aheads, now because of .B we'll add all productions of B to closure.
+                            B -> .r, look ahead
+                            here look ahead will be First() of remaining stuff after .B in above production i.e. First(b, a/b) = c (say)
+                            B -> .r, c
+                    3. For production of the type : A -> a.B, a/b
+                        by step #2 here remaining stuff after .B is only (a/b)
+                        hence look ahead for B -> .r, look ahead will be same as the production i.e. a/b
+                    4. When new state is created due to some transition the look ahead will remain same. 
+                    5. The reduce moves are only placed in the look-aheads. hence its less than LR(0) and SLR(1) so no of conflicts are reduced. Due to more no of empty cells error detection is improved.
+
+                // LALR(1) : Look ahead LR
+                    Canonical collection of LR(1) items is used to construct LR parsing table.                
+                    // Construction of parsing table is same as in CLR(1)
+                        1. No of states here are reduced than CLR(1) since we merge the states which differ only in look-aheads. hence it has same no of states as LR(0) and SLR(1).
+                            How to merge : merge state 3 and 6
+                                1. change all the shift moves 
+                                    e.g. s3, s6 to s36, s36
+                                2. change all states in goto part 
+                                    e.g. 3, 6 to 36, 36
+                                3. change state names in row headers
+                                4. remove duplicate rows after taking their union.
+                                    e.g.
+                                    row36 : s2 s36  -
+                                    row36 : - s36  s4
+                                    make row36 : s2 s36 s4 and remove one.
+                        2. because of merging there could be conflicts hence every CLR(1) grammar is not LALR(1).   
 
 
