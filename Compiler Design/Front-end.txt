@@ -187,3 +187,36 @@
                         2. because of merging there could be conflicts hence every CLR(1) grammar is not LALR(1).   
 
 
+// Syntax Directed Translation (SDT) : grammar + sematic rules = SDT.
+    some rules are given alongwith grammar :
+        1. For each reduction in bottom-up parsing some action is also performed. 
+        2. For each substitution in top-down parsing the tree includes one more branch for action associated with the production.
+
+    Concrete Syntax tree : parse tree which includes all information about states and terminals.
+    Abstract Syntax tree : represents only terminals directly, shorter version of parse tree. it does not include states. 
+
+    // Type of attributes :
+        in SDT variables have some attributes like A.value, B.dval etc. these attributes can be of two types.
+
+        // Synthesized attributes:
+            A -> BCD {A.val = B.val + C.val}
+            attribute of parent takes value from children's attributes then it's called Synthesized attribute.
+        // Inherited attributes:
+            A -> BCD {C.val = A.val * D.val}
+            attribute of children takes value from parent's attribute or sibling's attribute then it's called Inherited attribute.
+
+    // Types of SDT :
+        // S-attributed SDT :
+            1. uses only synthesized attributes.
+            2. sematic actions are placed at right end of production
+                e.g. A -> ABC {A.val = B.val}
+                hence this is also called postfix SDT.
+            3. attributes are evaluated during BUP. (since actions are present at right end)
+
+        // L-attributed SDT :
+            1. uses both synthesized and inherited attributes (inherited attributes can be only from parent or left sibling)
+            2. sematic actions can be placed anywhere.
+            3. attributes are evaluated by traversing parse tree depth first, left to right. (since actions depend on left side elements only)
+
+        If SDT is s-attributed then it is also L-attributed.
+        
