@@ -1,7 +1,9 @@
 // Lexical Analyser :
 
-    Only phase which reads actual program character by character, only this phase knows about the line numbers where each token appears.
+    Only phase which reads actual program character by character, only this phase knows about the line numbers where each token appears. also known as scanner phase.
 
+    It can be implemented with DFA.
+    
     Main tasks of the phase :
         1. Convert lexems into tokens.
         2. Removing comments and whitespace.
@@ -13,6 +15,8 @@
     // Ambiguous-Unambiguous grammar :
         If grammar generates more than one parse trees or LMD or RMD for a string then the grammar is ambiguous.
         Most parsers don't allow ambiguous grammars so we have to convert it to unambiguous.
+
+        A CFL L is said to be inherently ambiguous language if every CFG G with language L = L(G) is ambiguous.
 
         There is no algorithm to detect whether the grammar is ambiguous or not, also there is no algorithm to convert ambiguous grammar to unambiguous.
 
@@ -79,9 +83,21 @@
                     LL(1) : Left to right, Left-most derivation, look ahead of 1 symbol.
                     // First() :
                         First of a variable is the first of its RHS from production i.e. the terminal symbol. It can include epsilon as well.
+                        Rules:
+                            If x is a terminal, then FIRST(x) = { ‘x’ }
+                            If x -> Є, is a production rule, then add Є to FIRST(x).
+                            If X ->Y1 Y2 Y3….Yn is a production,
+                                FIRST(X) = FIRST(Y1)
+                                If FIRST(Y1) contains Є then FIRST(X) = { FIRST(Y1) – Є } U { FIRST(Y2) }
+                                If FIRST (Yi) contains Є for all i = 1 to n, then add Є to FIRST(X).
                     // Follow() :
                         Follow of a symbol is first of the group that follows it in the production RHS.
                         for right-most symbol its follow is follow of LHS. also for some variable everything on its right can become epsilon then its follow will include follow of LHS.
+                        Rules:
+                            FOLLOW(S) = { $ }   // where S is the starting Non-Terminal
+                            If A -> pBq is a production, where p, B and q are any grammar symbols, then everything in FIRST(q)  except Є is in FOLLOW(B.
+                            If A->pB is a production, then everything in FOLLOW(A) is in FOLLOW(B).
+                            If A->pBq is a production and FIRST(q) contains Є, then FOLLOW(B) contains { FIRST(q) – Є } U FOLLOW(A) 
                     // Parsing table :
                         LL(1) parser cannot be used for all grammars, for some grammars we might get multiple entries in one cell of parse table those grammars won't work with LL(1) parser.
 
