@@ -37,8 +37,3 @@
             Formals are substitued by actual parameters in all the places where formals appear in the procedure. It is also referred as lazy evaluation because evaluation is done on parameters only when needed.
 
 
-// Intermediate Code Generation :
-    The following are commonly used intermediate code representation :
-        Postfix notation
-        Syntax tree
-        Three-address code
