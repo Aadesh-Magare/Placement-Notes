@@ -37,3 +37,26 @@
             Formals are substitued by actual parameters in all the places where formals appear in the procedure. It is also referred as lazy evaluation because evaluation is done on parameters only when needed.
 
 
+// Code Optimization :
+    The optimization process should not delay the overall compiling process.
+
+    // Types of Code Optimization :
+        // Machine Independent Optimization : 
+            This code optimization phase attempts to improve the intermediate code to get a better target code as the output. The part of the intermediate code which is transformed here does not involve any CPU registers or absolute memory locations.
+        // Machine Dependent Optimization :
+            Machine-dependent optimization is done after the target code has been generated and when the code is transformed according to the target machine architecture. It involves CPU registers and may have absolute memory references rather than relative references.
+    
+    // Code optimization techniques :
+
+        // Compile time evaluation :
+            A = 2 * (22.0 / 7.0) * r 
+            Perform 2 * (22.0 / 7.0) * r at compile time.
+        // Variable propagation.
+        // Dead Code elimination.
+        // Code Motion :
+            Reduce the evaluation frequency of expression.
+            Bring loop invariant statements out of the loop. 
+        // Induction variable and strength reduction :
+            An induction variable is used in loop for the following kind of assignment i = i + constant.
+            Strength reduction means replacing the high strength operator by the low strength. (.e.g * by +)
+            
