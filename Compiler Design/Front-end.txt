@@ -235,4 +235,9 @@
             3. attributes are evaluated by traversing parse tree depth first, left to right. (since actions depend on left side elements only)
 
         If SDT is s-attributed then it is also L-attributed.
-        
+
+// Intermediate Code Generation :
+    The following are commonly used intermediate code representation :
+        Postfix notation
+        Syntax tree
+        Three-address code

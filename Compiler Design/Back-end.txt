@@ -1,0 +1,62 @@
+// Runtime Environments :
+    It's state of target machine which may include libraries, environment variables etc.
+
+    // Activation Trees :
+        Each execution of a procedure is known as activation. (each instance)
+        These activations can be non-overlapping or nested.
+
+        Tree of activations which shows the flow of execution is activation tree.
+
+    // Activation Records or Control stack :
+        control stack or runtime stack keeps track of procedure activations.
+
+        Information needed by single execution of a procedure is managed using an activation record or frame. when a procedure is called an activation record is pushed onto stack and popped when procedure returns.
+    
+    // Parameter Passing :
+        // R - value : Value of expression is called it's r-value.
+                    Appears on right-side of assignment.
+        // L - value : Memory address where the expression is stored.
+                    It always appears on left-side of assignment.
+
+        // Formal Parameter :
+            Variables that take the information passed by the caller procedure are called formal parameters. These variables are declared in the definition of the called function.
+        
+        // Actual Parameter :
+            Variables whose values and functions are passed to the called function are called actual parameters. These variables are specified in the function call as arguments.
+
+        // Call by value :
+            the calling procedure passes the r-value of the actual parameters and the compiler puts that into called procedure’s activation record. Formal parameters hold the values passed by the calling procedure, thus any changes made in the formal parameters does not affect the actual parameters.
+
+        // Call by reference :
+            the formal and actual parameters refer to same memory location. The l-value of actual parameters is copied to the activation record of the called function.
+
+        // Call by copy restore :
+            compiler copies the value in formal parameters when the procedure is called and copy them back in actual parameters when control returns to the called function. The r-values are passed and on return r-value of formals are copied into l-value of actuals.
+
+        // Call by name :
+            Formals are substitued by actual parameters in all the places where formals appear in the procedure. It is also referred as lazy evaluation because evaluation is done on parameters only when needed.
+
+
+// Code Optimization :
+    The optimization process should not delay the overall compiling process.
+
+    // Types of Code Optimization :
+        // Machine Independent Optimization : 
+            This code optimization phase attempts to improve the intermediate code to get a better target code as the output. The part of the intermediate code which is transformed here does not involve any CPU registers or absolute memory locations.
+        // Machine Dependent Optimization :
+            Machine-dependent optimization is done after the target code has been generated and when the code is transformed according to the target machine architecture. It involves CPU registers and may have absolute memory references rather than relative references.
+    
+    // Code optimization techniques :
+
+        // Compile time evaluation :
+            A = 2 * (22.0 / 7.0) * r 
+            Perform 2 * (22.0 / 7.0) * r at compile time.
+        // Variable propagation.
+        // Dead Code elimination.
+        // Code Motion :
+            Reduce the evaluation frequency of expression.
+            Bring loop invariant statements out of the loop. 
+        // Induction variable and strength reduction :
+            An induction variable is used in loop for the following kind of assignment i = i + constant.
+            Strength reduction means replacing the high strength operator by the low strength. (.e.g * by +)
+            
