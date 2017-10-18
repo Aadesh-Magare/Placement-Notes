@@ -1,0 +1,18 @@
+// DBMS 3-tier architecture :
+    Physical Level : information about location of database objects in data store is kept.
+    Conceptual Level : data is represented in the form of database tables.
+    External Level : specifies view of data in terms of conceptual level tables.
+
+// Data Independence :
+    change of data at one level should not affect another level.
+
+    // Physical Data Independence : 
+        Any change in physical location of tables and indexes should not affect conceptual level or external view of data. This data independence is easy to achieve and implemented by most of the DBMS.
+
+    // Conceptual Data Independence :
+        Any change in conceptual schema should not affect external schema. e.g.; Adding or deleting attributes of a table should not affect the user’s view of table. But this type of independence is difficult to achieve as compared to physical data independence because the changes in conceptual schema are reflected in user’s view.
+
+// Database Design :
+    Conceptual Design : ER model is used for conceptual design.
+    Logical Design : Relational model is used for logical design.
+    Physical Design : data in relational model is implemented using DBMS like oracle, db2

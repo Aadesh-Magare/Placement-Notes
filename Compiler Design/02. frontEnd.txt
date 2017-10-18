@@ -104,7 +104,7 @@
                         Rows are variables from productions and columns are terminals along with $. we have to write all productions into the cells of this table.
 
                         Now each production will go into the row of that symbol on its LHS. The cell in row will be decided as follows :
-                            1. if the RHS contains some variables/terminals : find first() of the LHS, the production goes into the results cell.
+                            1. if the RHS contains some variables/terminals : find first() of the RHS, the production goes into the results cell.
                             2. if RHS is epsilon only : find Follow() of the LHS, the production goes into the results cell.
                              
         // Bottom Up Parsers (BUP) : 
