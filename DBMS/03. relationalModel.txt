@@ -1,0 +1,72 @@
+Relational Model was proposed by E.F. Codd. it represents how data is stored in relational databases. a relational database stores data in the form of relations (tables)
+// Tuple : each row in relation is known as tuple.
+// Degree : no of attributes in relation. (columns in table)
+// Cardinality : no of tuples in relation. (rows in table)
+
+// Keys :
+
+    // Candidate Key : minimal set of attributes that can uniquely identify a tuple.
+        the value should be unique and not-null.
+        there can be more than one candidate keys.
+        it can be simple or composite key.
+    // Super Key : set of attributes that can uniquely identify a tuple.
+        adding 0 or more attributes to candidate key.
+        candidate key is Super key but not vice-versa.
+    // Primary Key : one key out of candidate keys in chosen as Primary Key.
+    // Alternate Key : candidate key other than primary key.
+    // Foreign Key : If an attribute can only take the values which are present as values of some other attribute, it will be foreign key to the attribute to which it refers.
+
+// Constraints : conditions that are checked before performing any operation (insertion, updation, deletion) in database, violating which will result in operation failure.
+
+    // Domain Constraints : attribute level constraints. an attribute can only take values that lie in the domain range.
+
+    // Key Integrity : every relation should have atleast one set of attributes which defines a tuple uniquely.
+
+    // Referential Integrity : When one attribute of a relation can only take values from other attribute of same relation or any other relation is called referential integrity.
+
+        It can also be stated as : if there is a foregin key in one relation then that must be existing primary key another relation. 
+            e.g. A and B are relations with primary keys P1 and P2.
+            A contains foreign key F1 which references P2 in B.
+            then for every tuple in A having value of F1 as some "X" 
+            B must contain a tuple with value of P2 as same "X"
+
+            while modifing the database make sure that these conditions are not broken
+            i.e. while inserting value into F1 make sure that the same value exists in primary key P2
+            while deleting value in P2 make sure no one is referencing it as foreign key
+        
+            we can also specify list of attributes to reference instead of primary key explicitly but these attributes must be declared as candidate key in the referenced relation.
+
+            foreign key columns are allowed to be null by default, if they are all non-null then usual behaviour of foreign key is executed. if one of the columns of foregin key is null then the tuple is considered to be satisfying the constraint.
+
+        // Anomalies:
+            // Insertion anomaly in referencing relation : can't insert a row in referencing relation if referencing attribute's value is not present in referenced relation.
+
+            // Deletion anomaly in referenced relation : can't delete or update a row in referenced relation if value of referenced attribute is being used.
+                it can be handled in following ways :
+                // On Delete Cascade : delete the row from referencing relation as well.
+                // On Update Cascade : update the row in referencing relation as well.
+
+                if the cascade is un-ending and cannot be handled by sql then the transaction is aborted and changes are restored
+
+                sql also allows other actions to be taken instead of cascade such as setting to null or default value.
+                normally such action which violates constraint are rejected but by using this options we do some different action instead of rejecting.
+
+    // Assertions :
+        domain constraints and referential constraints are special forms of assertions
+        create assertion sum-assertion check(...)
+        when assertion is created, any further modifications to database are allowed only if it does not cause assertion to be violated.
+
+// Codd Rules : Codd rules were proposed by E.F. Codd which should be satisfied by relational model.
+
+    1. Information Rule: Data stored in Relational model must be a value of some cell of a table.
+    2. Guaranteed Access Rule: Every data element must be accessible by table name, its primary key and name of attribute whose value is to be determined.
+    3. Systematic Treatment of NULL values: NULL value in database must only correspond to missing, unknown or not applicable values.
+    4. Active Online Catalog: Structure of database must be stored in an online catalog which can be queried by authorized users.
+    5. Comprehensive Data Sub-language Rule: A database should be accessible by a language supported for definition, manipulation and transaction management operation.
+    6. View Updating Rule: Different views created for various purposes should be automatically updatable by the system.
+    7. High level insert, update and delete rule: Relational Model should support insert, delete, update etc. operations at each level of relations. Also, set operations like Union, Intersection and minus should be supported.
+    8. Physical data independence: Any modification in the physical location of a table should not enforce modification at application level.
+    9. Logical data independence: Any modification in logical or conceptual schema of a table should not enforce modification at application level. For example, merging of two tables into one should not affect application accessing it which is difficult to achieve.
+    10. Integrity Independence: Integrity constraints modified at database level should not enforce modification at application level.
+    11. Distribution Independence: Distribution of data over various locations should not be visible to end-users.
+    12. Non-Subversion Rule: Low level access to data should not be able to bypass integrity rule to change data.

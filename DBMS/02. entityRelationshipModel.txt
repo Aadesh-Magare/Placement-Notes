@@ -1,0 +1,62 @@
+// ER model is used to create conceptual model of database.
+// Entity : an object with physical or conceptual existence.
+    represented by a rectangle.
+// Entity Set : set of all entities of a type is called entity set.
+    represented by a vertical oval.
+// Attributes : properties of an entity.
+    represented by an oval.
+// Key Attribute : attribute which uniquely identifies each entity. e.g. roll_no
+    represented by an oval with underlying lines.
+    
+    // Weak Entity type : entities for which key attribute is not defined.
+        It's represented by double rectangle.
+
+// Composite Attribute : attribute which is composed of many other attributes.
+    represented by an oval comprising of ovals.
+// Multivalued Attribute : attribute having more than one value for given entity.
+    represented by double oval.
+// Derived Attribute : attribute that can be derived from other attributes.
+    represented by dashed oval.
+// Relationship Type : it's association between entities.
+    represented by diamond and connecting the entities with lines.
+    e.g. enrolled in is relationship type that exists between student and courses entities.
+// Relationship Set : set of relationships of same type.
+            
+    number of different entity sets participating in relationship is degree of relationship set. e.g. if 1, 2 or n entity sets are participating in relationship then it's called unary, binary or n-ary relationship resp.
+
+    number of times an entity of an entity set participates in relationship set is known as cardinality. 
+
+    // one to one :
+        each entity can take part only once in the relationship.
+    // many to one :
+        entities in one set can take part more than once while entities in other set can take part only once.
+    // many to many :
+        when entities in both sets can take part multiple times.
+
+    // Participation Constraint :    
+        // Total Participation :
+            each entity in entity set must participate.
+            represented by double line in ER (Entity-Relationship) diagram.
+        
+        // Partial Participation :
+            each entity in entity set may or may not participate.
+            represented by single line in ER diagram.
+        
+        Participation of weak entity type is always total. Relationship between weak entity type and it's identifying strong entity type is called identifying relationship and represented by double diamond.
+
+// Minimization of ER diagram / Conversion to Relational Model:
+
+    // Many to one cardinality :
+        The relationship table can be merged with table responsible for many cardinality.
+        hence minimum two tables are needed for Many to one cardinality.
+
+    // Many to many cardinality :
+        we cannot merge the relationship table with either table without causing redundancy.
+        hence minimum 3 tables are needed for many to many cardinality.
+
+    // One to one cardinality :
+        // Total participation from at-least one end : relationship table can be merged with either of the tables, in-fact all three tables can be merged into one.
+        hence minimum 1 table is required for one to one cardinality with total participation.
+
+        // No total participation : relationship table can be merged with either of the tables but all three tables can not be merged without having null fields.
+        hence minimum 2 tables are required for one to one cardinality without total participation.

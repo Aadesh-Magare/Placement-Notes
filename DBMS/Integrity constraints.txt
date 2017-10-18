@@ -1,67 +1,7 @@
-Domain Constraints:
-To ensure that values lie in domain.
-//create domain hourly-wage numeric(5,2) constraint wage-value-test check(value >= 4.00)
-numeric(5,2) = value will be 5 decimal places out of which 2 will be on right of decima point.
-constraint wage-value-test = to give name to the condition
+// Dangling Tuple :
+	in case of natural join when a tuple does not join with any other in other relation then that tuple is called dangling tuple
 
-Dangling Tuple
-in case of natural join when a tuple does not join with any other in other relation then that tuple is called dangling tuple
-
-Referential Integrity :
-
-it is simply the condition that, if there is a foregin key in one relation then that must be existing primary key another relation. 
-e.g. A and B are relations with primary keys P1 and P2.
-A contains foreign key F1 which references P2 in B.
-then for every tuple in A having value of F1 as some "X" 
-B must contain a tuple with value of P2 as same "X"
-
-while modifing the database make sure that these conditions are not broken
-i.e. while inserting value into F1 make sure that the same value exists in primary key P2
-while deleting value in P2 make sure no one is referencing it as foreign key
-
-create table depositor (customer_name char(20) not null,
-						account_number char(10) not null,
-						primary key(customer_name, account_number),
-						foreign key(customer_name) references customer,
-						foreign key (account_number) references account)
-in short form we can say like :
-						customer_name char(20) not null references customer
-
-we can also specify list of attributes to reference instead of primary key explicitly but these attributes must be declared as candidate key in the referenced relation.
-
-
-//Violation of referential-integrity constraint
-
-we can specify the action to be taken on the violation of constraint.
-
-create table account 
-...
-...
-foreign key(branch_name) references branch
-						on delete cascade
-						on update cascade
-...
-...
-
-now if due to delete in branch the constraint is violated then its cascaded in referencing relation i.e. in account it will also delete the tuple that refers.
-similary update will be cascaded and the value of branch_name in referencing tuple will be updated
-
-sql also allows other actions to be taken instead of cascade such as setting to null or default value.
-
-normally such action which violates constraint are rejected but by using this options we do some different action instead of rejecting.
-
-if the cascade is un-ending and cannot be handled by sql then the transaction is aborted and changes are restored
-
-//Unique attribute : its used to declare candidate key
-the set of attributes declare unique forms the candidate key
-uniquness constraint is violated only if all the attributes have same value and all of them are nonnull.
-so even if any one attribute has a null value then its not violated even if rest values are same.
-
-foreign key columns are allowed to be null by default, if they are all non-null then usual behaviour of foreign key is executed. if one of the columns of foregin key is null then the tuple is considered to be satisfying the constraint.
-
-//Assertions
-domain constraints and referential constraints are special forms of assertions
-create assertion sum-assertion check(...)
-when assertion is created, any further modifications to database are allowed only if it does not cause assertion to be violated.
-
-//sql 92 does not include triggers
+// Unique attribute : its used to declare candidate key
+	the set of attributes declare unique forms the candidate key
+	uniquness constraint is violated only if all the attributes have same value and all of them are nonnull.
+	so even if any one attribute has a null value then its not violated even if rest values are same.

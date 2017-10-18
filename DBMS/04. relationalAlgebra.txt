@@ -1,0 +1,51 @@
+It's procedural query language which takes relation as input and relation as output. It provides theoretical background for relational databases and SQL.
+
+// Projection (π) :
+    project required columns from table.
+    π(BC) => gives output as new table with two columns B and C
+    output table does not contain any duplicate rows.
+
+// Selction (σ) : 
+    select required rows from table.
+    σ (c>3)R will select the rows which have c more than 3 from R table.
+    selection operator only selects the required tuples but does not display them. For displaying, data projection operator (π) is used.
+
+// Union (U) :
+    same as set union.
+    two tables must have same set of attributes for union.
+
+// Set Difference (-) :
+    same as set difference.
+    two tables must have same set of attributes for set difference.
+
+// Rename (ρ) :
+    rename an attribute of table.
+
+// Cross Product (X) :
+    if A has n tuples and B has m tuples then A X B will have n * m tuples.
+    All attributes of A followed by all attributes of B.
+
+// Natural Join (⋈) :
+    set of all combination of tuples where they have equal common attribute.
+    e.g.
+
+           Emp                              Dep
+   (Name   Id   Dept_name )          (Dept_name   Manager)
+   ------------------------          ---------------------    
+     A     120    IT                    Sale     Y
+     B     125    HR                    Prod     Z
+     C     110    Sale                  IT       A
+     D     111    IT                      
+
+
+                        Emp ⋈ Dep
+
+                        Name   Id   Dept_name   Manager
+                        -------------------------------
+                        A     120   IT          A 
+                        C     110   Sale        Y
+                        D     111   IT          A
+
+// Conditional Join :
+    in Natural join the condition by default in of equality here we can specify the condition.
+    e.g. Join between R And S with condition  R.marks >= S.marks
