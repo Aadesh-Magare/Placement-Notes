@@ -16,6 +16,9 @@ Relational Model was proposed by E.F. Codd. it represents how data is stored in 
     // Alternate Key : candidate key other than primary key.
     // Foreign Key : If an attribute can only take the values which are present as values of some other attribute, it will be foreign key to the attribute to which it refers.
 
+	uniquness constraint is violated only if all the attributes have same value and all of them are nonnull.
+	so even if any one attribute has a null value then its not violated even if rest values are same.
+    
 // Constraints : conditions that are checked before performing any operation (insertion, updation, deletion) in database, violating which will result in operation failure.
 
     // Domain Constraints : attribute level constraints. an attribute can only take values that lie in the domain range.

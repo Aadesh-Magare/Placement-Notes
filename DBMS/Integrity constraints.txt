@@ -1,7 +1,0 @@
-// Dangling Tuple :
-	in case of natural join when a tuple does not join with any other in other relation then that tuple is called dangling tuple
-
-// Unique attribute : its used to declare candidate key
-	the set of attributes declare unique forms the candidate key
-	uniquness constraint is violated only if all the attributes have same value and all of them are nonnull.
-	so even if any one attribute has a null value then its not violated even if rest values are same.

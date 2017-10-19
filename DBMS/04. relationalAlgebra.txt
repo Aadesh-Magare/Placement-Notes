@@ -51,6 +51,9 @@ It's procedural query language which takes relation as input and relation as out
                         C     110   Sale        Y
                         D     111   IT          A
 
+    // Dangling Tuple :
+	    in case of natural join when a tuple does not join with any other in other relation then that tuple is called dangling tuple
+
 // Equijoin: 
     Equijoin is a special case of conditional join where only equality condition holds between a pair of attributes.
 
