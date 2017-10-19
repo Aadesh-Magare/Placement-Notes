@@ -25,7 +25,12 @@ It's procedural query language which takes relation as input and relation as out
     if A has n tuples and B has m tuples then A X B will have n * m tuples.
     All attributes of A followed by all attributes of B.
 
+// Intersection (∩) : 
+    These two relation should have same number of attributes and corresponding attributes in two relations have same domain.
+    
 // Natural Join (⋈) :
+    It is a special case of equijoin in which equality condition hold on all attributes which have same name in relations R and S
+    
     set of all combination of tuples where they have equal common attribute.
     e.g.
 
@@ -46,6 +51,15 @@ It's procedural query language which takes relation as input and relation as out
                         C     110   Sale        Y
                         D     111   IT          A
 
+// Equijoin: 
+    Equijoin is a special case of conditional join where only equality condition holds between a pair of attributes.
+
 // Conditional Join :
     in Natural join the condition by default in of equality here we can specify the condition.
     e.g. Join between R And S with condition  R.marks >= S.marks
+
+// Division Operator (÷) : 
+    Division operator A ÷ B can be applied if and only if:
+        Attributes of B is proper subset of Attributes of A.
+        The relation returned by division operator will have attributes = (All attributes of A – All Attributes of B)
+        The relation returned by division operator will return those tuples from relation A which are associated to every B’s tuple.
