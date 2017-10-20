@@ -1,0 +1,113 @@
+// Functional Dependency :
+    Functional Dependency is a constraint between two sets of attributes in a relation .
+    If an attributed A functionally determines B, then it is written as A -> B
+    
+    A functional dependency A -> B mean for all instances of a particular value of A, there is same value of B.
+    e.g.
+        for	A -> B
+        if two tuples have same value of A they will have same value of B i.e. the value of A uniquely determines value of B.
+        it's property of entrire schema and not of any particular tuple
+    
+    we say F.D. F holds on relation R when every tuple in relation R must satisfy the F.D
+ 
+    // Trivial Functional Dependency :
+        X –> Y is trivial only when Y is subset of X.
+        A --> A is also trivial.
+    // Non Trivial Functional Dependencies :
+        X –> Y is a non trivial functional dependencies when Y is not a subset of X.
+        X –> Y is called completely non-trivial when X intersect Y is NULL.
+    
+    // FD Set : FD set of a relation is the set of all FDs present in the relation.
+
+    // Attribute Closure : steps to find attribute closure of given attribute set.
+        Add elements of attribute set to the result set.
+        Recursively add elements to the result set which can be functionally determined from the elements of the result set.
+
+        If attribute closure of an attribute set contains all attributes of relation, the attribute set will be super key of the relation.
+        
+        If no subset of this attribute set can functionally determine all attributes of the relation, the set will be candidate key as well. (this means it's smallest set of attributes)
+
+        If F is functional dependency , the closure of F is (F^+) the set of all functional dependencies logically implied by F.
+        // How to find closure of AG (AG^+) :            
+            take result = AG initially
+            take one F.D. from F at one time and check if left side is subset of Result if so append the right side to result, repeat this for all F.D in F and when result stops changing stop process.
+
+        // Armstrong's axioms :
+            // Reflexivity : a -> b holds if b is subset of a
+            // Augmentation : a-> b holds then Ca -> Cb also holds
+            // Transitivity : a -> b holds and b -> c holds then a -> c holds
+            // Additional rules :
+                // Union rule : a -> b and a -> c holds then a -> bc holds.
+                // Decomposition rule : a -> bC hold then a -> b holds and a -> C holds
+                // Pseudo-transitivity rule : a -> b and Cb -> f holds then Ca -> f 
+                    holds if a->b and c->d then ac->bd
+
+        // To check whether an FD A->B can be derived from an FD set F :
+            Find (A)+ using FD set F.
+            If B is subset of (A)+, then A->B is true else not true.
+
+        // if two F.D. have the same closure then they are almost equivalent. 
+        i.e. if database satisfies one of them it will surely satisfy the other as well.
+
+        // Equivalent FD :
+            Let FD1 and FD2 are two FD sets for a relation R.
+            If all FDs of FD1 can be derived from FDs present in FD2, we can say that FD2 ⊃ FD1. (FD1 is subset of FD2)
+            If all FDs of FD2 can be derived from FDs present in FD1, we can say that FD1 ⊃ FD2. (FD2 is subset of FD1)
+            If 1 and 2 both are true, FD1=FD2.
+
+        // Prime and non-prime attributes :
+            Attributes which are parts of any candidate key of relation are called as prime attribute, others are non-prime attributes.
+
+// Decomposition : when we decompose a relation into two or more relations there may be two types of decompositions lossy-decomposition and lossless decomposition
+
+    // Lossless-join decomposition :
+        R having (F.D. F) is decomposed into R1 and R2
+        then if  one of this is in F^+
+        R1 intersection R2 --> R1 
+        R1 intersection R2 --> R2 
+
+        If we decompose a relation R into relations R1 and R2 :
+            Decomposition is lossy if R1 ⋈ R2 ⊃ R
+            Decomposition is lossless if R1 ⋈ R2 = R
+
+        // check for lossless join decomposition using FD set :
+            // Union of Attributes of R1 and R2 must be equal to attribute of R. Each attribute of R must be either in R1 or in R2.
+                Att(R1) U Att(R2) = Att(R)
+            // Intersection of Attributes of R1 and R2 must not be NULL.
+                Att(R1) ∩ Att(R2) ≠ Φ
+            // Common attribute must be a key for at least one relation (R1 or R2)
+                Att(R1) ∩ Att(R2) -> Att(R1) or Att(R1) ∩ Att(R2) -> Att(R2)
+            
+    // Dependency Preserving Decomposition :
+        Decomposition of R into R1 and R2 is a dependency preserving wrt set F of functional dependencies if closure of functional dependencies after decomposition is same as closure of of FDs before decomposition.
+        
+        A simple way is to just check whether we can derive all the original FDs from the FDs present after decomposition.
+
+        R is decomposed or divided into R1 with FD { f1 } and R2 with { f2 } then :
+            f1 U f2 = F -----> Decomposition is dependency preserving. 
+            f1 U f2 is a subset of F -----> Not Dependency preserving.
+
+// Normalization : It's a process to organize attributes of relation to reduce or eliminate data redundancy.
+
+
+normalization of database is like optimization.
+
+
+nomal forms
+
+1NF - no repeating columns	(eliminate repeated groups.)
+e.g.
+consider table
+id		name		child1		child2		child3
+1 		aaaa		aaaa 		bbbb		cccc
+
+here columns are repeated. if someone comes with 4 children then its a problem
+
+
+2NF- non key attributes should depend on full primary key and not on parts of primary key
+
+
+3NF - all non key attributes should be directly dependent on primary key and not transitivly.
+
+
+BCNF - 
