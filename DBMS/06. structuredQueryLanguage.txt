@@ -1,0 +1,200 @@
+The queries to deal with relational database can be categories as:
+	// Data Definition Language: It is used to define the structure of the database. 
+		e.g; CREATE TABLE, ADD COLUMN, DROP COLUMN and so on.
+	// Data Manipulation Language: It is used to manipulate data in the relations.
+		e.g.; INSERT, DELETE, UPDATE and so on.
+	// Data Query Language: It is used to extract the data from the relations. 
+		e.g.; SELECT
+
+// Data Query Language :
+
+	A generic query to retrieve from a relational database is:
+
+		SELECT [DISTINCT] Attribute_List FROM R1,R2….RM
+		[WHERE condition]
+		[GROUP BY (Attributes)[HAVING condition]]
+		[ORDER BY(Attributes)[DESC]];
+
+
+	By default duplicates aren't removed from query result, need to use distinct keyword to remove duplicates.
+
+	Arithmatics are supported inside the query :
+		e.g. SELECT amount * 100 FROM loan 
+		arithmatics involving NULL results in NULL.
+
+
+	// WHERE :
+		Where suppports and, or , not operators along with between and not between.
+		e.g. SELECT loan_number from loan where branch_name = "perry" and amount > 1000 
+
+	// FROM :		
+		It does cartesian product of its arguments, so most of times you take natural join of it, using the where condition.
+		SELECT distinct customer_name, borrower.loan_number from borrower, loan where borrower.loan_number = loan.loan_number
+
+		It's called cross join. From does cross join implicitly when we give two tables seperated by comma.
+			SELECT * from table1 cross join table2 
+				is equivalent to 
+			SELECT * from table1, table2
+
+		we can have subquery in the FROM clause but the result of subquery must have a name i.e. u must rename it using AS clause.
+		SELECT branch_name, avg-balance from (SELECT branch_name, avg(balance) from depositor groupby branch_name as result(branch_name, avg-balance)) where avg-balance > 1200
+
+	// LIKE : 
+		It's used for string matching
+			% = any substring 	
+			_ = any character
+			\ = escape character
+
+		SELECT customer_name from customer where customer_street like "%Main%"
+
+	// AGGRATION FUNCTIONS: 
+		Aggregation functions are used to perform mathematical operations on data values of a relation. All aggregation functions return only 1 row.
+
+		Some of the common aggregation functions used in SQL are: COUNT, SUM, MIN, MAX and AVG.
+		
+		COUNT(*) counts every tuple, distinct is not allowed with COUNT(*).
+		All aggregate functions excpet COUNT(*) ignore NULL.
+		Count of empty relation results into 0, while other functions give NULL on empty relations.
+
+		Aggregate functions cant be composed.
+			e.g. max(avg(balance)) not allowed
+
+	// GROUP BY : 
+		Group by is used to group the tuples of a relation based on value of an attribute or group of attributes. It is always combined with aggregation function which is computed on the group.
+	
+		An attribute which is not a part of GROUP BY clause can’t be used in select clause. Any attribute which is part of GROUP BY CLAUSE can be used for selection but it is not mandatory.
+
+	// HAVING :
+		The difference between the HAVING and WHERE clause in SQL is that the WHERE clause cannot be used with aggregates, but the HAVING clause can.
+
+		Conditions in HAVING keyword are applied after forming groups.
+		
+		If WHERE and HAVING are in same query then WHERE is applied first and results are grouped and then the groups are checked against the HAVING condition.
+
+	// ORDER BY :
+		It's used to sort the results
+		One can order by multiple parameters in case of tie.
+		For descending order use desc keyword.
+	
+	// Set operations :
+		union, intersect and except automatically eliminates duplicates to retain duplicates use all keyword e.g. A union all B
+
+	// Some / ALL :
+		Greater than at least one :  > SOME
+		Greater than all : > ALL
+		= SOME is same as IN
+		ANY is same as SOME
+		<> SOME is not same as NOT IN
+		<> ALL is same as NOT IN 
+
+	// COALESCE : 
+		COALESCE(A1, A2, A3, A4) 	
+		retuns first non NULL value from the list, if all are NULL then it returns NULL
+
+	// EXISTS :
+		EXISTS returns true if subquery is nonempty.
+		NOT EXISTS can be used to check for set containment 
+			i.e. to check if one set is subset of other.
+
+	// Nested Queries :
+		// Independent Nested Queries :
+			In independent nested queries, query execution starts from innermost query to outermost queries. The execution of inner query is independent of outer query.
+		// Co-related Nested Queries : 
+			In co-related nested queries, the output of inner query depends on the row which is being currently executed in outer query.
+
+		In case of subquery scoping rules apply to tuple variables, in subquery you can use tuple variables defined in it or it's superquery. 
+		
+		subquery cant have order by clause
+	
+	// JOIN :
+		// INNER JOIN :
+			The INNER JOIN keyword selects all rows from both the tables as long as the condition satisfies.
+			JOIN  and INNER JOIN are same.
+
+		// LEFT JOIN :
+			This join returns all the rows of the table on the left side of the join and matching rows for the table on the right side of join.
+			LEFT JOIN and LEFT OUTER JOIN are same.
+
+		// RIGHT JOIN :
+			This join returns all the rows of the table on the right side of the join and matching rows for the table on the left side of join.
+			RIGHT JOIN and RIGHT OUTER JOIN are same.
+
+		// FULL JOIN :
+			The result-set will contain all the rows from both the tables. The rows for which there is no matching, the result-set will contain NULL
+		
+		// JOIN conditions are :
+						natural
+						on (predicate)
+						using (A1, A2, A3, ...)
+
+		// Order of attributes in case of NATURAL JOIN :
+			commmon attributes (in same order as that of left relation) -> uncoomon from left relation -> uncommon from right relation. 
+
+		// using is similar to natural, instead of checking all common attributes only those are checked which are passed to using. attributes passed to using must be common to both relations. results does not contain duplicate columns
+
+		keywords INNER and OUTER are optional since it can be deduced from remaining query.
+
+		// CROSS JOIN ( CARTESIAN JOIN ) :
+			In a CARTESIAN JOIN there is a join for each row of one table to every row of another table. the number of rows in the result-set is the product of the number of rows of the two tables.
+
+		// SELF JOIN :
+			As the name signifies, in SELF JOIN a table is joined to itself. That is, each row of the table is joined with itself and all other rows depending on some conditions.
+		
+
+
+// Data Definition Language :
+	// Create Database :
+		CREATE DATABASE database_name;
+
+	// Create Table :
+		CREATE TABLE Students
+		(
+		ROLL_NO int(3),
+		NAME varchar(20),
+		SUBJECT varchar(20),
+		);
+
+	// SQL allows concept like typdef in C :
+		CREATE DOMAIN person-name CHAR(20)
+		now operson-name can be used to define type of attribute, just like built in types.
+
+	// CHECK : 
+		create table customer (	customer_name char(20) not NULL,
+								customer_city char(30),
+								assets interger,
+								primary key(customer_name), 
+								check(assets >= 0))
+		check forces a condition that must be satisfied by every tuple
+
+	// ADD / DROP COLUMN :
+		alter table r add A D
+		alter table r drop A						
+
+	// Primary key vs Unique key :
+		Both enforce unique values onto the column.
+		But primary key creates clustered index while unique key creates non clustered index. 
+		Primary key doesn't allow NULLs while unique key allows.
+
+	//Truncate vs delete :
+		Truncate will delete everything all rows (but structure of table remains) it deallocates pages of the table. doest create log so cant undo it.
+
+		delete will remove one row at time, writes log so it can be undone.
+		
+	// VIEW : 
+		Once created a view can be used anywhere, where a table can be used.
+		
+		The views are saved in databases so they are persistent until you drop them.
+		
+		View update becomes difficult when more than one relation is involved. hence the rule is applied that modification through view is possible only when its concerned with only one relation
+
+
+// Stored procedures :
+	sql statements stored in the database system, users can call with some parameters its like library functions.
+
+// Triggers :
+	its also stored sql statements, but we cant call it, its implicitly invoked by database system when certain even has happened.
+
+	Triggers which contains dbms modification code (insert, update) are called nested triggers.
+
+// Cursors : 
+	database objects which are used by applications to manipulate data in set by row-by-row basis.

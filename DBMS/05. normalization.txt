@@ -57,8 +57,34 @@
 
         // Prime and non-prime attributes :
             Attributes which are parts of any candidate key of relation are called as prime attribute, others are non-prime attributes.
+    
+    // Canonical Cover :
+        Working with functional dependencies introduces more complexities while insertion / updation / deletion of data since the dependencies needs to be maintained during database updates.
 
-// Decomposition : when we decompose a relation into two or more relations there may be two types of decompositions lossy-decomposition and lossless decomposition
+        A canonical cover of a set of functional dependencies F is a simplified set of functional dependencies that has the same closure as the original set F.
+
+        // Extraneous attributes: an attribute is extraneous if we can remove it without changing the closure.
+
+        Canonical cover: A canonical cover Fc of a set of functional dependencies F such that ALL the following properties are satisfied:
+            1. F logically implies all dependencies in Fc.
+            2. Fc logically implies all dependencies in F.
+            3. No functional dependency in Fc contains an extraneous attribute.
+            4. Each left side of a functional dependency in  Fc is unique.
+
+        // Finding Canonical Cover :
+            1. Use the union rule to replace any dependencies in A -> B1 and A -> B2 with A -> B1B2
+            2. Find a functional dependency A -> B with an 
+            extraneous attribute either in A or B.
+            3. If an extraneous attribute is found, delete it from A -> B
+            until F does not change
+
+                            OR
+            
+            1. convert F.D in such way that right side has only one term
+            2. remove duplicates
+
+// Decomposition : 
+    when we decompose a relation into two or more relations there may be two types of decompositions lossy-decomposition and lossless decomposition
 
     // Lossless-join decomposition :
         R having (F.D. F) is decomposed into R1 and R2
@@ -87,27 +113,44 @@
             f1 U f2 = F -----> Decomposition is dependency preserving. 
             f1 U f2 is a subset of F -----> Not Dependency preserving.
 
-// Normalization : It's a process to organize attributes of relation to reduce or eliminate data redundancy.
+// Normalization : 
+    It's a process to organize attributes of relation to reduce or eliminate data redundancy.
 
+    // Normal Forms :
 
-normalization of database is like optimization.
+        // First Normal Form :
+            Does not contain any composite or multi-valued attribute. A relation is in first normal form if every attribute in that relation is singled valued attribute.
+            e.g.
+            Relation STUDENT is not in 1NF because of multi-valued attribute STUD_PHONE_NUMBER.
 
+        // Second Normal Form :
+            // Partial Dependency :
+                If proper subset of candidate key determines non-prime attribute (attributes not part of candidate key), it is called partial dependency.
+                e.g.
+                    R : { STUD_NO, COURSE_NO, COURSE_NAME }
+                    FD set : { COURSE_NO -> COURSE_NAME }
+                    Candidate Key : { STUD_NO, COURSE_NO }
+                    In FD COURSE_NO -> COURSE_NAME, COURSE_NO (proper subset of candidate key) is determining COURSE_NAME (non-prime attribute). Hence, it is partial dependency.
 
-nomal forms
+            // 2NF : 
+                A relation is in 2NF iff it has No Partial Dependency, i.e. no non-prime attribute (attributes which are not part of any candidate key) is dependent on any proper subset of any candidate key of the table.
 
-1NF - no repeating columns	(eliminate repeated groups.)
-e.g.
-consider table
-id		name		child1		child2		child3
-1 		aaaa		aaaa 		bbbb		cccc
+        // Third Normal Form :
+            A relation is in 3NF iff at least one of the following condition holds in every non-trivial function dependency X –> Y :
+                X is a super key.
+                Y is a prime attribute (each element of Y is part of some candidate key).
 
-here columns are repeated. if someone comes with 4 children then its a problem
+            // 3NF :
+                There is no transitive dependency for non-prime attributes. 
 
+        // Boyce-Codd Normal Form (BCNF) :
+            A relation R is in BCNF if for every FD, LHS is super key. 
+            It's free from redundancy.
+            // BCNF :
+                A relation is in BCNF iff in every non-trivial functional dependency X –> Y, X is a super key. 
 
-2NF- non key attributes should depend on full primary key and not on parts of primary key
+        // Steps to find the highest normal form of a relation :
+            1. Find all possible candidate keys of the relation.
+            2. Divide all attributes into two categories: prime attributes and non-prime attributes.
+            3.  Check for 1st normal form then 2nd and so on. If it fails to satisfy nth normal form condition, highest normal form will be n-1.
 
-
-3NF - all non key attributes should be directly dependent on primary key and not transitivly.
-
-
-BCNF - 
