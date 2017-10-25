@@ -95,3 +95,17 @@ Dynamic hashing: allow modification of hash function to accomodate change in dat
 // ordered index files vs hashing
 the choice depends on database requirements
 hashing is very inefficient for range queries, so its used only when dbms has very rare range queries otherwise ordered indexing is used
+
+
+// Concurrency in Indexed structures :
+	to ensure this, b+ tree structure is modified a bit, now every node contains a pointer to its right sibling. (in normal B+ trees only leaf node contains pointer to right sibling)
+
+	a node must be locked in shared mode before its accessed, and lock is released before any other lock is requested
+
+	if a node split occurs during a lookup(search) is going on (due to two concurrent instructions) then our desired value may no longer appear in the same node as before the split. in such case the right pointer is used to tranverse sibling nodes until you find it
+
+	for insertion and deletion shared mode lock is converted into exclusive, in case parent needs to be updated then lock on parent is requested
+
+	Coalescence : when node has too few keys its merged with its sibling, for this the sibling is locked in exclusive mode after the coalescence parent is updated by taking exclusive lock
+
+	lookup and insertion cannot lead to deadlock while lookup and deletion may lead to it if lookup has locked the parent of nodes being coalescenced.

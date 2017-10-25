@@ -1,0 +1,106 @@
+// ACID :
+
+	// Commit : 
+		After all instructions of a transaction are successfully executed, the changes made by transaction are made permanent in the database.
+
+	// Rollback : 
+		If a transaction is not able to execute all operations successfully, all the changes made by transaction are undone.
+
+	// Atomicity :
+		It means that either the entire transaction takes place at once or doesn’t happen at all. 
+		It involves following two operations.
+			Abort : If a transaction aborts, changes made to database are not visible.
+			Commit : If a transaction commits, changes made are visible.
+		Atomicity is also known as the ‘All or nothing rule’.
+
+	// Consistency :
+		This means that integrity constraints must be maintained so that the database is consistent before and after the transaction. 
+		It refers to correctness of a database.
+
+	// Isolation :
+		This property ensures that multiple transactions can occur concurrently without leading to inconsistency of database state. 
+		Transactions occur independently without interference. 
+		Changes occurring in a particular transaction will not be visible to any other transaction until that particular change is written to memory or has been committed.
+
+	// Durability :
+		This property ensures that once the transaction has completed execution, the updates and modifications to the database are stored in and written to disk and they persist even if system failure occurs.
+
+// Schedule :
+	A schedule is series of operations from one or more transactions.
+
+	// Serial Schedule : 
+		When one transaction completely executes before starting another transaction, the schedule is called serial schedule. 
+		A serial schedule is always consistent. 
+		A serial schedule has low throughput and less resource utilization.
+	
+	// Concurrent Schedule : 
+		When operations of a transaction are interleaved with operations of other transactions the schedule is called Concurrent schedule.
+		Concurrency can lead to inconsistency in database
+
+// Serializability : 
+	
+	To avoid inconsistency during concurrent schedule we need to check whether these concurrent schedules are serializable or not.
+
+	// Conflicting operations : Two operations are said to be conflicting if 
+		1. They belong to different transaction
+		2. They operation on same data item
+		3. At Least one of them is a write operation
+
+	// Conflict Equivalent Schedules :
+		If a schedule S can be transformed into S' by series of swaps of non-conflicting instructions, we say that they are conflict equivalent.
+
+	// Conflict Serializable : 
+		A schedule is called conflict serializable if it can be transformed into a serial schedule by swapping non-conflicting operations.
+							OR
+		A schedule is called conflict serializable if it is conflict equivalent to a serial schedule.
+
+	It's possible to have two schedules that produce same output but they are not conflict equivalent
+
+	// View serializability :
+		Two schedules are view equivalent if :
+			// Initial Read :
+				for data Q, if T1 reads initial value of Q in S then T1 must read initial value of Q in S'
+			// Updated Read :
+				if T1 reads value of Q in S that was produced by Ti then T1 must read the value of Q 	produced by Ti in S' also
+			// Final Write :
+				if for Q, T1 performs final write in S, then T1 must perform final write in S'
+
+		A schedule is vew serializabale if it is view equivalent to serial schedule
+
+		Every conflict serializabale schedule is view serializabale but converse is not true
+
+		Blind write means writing value without reading it (without knowing what maybe the current value).
+
+		Blind write appear in any view serializabale schedule that is not conflict serializabale
+
+	// Testing for Serializability :
+
+		// Test for Conflict Serializability :
+			Precedence Graph or Serialization Graph is used commonly to test conflict serializability of a schedule.
+
+			construct a directed graph G(V,E) with vertices V = all transactions E = edges Ti --> Tj if
+			1. Ti does write(Q) before Tj does read(Q)
+			2. Ti does read(Q) before Tj does write(Q)
+			3. Ti does write(Q) before Tj does write(Q)
+			if the graph contains cycle then its not conflict serializable else it is.
+			the serializability order can be obtained by topological sorting.
+
+			test for view serializability is NP-complete problem, here you need to modify the graph, i.e. conditions to include a edge are different. then if the resultant graph contains no cycle, then schedule is view serializable, if it contains cycyle then we cant say anything, it still can be view serializable.
+
+// Recoverability of schedules :
+	
+	// Irrecoverable Schedule :
+		When Tj is reading the value updated by Ti and Tj is committed before commit of Ti, the schedule will be irrecoverable.
+		
+	// Recoverable schedule :
+		Recoverable schedule is where for every pair of Ti, Tj such that Tj reads data written by Ti, commit of Ti appears before commit of Tj
+
+	// Cascading rollback :
+		when single transaction failure cause a series of rollbacks, its called cascading rollback
+
+	// Cascadeless schedule :
+		Cascadeless schedule is the one where, for each Ti and Tj, if Tj reads data written by Ti then commit of Ti appears before read of Tj
+
+		Every cascadeless schedule is recoverable
+
+

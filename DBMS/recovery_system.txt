@@ -9,6 +9,20 @@ after recovery from failure the block should have either new content or untouche
 
 //when transactions write data its written in the buffer area database system then later on writes this blocks to disk, (when writing is most efficient), thus after successful write by transaction if system crash before block is written to disk then we loose information 
 
+
+atomicity and durability is maitained by recovery management component.
+//Shadow-copy method :
+
+	based on creating new copy of database and maintaining a db pointer on disk. the pointer is updated only when the transaction is commited. all changes are made to the copy of database until the pointer is updated to point to the new database.
+
+	the motivation for concurrency in database is same as the motivation for multiprogramming in the os.
+
+	the order of execution of instructions in transactions are called schedules.
+	serial schedule means one followed by other completely e.g.
+	T1 -- T2 (T2 after T1 has finished, not concurrent)
+
+
+
 //Recovery and atomicity:
 1. Log based recovery : 
 log of all transactions is kept maybe on stable -storage, so that its not lost.

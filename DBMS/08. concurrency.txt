@@ -1,0 +1,126 @@
+// Concurrency control protocols :
+
+	// Lock Based Protocols :
+
+		// Shared lock(S) : 
+			read only, cant write.
+		// Exclusive lock(X) : 
+			can read, write.
+
+		// Conversions :
+			shared to exclusive = upgrade
+			exclusive to shared = downgrade
+
+		Transactions request appropriate locks to concurrency control manager, when it gets lock then only it can proceed.
+		Several transactions can have S lock on same data, but not X locks, to avoid deadlock we impose some locking protocols.
+
+		Ti --> Tj  : Ti holds lock on Q before Tj holds a lock on same Q (both locks are incompatible)
+
+		Locking protocols ensure conflict serializability if for all legel schedules --> relation is acyclic.
+		While granting locks it should check if someone is already waiting for that lock,to avoid starvation
+
+		// Two phase locking protocol :
+			Does not ensure freedom from deadlock.
+			Generates conflict serializable schedules.
+			Transactions can be serialized by lock point.
+
+			// Growing phase : acquire locks.
+			// Shrinking phase : release locks.
+
+			Once start taking locks go on taking it, once you release a lock you cant request any more locks.
+
+			Lock point of transaction when all locks have been acquired.
+			e.g. lock(A) lock(B) lock(c) lock(d) * lock point of transaction * unlock(C) unlock(D) unlock(B) unlock(A)
+
+			// Strict two phase locking :
+				Used to avoid cascading rollbacks.
+				Exclusive locks taken by a transaction must be held until it commits
+
+			// Rigorous two phase Locking :
+				All locks to be held until transaction commits.
+
+
+	// Graph Based Protocols :
+		Needs the order in which database items will be accessed.
+		we impose ordering such as Di --> Dj here Di must be accessed before Dj
+
+		// Tree protocol :
+			only X locks. 
+			Ensure coflict serializiblity and freedom from deadlock
+
+			First lock can be on any item, next locks are granted only if it already has the lock of parent, an item that's been locked and unlocked can not be locked again
+
+	// Timestamp Based Protocols : 
+		Conflict serializibale, freedom from deadlock.
+		May generate non-recoverable schedules.
+
+		Each transaction gets a timestamp from database sytem.
+		for every data item Q, it maintains two timestamps 
+			W timestamp = largest timestamp of transaction that write Q : W(Q)
+			R timestamp = largest timestamp of transaction that read Q : R(Q)
+
+		Protocol:
+			if Ti does read(Q) : 
+				if TS(Ti) < W(Q) , so a later transaction wrote a value so, reading it will be wrong for Ti, roll back Ti
+				if TS(ti) >= W(Q), read Q, no problems
+			if Ti does write(Q):
+				if TS(Ti) < R(Q), later transaction read value, dont write now, or that one wont be consistent
+				if TS(Ti) < W(Q), later transaction wrote value, no use in writing Ti now
+				else
+					write value
+
+		// Thomas write Rule :
+			Read rules are same as above but write rules changed:
+			if Ti does write(Q):
+				if TS(Ti) < R(Q), so later transaction read value, dont write now, or that one wont be consistent
+				if TS(Ti) < W(Q), here if TS(Ti) >= R(Q) then we dont write, but we ignore the write of Ti, since it's obsolute
+
+	// Validation Based Protocols :
+
+		Transaction goes through 3 steps:
+		1.	read phase 
+		2.	validation phase: checks if changes should be written to database or aborted
+		3.	write phase
+			
+		In this protocol, validation timestamp is used for comparison
+		for TS(Ti) < TS(Tj):
+			finish(Ti) < start(Tj) or 
+			finish(Ti) should be between start(Tj) and Validation(Tj)
+		
+		This ensure serializibility, and guards against cascading rollbacks
+
+// Deadlock Handling :
+
+	prevent deadlock by two techniques.
+	1. ensure no cyclic wait by : ordering the lock requests or acquire all locks together
+	2. user preemption and rollbacks : a lock holding transaction maybe premepted and lock is given to new transaction, earlier transaction is rolled back and restarted
+
+
+	wait-die scheme : non-preemptive, if Ti requests lock on Q which is locked by Tj then Ti allowed to wait only if its older than Tj otherwise its rolled back
+
+	wound-wait : preemptive, if Ti requests lock on Q which is locked by Tj, then Ti allowed to wait only if its younger than Tj, else Tj is rolled back and preempted by Ti
+
+	Timeout-based Scheme : when a transaction doesnt get lock for a time period it times out and roll back itself, does it avoids deadlock and in case deadlock has occured it can come out of it, since some of transactions will be rolled back automatically
+
+// Detection and Recovery
+
+	For detection directed graph is used:
+
+	G(V, E) -->  
+	V : transactions
+	E : edge Ti--> Tj if Ti waiting for Tj to release lock
+
+	if there is a cycle in graph then its deadlock
+
+	For recovery :
+	most common solution is roll back some transactions. Steps:
+	1. selection of victim : consider many factors to decide which one is best
+	2. rollback : entire rollback or upto the conflicting step only
+	3. starvations : victim must not be starved in step 1
+
+	//Phantom Phenomenon :
+
+	if one transaction is finding sum(accont.balance) and other is inserting value, then by concurrency control point of view there shouldnt be any problem, since they will be working on different items, but there can be logical errors.
+
+	so transaction like sum should have lock on whole account relation, so that there will be real conflict and not phantom
+
