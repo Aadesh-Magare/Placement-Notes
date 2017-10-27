@@ -1,4 +1,4 @@
-//Magnetic Disks :
+// Magnetic Disks :
 	contains platters like CDs coated with magentic materials on both sides, the read-write head flies just above platters its attached to disk arm.
 
 	the surface of platter is divided into circular tracks, which are further divided into sectors
@@ -10,7 +10,7 @@
 	block is smallest unit of transfer to disk.
 	disk is considered as large 1D array of blocks. this array is mapped on sectors of disk starting from outermost cylinder's outermost track is sector 0 it follows the pattern.
 
-//Disk Scheduling Algorithms :
+// Disk Scheduling Algorithms :
 
 	1. FCFS :
 		lots of head movement that can be easily reduced.
@@ -32,9 +32,9 @@
 
 	Operating Systems prefer to do the disk Scheduling themselves rather than giving the control to the disk controller because os may have other constraints on the order of requests like demand paging may be urgent than application i/o, writes are more urgent that reads if cache is running out. also it may be required that certain writes are done in particular order.
 
-//Disk Management :
+// Disk Management :
 	
-	//Disk Formatting :
+	// Disk Formatting :
 		low-level formatting or physical formatting : dividing the disk into sectors so that disk controller can access it.
 		each sector has a data structure which contains header, tailer and data (usually 512 bytes) header and tailer contains sector no and error correcting code. (ECC)
 		when data is written/read disk does ECC its able to recover data from some minor corruptions.
@@ -43,19 +43,19 @@
 
 		some applications prefer raw i/o i.e. bypassing all file system functions and doing raw i/o. 
 
-	//Boot Block :
+	// Boot Block :
 		a disk contains boot block at fixed location on disk (maybe the first block) that contains bootstrap loader.
 		the bootstrap loader in rom is primitive whoes only job is to load the actual bootstrap loader into memory.
 
-		//windows boot :
+		// windows boot :
 			it stores the bootstrap loader in sector 0 of hard disk which it calls master boot record (MBR). 
 			the boot code in rom reads this MBR and loads bootstrap loader in memory.
 			MBR also contains partition information so it knows which partition to load os from.
 
-	//Bad Blocks 
+	// Bad Blocks 
 		sophisticated disks like SCSI does sector sparing i.e. they keep aside some blocks in case one block become bad its logically replaced with spare block by the controller.
 
-//Swap - Space Management :
+// Swap - Space Management :
 	
 	it may be used to swap entire process or pages of process.
 
@@ -65,7 +65,7 @@
 
 	linux creates swap slots of 4kb in swap area, and it maintains an array that keep mapping of swap slots. the value of 0 means slot is available, non zero value means that slot is mapped that many processes' page.
 
-//Stable-Storage :
+// Stable-Storage :
 	storage on which information is never lost.
 
 	two physical blocks are kept for one logical block, first block is written then second block and then operation is marked successful.
@@ -73,13 +73,13 @@
 
 	may use non-volatile ram as cache.
 
-//Tertiary Storage:
+// Tertiary Storage:
 	optical disks, removable disk, magnetic tapes etc.
 	magentic tape library which does automated tape changeing is called nearline storage, where as hard disk is called on-line storage.
 
 	solid-state disk (SSD) is faster than hard disk and use less energy but have short life span.
 
-//RAID 
+// RAID 
 	Redundant array of independent disks.
 
 	1. Mirroring:
@@ -95,14 +95,15 @@
 
 		high transfer rates but no reliability.
 		
-	//Raid-levels :
+	// Raid-levels :
 
 	level 0 :
 		block level striping, no redundancy so no increase in reliability.
 		does not require any extra disks.
 	level 1 :
 		disk Mirroring.
-		it requires double no of disks.
+		it requires double no of disks if mirroring level is 2.
+		One disk failure can be always handled, in best case N / 2 disk failures can be handled.
 	level 2 :
 		memory style error correcting code.
 
@@ -124,10 +125,12 @@
 		Block-interleved parity 
 		same as level 3 only in terms of blocks
 		only problem here is for even small change, we have to read data block, parity block and modify then write both blocks.
+		can handle 1 disk failure only.
 	level 5 :
 		block-interleaved distributed parity.
 		same as above but parity is not stored in parity disk its destributed over all disks, so that one disk is not over used by parity.
 
 		this is most common Raid system
+		can handle 1 disk failure only.
 	level 6 :
 		just like level 5 but stores additional ecc to be able to handle failure of two disks.
