@@ -1,100 +1,122 @@
-//heap file (pile):
-records in file are stored one after another simply, no ordering. for deletion mark some bit in record as deleted. searching is brute force.
+// Heap File (pile) :
 
-//sequnetial files :
-records are kept in sequential order of some attribute. (generally primary key)
-searching is easy since you can do binary search on records within one block, when that block is brought into memory.
+	Records in file are stored one after another simply, no ordering. 
+	For deletion some bit in record is marked as deleted, searching is brute force.
 
-for easy insertion and deletion, we can keep a field "next" which will point to next record from current one, this allows the records to be physically inserted anywhere and still be in sequence.
+// Sequnetial File :
 
-but after frequent insertion deletion in this case, the logical sequnce will be maintained but physically files will be distant, so increase block accesss, so reorganization is required. that will rearrange the records, such function must be done when system is idle
+	Records in file are kept in sequential order of some attribute generally primary key.
+	Searching is easy since binary search is possible on records within one block, when that block is brought into memory.
 
-to utilize the deleted space, we can keep the available list, which will have pointers to deleted records.
+	For easy insertion and deletion, a field "next" can be maintained which will point to next record.
+	This allows the records to be physically inserted anywhere and still be in sequence logically.
+	But after frequent insertion-deletion, the logical sequence will be maintained but physically the records will be distant, which means increased block accesses. 
+	Due to this reorganization is required frequently, which will rearrange the records. Such function must be done when the system is idle
 
-//the idea is maintain an index above this sequential files, so that the operations on it maybe optimized
+	To utilize the deleted space, we can keep the available list, which will have pointers to deleted records.
 
-index is smaller file (sorted order), that points to items in actual files
+// The idea is maintain an index above this sequential file, so that the operations on it maybe optimized.
+Indices are used to find items easily. It's smaller file (in sorted order), that points to items in actual files
 
-//indices are used to find items easily, two type:
+// Index Types :
+	// Ordered Index :
+		Indices are based on a sorted ordering of the values.
 
-1. ordered indices. 
-2. hashed indices.
+	// Hashed Index :
+		Indices are based on the values being distributed uniformly across a range of buckets by hash function.
 
-//ordered index: a file can have diff indices corresponding to diff search keys, if the files which contain records are sequentially ordered then the index whoes search key is determining the order of files is called primary index, its also called 	ering index. indeces whoes search key has order diff from order of files are called secondary indices or non clustering indices.
+	// Ordered Index : 
+		A file can have different indices corresponding to different search keys.
 
-the files in ordered sequence is called index-sequential files.
+		// Primary or Clustering Index :
+			 The search key of index specifies same order as the sequential order of the file, it is known as primary index or clustering index.
 
-//Dense and sparse indices:
-dense : index contains entry for each search-key, take up more space, searching is fast
- 
-sparse : index contains entry for some of search keys only, take up less space, insertion deletion overhead is there.
+			This entry contains the search key and also a reference to the first data record with that search key value.
 
-good tradeoff between two is to use sparse with one entry per block, since most of time is for accessing data block on disk, once a block is loaded searching in it is not that costly, so as long as we keep block access to one only it works.
+			 // Dense Index :
+				Index contains entry for each search-key, take up more space, searching is fast
 
-//frequent insertion and deletion may destort the ordering of index file as well so reorganisation is required
+			// Sparse Index :
+				Index contains entry for some of search keys only, take up less space, insertion deletion overhead is there.
 
-//multilevel indices : using indirection
-sometimes indices become so large that it has to be stored on disk, if that takes more blocks on disk then searching it becomes costlier, so we use secondary indices for this index file using indirection technique
+			Good tradeoff between two is to use sparse with one entry per block, since most of time is for accessing data block on disk, once a block is loaded searching in it is not that costly, so as long as we keep block access to one only it works.
 
-Indices with two or more levels are called multilevel indices
+		// Secondary or Non-Clustering Index :
+			The search key of index specifies an order different from the sequential order of the file, it is called the secondary index or non-clustering index.
 
-//indexing on secondary key : cause we may have queries where we dont want to search on primary key but on any other attribute, so its better to have indexing on secondary key as well
+			Indexing on secondary key : cause we may have queries where we dont want to search on primary key but on any other attribute, so its better to have indexing on secondary key as well.
 
-//secondary indices dosnt have the same ordering as the records in the file, so its not enough to save pointer to first entry of each search key(cause the records in file are sorted on primary key and not secondary key). so we must save pointer to every entry associated with search key. we can use indirection here, secondary indices will point to a block which in turn will point to all entries associated with that key
+			​A non clustered index just tells us where the data lies, i.e. it gives us a list of virtual pointers or references to the location where the data is actually stored. Data is not physically stored in the order of the index. 
 
-so secondary indices must be dense type
+			//secondary indices doesnt have the same ordering as the records in the file, so its not enough to save pointer to first entry of each search key(cause the records in file are sorted on primary key and not secondary key). so we must save pointer to every entry associated with search key. we can use indirection here, secondary indices will point to a block which in turn will point to all entries associated with that key
 
-///////////////////////////B+ trees///////////////////////////////////////////////
+			so secondary indices must be dense type
 
-so structure of B+ node is :
+		// Multi-level Index : using indirection
+			sometimes indices become so large that it has to be stored on disk, if that takes more blocks on disk then searching it becomes costlier, so we use secondary indices for this index file using indirection technique
+			Indices with two or more levels are called multilevel indices
 
-imposes insertion, deletion and space overhead but its acceptable when its advantages are taken into account
+	// Hashed Index :
+		In sequential file indexing we need to access index file, that involves disk access, which degrades performance
 
-when its n order tree:
+		a hash function will hash an record into address of corresponding block or bucket.
+		hash function must be random and uniform
 
-a node (internal) contains n-1 values (search key values on which indexing is done) and n pointers
+		// Bucket Overflow :
+		It can occure due to: 
+		1. Insufficient buckets 
+		2. Bucket skew (more entries in a bucket even if others have space)
 
+		// Types of Hashing :
+		1.closed hashing : in case of overflow, chaining is used (overflow buckets are used for chaining)
+		2.open hashing: in case of overflow, technique like linear probing is used, or computing further hash
 
-in case of leaf node the pointer (Pi) will directly point to that particular record (or that block) with search key (Ki) inside the file, if its unique search key (dense indexing). if its not then Pi will point to bucket of pointers that will further point to records
+		1. Static hashing : since the hash function is fixed, the no of buckets is fixed. over time it becomes inefficent. since if buckets are large theres's memory waste otherwise there is lot of clashing.
+		2. Dynamic hashing : allow modification of hash function to accomodate change in database
 
-all index nodes (non-leaf) must have at least ceil(n/2) nodes pointers (non-null).
-
-each node is of size of block. all leaf nodes are at same depth 
-
-
-insertion and deletion in case of B+ trees
-
-
-//B tree
-b tree is slightly more complex than B+.
-here internal nodes also store values as opposed to b+ trees.
-so a node will contains pointers to keys less than its key, greater than its key jsut like B+ tree but also it will contain direct pointer to record with search key equal to its value
-
-
-//Hashing
-in sequential file indexing we need to access index file, that involves disk access, which degrades performance
-
-a hash function will hash an record into address of corresponding block or bucket.
-hash function must be random and uniform
-
-//Bucket Overflow:
-It can occure due to: 
-1.insufficient buckets 
-2. Bucket skew (more entries in a bucket even if others have space)
+	// Ordered Index vs Hashed :
+		The choice depends on database requirements
+		Hashing is very inefficient for range queries, so its used only when dbms has very rare range queries otherwise ordered indexing is used
 
 
-two types of hashing:
-1.closed hashing : in case of overflow, chaining is used (overflow buckets are used for chaining)
-2.open hashing: in case of overflow, technique like linear probing is used, or computing further hash
+//B+ Tree : 
 
+	Imposes insertion, deletion and space overhead but its acceptable when its advantages are taken into account.
 
-static hashing : since the hash function is fixed, the no of buckets is fixed. over time it becomes inefficent since if buckets are large theres's memory waste otherwise there is lot of clashing.
+	For n order tree, a node (internal) contains n-1 values (search key values on which indexing is done) and n pointers
+	e.g.
+		for 3 order tree the node will be like:
 
-Dynamic hashing: allow modification of hash function to accomodate change in database
+					3 	  5 
+				  |	   |	|
+			 	  P1   P2   P3
 
-// ordered index files vs hashing
-the choice depends on database requirements
-hashing is very inefficient for range queries, so its used only when dbms has very rare range queries otherwise ordered indexing is used
+		P1 is pointer to node with values >= min and < 3
+		P2 is pointer to node with values >= 3 and < 5
+		P3 is pointer to node with values >= 5 and < max
+
+	In case of leaf node the pointer (Pi) will directly point to that particular record (or that block) with search key (Ki) inside the file, if its unique search key (dense indexing). if it's not then Pi will point to bucket of pointers that will further point to records
+
+	All index nodes (non-leaf) must have at least ceil(n/2) nodes pointers (non-null).
+	Each node is of the size of a block. 
+	All leaf nodes are at same depth 
+
+// B tree :
+	Self-Balancing search trees, deals with huge data that can't fit in memory and has to be read from hard disk in terms of blocks.
+
+	Here internal nodes also store values as opposed to b+ trees.
+	so a node will contains pointers to keys less than its key, greater than its key jsut like B+ tree but also it will contain direct pointer to record with search key equal to its value.
+
+	Main idea of B-tree is to reduce no of disk accesses.
+	It's fat tree, height is kept minimum and most operations are of O(h).
+	All leaves are at same level.
+
+	For B-tree of degree n :
+		It must have  at least n children.
+		n depends on block size.
+		every node except root must contain at least n-1 keys.
+		A node may contain at max 2n-1 keys.
+		Number of children = no of keys + 1.
 
 
 // Concurrency in Indexed structures :
