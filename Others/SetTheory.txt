@@ -1,0 +1,118 @@
+// Relations :
+
+    // Reflexive Relation: 
+        A relation R on a set A is called reflexive if (a,a) € R holds for every element a € A .i.e. if set A = {a,b} then R = {(a,a), (b,b)} is reflexive relation.
+
+    // Symmetric Relation: 
+        A relation R on a set A is called symmetric if (b,a) € R holds when (a,b) € R.i.e. The relation R={(4,5),(5,4),(6,5),(5,6)} on set A={4,5,6} is symmetric.
+
+    // Asymmetric relation: 
+        Asymmetric relation is opposite of symmetric relation. A relation R on a set A is called asymmetric if no (b,a) € R when (a,b) € R.
+
+    // AntiSymmetric Relation: 
+        A relation R on a set A is called antisymmetric if (a,b)€ R and (b,a) € R then a = b is called antisymmetric.i.e. The relation R = {(a,b)→R|a ≤ b} is anti-symmetric since a ≤ b and b ≤ a implies a = b.
+
+    // Equivalence Relation: 
+        A relation is an Equivalence Relation if it is reflexive, symmetric, and transitive. i.e. relation R={(1,1),(2,2),(3,3),(1,2),(2,1),(2,3),(3,2),(1,3),(3,1)} on set A={1,2,3} is equivalence relation as it is reflexive, symmetric, and transitive.
+
+    // Inverse Relation:
+        A relation R is defined as (a,b) Є R from set A to set B, then the inverse relation is defined as (b,a) Є R from set B to set A. Inverse Relation is represented as R-1
+        R-1 = {(b,a) | (a,b) Є R}.
+
+
+// Composition of relations:
+
+    Let R be a relation from A to B and S be a relation from B to C, then the composite of R and S, denoted by S o R, is the relation consisting of ordered pairs  (a,c) where a € A, c € C and for which there exists an element b such that b € B such that (a, b) € R and (b, c) € S.
+
+    // Composition of Relation on itself :
+
+        A relation can be composed with itself to obtain a degree of separation between the elements of the set on which R is defined.
+
+        Let R be a relation on the set A.
+        R^1 = R and R^n+1 = R^n composition R
+
+    // Closure of Relations :
+
+        If there is a relation S with property P containing R such that S is the subset of every relation with property P containing R, then S is called the closure of R with respect to P.
+
+        // Reflexive Closure: 
+            \Delta = {(a,a) | a € A} is the diagonal relation on set A. The reflexive closure of relation R on set A is R U Delta.
+            
+        // Symmetric Closure:
+            Let R be a relation on set A, and let R^{-1} be the inverse of  R. The symmetric closure of relation R on set A is R U  R^{-1}.
+            
+        // Transitive Closure:
+            Let R be a relation on set A. The connectivity relation is defined as : R^* = Union of n=1 to inf R^n. The transitive closure of R is R^*.
+
+
+// Algebric Structure:
+    // Algebric Structure:
+        A non empty set S is called an algebraic structure w.r.t binary operation (*) if (a*b) belongs to S for all (a*b) belongs to S, i.e (*) is closure operation on ‘S’.
+
+        Ex : S = {1,-1} is algebraic structure under *
+        As 1*1 = 1, 1*-1 = -1, -1*-1 = 1 all results belongs to S.
+
+    // Semi Group :
+        An algebraic structure (S,*) is called a semigroup if a*(b*c)=(a*b)*c for all a,b,c belongs to S.
+        Elements follow associative property under *
+
+    // Monoid :
+        A Semigroup (S,*) is called a monoid if there exists an element e in S such that (a*e) = (e*a) = a for all a in S. This element is called identity element of S w.r.t *.
+
+        Ex : (Set of integers,*) is Monoid as 1 is an integer which is also identity element
+
+    // Group :
+        A monoid (S,*) is called Group if to each element there exists an element b such that (a*b) = (b*a) = e. Here e is called identity element an b is called inverse of the corresponding element.
+    
+    // Abelian Group :
+        A group (G,*) is said to be abelian if (a*b)=(b*a) for all a,b belongs to G. Thus Commutative property should hold .
+
+// Classes of functions :
+    A function f from A to B is an assignment of exactly one element of B to each element of A (A and B are non-empty sets).
+    A is called Domain of f and B is called co-domain of f.
+    f(a) = b, f maps A to B
+    b is the image of a and a is the pre-image of b if f(a) = b
+
+    // Injective (One to One) :
+         It never maps distinct elements of its domain to the same element of its co-domain.
+    // Surjective (Onto Function) : 
+        If every element b in B has a corresponding element a in A such that f(a) = b. 
+        It is not required that a is unique; The function f may map one or more elements of A to the same element of B.
+    // Bijective/Invertible (One to one correspondence) :
+        A function is Bijetcive function if it is both one to one and onto function.
+    // Inverse Functions :
+        Bijection function are also known as invertible function because they have inverse function property. The inverse of bijection f is denoted as f-1. It is a function which assigns to b, a unique element a such that f(a) = b. hence f-1 (b) = a.
+
+// Partial Ordering :
+    A relation R on set A is called a partial ordering or partial order if it is reflexive, anti-symmetric and transitive. 
+    Set A together with a partial ordering R is called a partially ordered set or poset. The poset is denoted as (S,R)
+
+    // Comparability :
+        Let a and b be the elements of a poset (S, Rel), then a and b are said to comparable if either a Rel b or b Rel a. Otherwise, a and b are said to be incomparable.
+    
+    // Total Ordering :
+        A poset (S, Rel) is called totally ordered if every two elements of S are comparable.
+        Rel is called a total order. A totally ordered set is also called a chain.
+
+    // Hasse Diagrams :
+        A partial order, being a relation, can be represented by a di-graph. But most of the edges do not need to be shown since it would be redundant.
+
+        In general, a partial order on a finite set can be represented using the following procedure –
+        1. Remove all self-loops from all the vertices. This removes all edges showing reflexivity.
+        2. Remove all edges which are present due to transitivity i.e. if (a,b) and (b,c) are in the partial order, then remove the edge (a,c). Furthermore if (c,d) is in the partial order, then remove the edge (a,d).
+        3. Arrange all edges such that the initial vertex is below the terminal vertex.
+        4. Remove all arrows on the directed edges, since all edges point upwards.
+
+    // Bounds in Posets :
+        It is somtimes possible to find an element that is greater than or equal to all the elements in a subset A of poset (S, Rel). Such an element is called the upper bound of A. Similarly, we can also find the lower bound of A.
+
+    // Lattices :
+        A Poset in which every pair of elements has both, a least upper bound and a greatest lower bound is called a lattice.
+
+        There are two binary operations defined for lattices –
+
+        // Join : 
+            The join of two elements is their least upper bound. It is denoted by V, not to be confused with disjunction.
+        // Meet : 
+            The meet of two elements is their greatest lower bound. It is denoted by /\ not to be confused with conjunction.
+        
