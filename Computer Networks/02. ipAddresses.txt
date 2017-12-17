@@ -1,0 +1,51 @@
+// IP addresses :
+    
+    32 bit addresses in ipv4 i.e. 2^32 total addresses.
+    Dotted Decimal Representation : devide 32 bit address into 4 parts of 8 bit, convert them to decimal numbers and join with dot.
+    
+    Total classified into 5 classes : A, B, C, D and E
+    
+    half of 2^32 => starting with 0     => class A
+    half of 2^31 => starting with 10    => class B
+    half of 2^30 => starting with 110   => class C
+    half of 2^29 => starting with 1110  => class D
+    half of 2^29 => starting with 1111  => class E
+
+    // class A :
+
+        32 bit => 8 bit network ID + 24 bit host Id
+                all addresses start with 0, so there are total 2^7 available addresses, out of which first (all 0) and last (all 1) are not used. so 126 NIds.
+          
+    // class B :
+
+        32 bit => 16 bit NId + 16 bit host Id
+                all addresses start with 10, so there are total 2^14 available addresses. 
+                so 16k Nids.
+    
+    // class C :
+        32 bit => 24 bit Nid + 8 bit host Id
+                all addresses start with 110, so there are total 2^21 available addresses.
+                so 2M Nids.
+    
+    // class D and class E :
+        32 bit => no Nid or host Id limits specified.
+                there are 2^28 addresses in either class.
+                class D is used for multicasting and class E is reserved.
+
+    First host Id of the class (with all 0) is used to identify the whole network along with Nid. hence it's not assigned to any host. 
+        e.g. 12.0.0.0 => represents the network with Nid 12 and not any particular host.
+    Also last host Id of the class (with all 1) is used as directed broadcast address of the network. hence it's not assigned to any host.
+        e.g. 12.255.255.255 => represents broadcast address of the network with Nid 12 and not any particular host.
+    This reduces the number of hosts that can be cofigured with given class IP addresses by 2.
+
+// Casting :
+    sending packet from one host to another.
+
+    // Unicast : from one host to another host.
+
+    // Broadcast : from one host to many hosts.
+        // Limited :
+            Host sending packets to all hosts in the same network. (it's sent out to address 255.255.255.255 and received by everyone in that network)
+        // Directed :
+            Host sending packets to all hosts in some other network. (it's sent out to 
+            address Nid.255.255.255 and received by everyone in that network)

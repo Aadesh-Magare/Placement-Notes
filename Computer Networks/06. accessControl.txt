@@ -1,0 +1,94 @@
+if many stations are sending data through medium simultaneously there should not be any collision.
+
+// Time Division :
+    at one time only one station can access the link. Slot of time is given to every station during which it can communicate.
+    each time slot = Tt + Tp
+    Here efficiency is = Tt / (Tt + Tp)
+                       = 1 / (1 + a)
+
+
+    Time is wasted when a station has nothing to send.
+
+// Polling :
+    stations make request for time. a Polling algorithm chooses a station and gives it access to link.
+
+    efficiency = Tt / (Tt + Tp + Tpolling)
+
+    Time is wasted in Polling.
+
+// Carrier Sensing Multiple Access / collision detection :
+    Any station transmits data any time. It senses whether Carrier is available or not before sending.
+
+    Does not use Ack.
+    Since there is no ack we have to have mechanism for collision detection.
+    sender can detect collision signals are for him if it is still sending data when collision signal came back. hence sender should be sending data till the time collision signals come back.
+        for this Tt >= 2 * Tp (worst case time required for collision signal to come back)
+
+            Tt >= 2 * Tp
+            L / B >= 2 * Tp
+            L >= 2 * Tp * B
+            hence this is minimum size of packet to be able to detect collision.
+            Padding shoud be used if packet size is smaller than this.
+
+    
+        efficiency = Tt / (C * 2 * Tp + Tt + Tp)
+        C : no of collisions : approximated to "e" by using probability.
+        2 * Tp : time wasted in one collision.
+        hence  efficiency = 1 / 1 + 6.44 *a
+
+    // Back off algorithm :
+        Applicable for two stations only.
+
+        it's used to find wait time in case of collision, for how much time should station wait before resending it.
+
+        n = collision number for the packet (how many times it has collided)
+        station chooses random number between (0, (2^n) - 1) and waits for that much time before sending packet.
+        This process happens at both colliding stations and collision number can be different for packets at different station.
+
+            Wt = K * timeslot  (k is number 0, 2^n - 1)
+
+        disadvantage is if one station wins (succeeds in sending packet after collision) then it's probability of winning in next collision keeps on increasing. this is called capture effect.
+
+// Token Passing :
+    A token is passed around network a station which has token can only transmit data.
+    so only one station is transmiting at at time.
+
+    We dont have Ack for data packet. hence data packets are forwarded by receiveing stations and come back to source then source is supposed to remove them from network.
+
+    THT : token holding time : time for which station holds the token while transmiting data.
+
+    Ring latency : in ring network time taken by a bit to complete entire circle and come back to starting position.
+
+    Cycle time : time taken by token to complete cirlce and come back to initial position.
+            Cycle time = Tp + N * THT 
+    efficiency = N * Tt / Cycle time
+
+    Token holding strategy :
+        // Delayed Token Reinsertion :
+            Sender station will acquire token, send the data and wait for data to travel around the circular network and come back to itself then only it will release the token.
+                hence THT = Tt + Tp
+                so efficiency = 1 / (1 + (N+1) / N * a ) 
+        // Early Token Reinsertion :
+            Sender station will acquire token, send the data and immediately send the token as well.
+                hence THT = Tt (since token is held only for the time required to transmit packet)
+                efficiency = 1 / (1 + a / N )
+
+// Aloha :
+    Any station transmits any time. There is no Carrier Sensing.
+    There are Ack. so no need of collision detection.
+    So data is retransmitted in absence of ack. (Back off time : time after which re-transmition happens)
+
+    // Pure 
+        Vulnerable time : time during which collision can happen.
+            It is 2Tt
+            efficiency = G * e ^ -2G
+            G : no of stations who wants to transmit during time Tt.
+            for max efficiency G should be 1/2, then max efficiency = 0.184
+
+    // Slotted :
+        Time is divided into slots of Tt time.
+        station can start transmiting only at beginning of timeslot.
+
+        hence Vulnerable time is Tt.
+        efficiency = G * e^-G
+        for max efficiency G should be 1, then max efficiency = 0.368

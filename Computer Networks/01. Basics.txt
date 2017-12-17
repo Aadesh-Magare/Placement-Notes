@@ -1,4 +1,4 @@
-Internet standards are developed by Internet engineering task force, their standard documents are called requests fro comments.
+Internet standards are developed by Internet engineering task force, their standard documents are called requests for comments.
 
 Repeater : operates at physical layer. if signal becomes weak, regenerates it.
 

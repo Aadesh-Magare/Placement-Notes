@@ -1,7 +1,7 @@
 1. The browser extracts the domain name from the URL.
 
 
-2. The browser queries DNS for the IP address of the URL. Generally, the browser will have cached domains previously visited, and the operating system will have cached queries from any number of applications. If neither the browser nor the OS have a cached copy of the IP address, then a request is sent off to the system's configured DNS server. The client machine knows the IP address for the DNS server, so no lookup is necessary.
+2. The browser queries DNS for the IP address of the URL (It's called DNS overhead). Generally, the browser will have cached domains previously visited, and the operating system will have cached queries from any number of applications. If neither the browser nor the OS have a cached copy of the IP address, then a request is sent off to the system's configured DNS server. The client machine knows the IP address for the DNS server, so no lookup is necessary.
 
 	Typically, client computers are informed of the IP addresses of the DNS servers they are to use by way of data in "options" given to them by their DHCP server (the server that provides a "lease" of an unused IP address for the client to use).
 	Some computers don't use DHCP to obtain an IP address, but rather have their IP address statically-assigned. In cases where computers have statically assigned IP addresses the DNS server IP addresses are also statically assigned in the computers' configuration.

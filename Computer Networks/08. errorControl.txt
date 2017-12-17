@@ -1,0 +1,19 @@
+There can be two kinds of errors 
+// Packet Loss :
+    Retransmission solves it, ack is used for detection.
+// Packet Corrupted :
+    some bits get changed due to external things.
+
+    // Error detection : 
+        detect whether packet is Corrupted or not.
+        we can ask for Retransmission.
+        ways to detect:
+            Parity check
+            CRC : Cyclic redundancy check.
+            Checksum
+
+    // Error correction :
+        we know packet is corrupted and are able to correct it also.
+        ways to correct:
+            Hamming code
+

@@ -1,0 +1,76 @@
+The rate at which sender sends packets should not be too greater than receivers processing rate else the receiver queue might get full and cause subsequent packages to be discarded.
+
+// Stop and wait :
+    sender sends a packet and waits for ack from receiver before sending the next packet.
+
+    efficiency = useful time / total cycle time
+               = Tt / Tt + 2 * Tp
+               = 1 / 1 + 2 * a
+    where a : Tp / Tt 
+    
+    Throughput or Effective bandwidth or bandwidth utilization :
+        no of bits being sent per unit time
+
+        Throughput = L / Tt + 2 * Tp 
+        L : size of packet.
+
+        Throughput = efficiency * bandwidth
+
+    when a packet is lost before reaching receiver there is no ack this is packet loss problem to solve this Timeout is added to Stop and wait flow. 
+    The sender sends packet after the timeout assuming the previous was lost. It's called ARQ (automatic repeat request)
+
+    In case ack is lost, sender will send previous packet again after timeout but receiver will receive it as a new packet hence sequence number is added to the packet.
+    For similar reasons ack will also have sequence number.
+
+// Capacity of link :
+    number of bits that the chanel or link or wire can hold.
+    Capacity = bandwidth * Tp
+
+// Pipelining :
+    instead of sending single packet, send window of packets during the wait time. hence increase the efficiency. after you get ack of a packet that packet can be removed from window. This is called as sliding window protocol.
+
+    For maximum efficiency the window size should be 1 + 2a (from efficiency formula)
+    Sequence numbers in packet should be as small as possible since storing large number in packet will increase size. 
+        Minimum sequence number = 1 + 2a
+        Bits required in sequence number field to represent this log(1+2a) (log base 2)
+
+    If no of bits in sequence number is N then we can have at max 2^N sequence numbers. Hence we cannot send more than this number of packets in one window. hence window size is also limited by size of sequence number field.
+        window size = min(1+2a, 2^N)
+
+// Practical Implementation of sliding window protocol :
+
+    // Go Back N :
+        N should be > 1, otherwise there is no Pipelining.
+        1. Sender window size is N.
+        2. Receiver window size is always 1 : due to this if receiver is waiting for a packet and receives next sequence packets (due to some delay or packet getting lost). it will discard all packets until it receives intended packet.
+        So sender will have to go back and send these packets again hence the name go back N. Sender has to go back N from the most recent packet not the lost packet.
+
+            This means on every packet loss sender will re-transmit entire window of the lost packet.
+        3. Ack :
+            Ack can be 
+                1. independent : one ack for every packet.
+                    high reliable but high traffic
+                    loss of one ack means loss of just one packet. 
+                2. Cumulative : one ack for group of packet.
+                    less traffic but less reliable since one loss of ack means entire group is lost. 
+
+            Go back N uses Cumulative ack : Cumulative ack can use timer instead of number of packets to be consistent.
+        
+        Go back N discards packet silently. If a packet is corrupted then it's discarded silently as well.
+
+        To solve the problem of duplicate packet the available sequence numbers in Any protocol should be >= ws+wr
+            i.e. sequence numbers should be more than sender and receiver window sizes.
+
+    //  Selective Repeat :
+            1. sender window size > 1
+            2. Receiver window size = sender window size
+                hence when a packet is lost sender has to send only that packet again. i.e. it has to repeat selectively.
+
+                Re-transmition in this case is same as stop and wait and much lower than go back N. Efficiency is same as go back N when window size is same. 
+            3. Ack :
+                uses independent ack.
+                in case of corrupted packet it will send negative ack. this allows sender to resent the packet even before it's timeout has expired.
+
+
+
+

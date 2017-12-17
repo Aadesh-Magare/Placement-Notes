@@ -1,0 +1,46 @@
+take out some bits from hostId and assign them as network Id of subnet.
+no of hostIds decrease due to subnetting.
+e.g.
+    class C address : 
+        out of 32 bit, 24 bits are Nid and 8 bits are host id.
+                    e.g.    24bits 8bits
+                say we use 2 bits out of hostId to indicate subnet (4 subnets possible)
+            now the address becomes : 24bits 2bits 6bits
+    
+// subnet mask :
+    special 32 bit number which contains bit 1 for Nid and subnet Id. bit 0 for host id.
+    so the entire number in dotted decimal format represents subnet mask.
+    e.g. in above example 
+            24bits => 1
+            2bits => 1
+            6bits => 0
+
+    Bitwise AND of given address with subnet mask will give you the network Id (subnet Id) of the address.
+    
+    If a packet matches multiple subnets during the routing then it should be sent out to the subnet with max subnet max. (one with more 1's for subnet max)
+
+    subnet inside a network can be of different sizes it's called variable length subnet.
+    larger subnet will have smaller subnet mask.
+
+    Not only router but also individual nodes in network store subnet mask, its used by nodes to decide whether the destination for packet is in it's own network (so it can directly send packet without contacting router) or not (in this case it has to send packets via router)
+
+// Classless Inter Domain Routing (CIDR) :
+    IP addresses are represented without any class.
+    no of bits representing Nid is given with address.
+    e.g.
+        20.12.2.13/18 : here 18 are the bits used for Nid.
+        hence here first 18 bits are Nid and remaining 14 bits are hostIds.
+
+    Rules of CIDR blocks:
+        IP addresses should be contiguous.
+        size of blocks should be power of 2.
+        First IP addresses should be evenly divisible by size of block.
+
+// superneting and Aggregation :
+    conditions for superneting of networks:
+        networks should be contiguous
+        all should be of same size and 2^n
+        first network Id should be divisible by total size of network.
+
+
+        
