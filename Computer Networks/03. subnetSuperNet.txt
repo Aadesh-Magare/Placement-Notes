@@ -41,6 +41,3 @@ e.g.
         networks should be contiguous
         all should be of same size and 2^n
         first network Id should be divisible by total size of network.
-
-
-        

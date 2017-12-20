@@ -37,15 +37,3 @@
     Also last host Id of the class (with all 1) is used as directed broadcast address of the network. hence it's not assigned to any host.
         e.g. 12.255.255.255 => represents broadcast address of the network with Nid 12 and not any particular host.
     This reduces the number of hosts that can be cofigured with given class IP addresses by 2.
-
-// Casting :
-    sending packet from one host to another.
-
-    // Unicast : from one host to another host.
-
-    // Broadcast : from one host to many hosts.
-        // Limited :
-            Host sending packets to all hosts in the same network. (it's sent out to address 255.255.255.255 and received by everyone in that network)
-        // Directed :
-            Host sending packets to all hosts in some other network. (it's sent out to 
-            address Nid.255.255.255 and received by everyone in that network)

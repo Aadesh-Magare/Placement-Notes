@@ -18,7 +18,8 @@ if many stations are sending data through medium simultaneously there should not
 
 // Carrier Sensing Multiple Access / collision detection :
     Any station transmits data any time. It senses whether Carrier is available or not before sending.
-
+    Ethernet uses CSMA/CD.
+    
     Does not use Ack.
     Since there is no ack we have to have mechanism for collision detection.
     sender can detect collision signals are for him if it is still sending data when collision signal came back. hence sender should be sending data till the time collision signals come back.

@@ -1,0 +1,73 @@
+DOS : denial of service, send too many requests to server and block it, or conjust the network with too many packets.
+     Vulnerability attack : This involves sending a few well-crafted messages to a vulnerable application or operating system running on a targeted host. If the right sequence of packets is sent to a vulnerable application or operating system, the service can stop or, worse, the host can crash.
+
+    Bandwidth flooding : The attacker sends a deluge of packets to the targeted host—so many packets that the target’s access link becomes clogged, preventing legitimate packets from reaching the server.
+
+    Connection flooding : The attacker establishes a large number of half-open or fully open TCP connections at the target host. The host can become so bogged down with these bogus connections that it stops accepting legitimate connections.
+
+DDOS : destributed dos. lot of machines at the same time try to conjust the network or flood the medium.
+
+packet sniffer : its passive component that doesnt change anything but keep copy of every packet. 
+
+IP spoofing : ability to inject packets into network with false source address. so anyone can masquerade as legit source.
+
+intenet was invented with philosophy of mutually trusting users attached to transperent network.
+
+// Firewall :
+    // First Generation - Packet Filtering Firewall :  
+        Packet filtering firewall is used to control network access by monitoring outgoing and incoming packet and allowing them to pass or stop based on source and destination IP address, protocols and ports. It analyses traffic at the transport protocol layer (but mainly uses first 3 layers).
+
+        Packet firewalls treats each packet in Isolation. They have no ability to tell whether a packet is part of an existing stream of traffic. Only It can allow or deny the packets based on unique packet headers.
+
+    // Second Generation - Stateful Inspection Firewall : 
+        Statseful firewalls (performs Stateful Packet Inspection) are able to determine the connection state of packet, unlike Packet filtering firewall, which makes it more efficient. It keeps track of the state of networks connection travelling across it, such as TCP streams. So the filtering decisions would not only be based on defined rules, but also on packet’s history in the state table.
+
+    // Third Generation - Application Layer Firewall : 
+        Application layer firewall can inspect and filter the packets on any OSI layer, up to application layer. It has ability to block specific content, also recognize when certain application and protocols (like HTTP, FTP) are being misused.
+    
+        In other words, Application layer firewalls are hosts that run proxy servers. A proxy firewall prevents direct connection between either side of firewall, each packet has to pass through the proxy. It can allow or block the traffic based on predefined rules.
+
+    // Next Generation Firewalls (NGFW) : 
+        Next Generation Firewalls are being deployed these days to stop modern security breaches like advance malware attacks and application layer attacks. NGFW consists of Deep Packet Inspection, Application Inspection, SSL/SSH inspection and many fuctionalities to protect the network from these modern threats.
+
+    Types of Firewall :
+        // Host- based Firewalls : 
+            Host-based firewall are installed on each network node which controls each incoming and outgoing packet. It is a software application or suit of applications, comes as a part of operating system. Host-based firewalls are needed because network firewalls cannot provide protection inside a trusted network. Host firewall protects each host from attacks and unauthorized access.
+
+        // Network-based Firewalls : 
+            Network firewall function on network level. In other words, these firewalls filters all incoming and outgoing traffic across the network. It protects the internal network by filtering the traffic using rules defined on firewall. A Network firewall might have two or more network interface cards (NICs). Network-based firewall is usually a dedicated system with proprietary software installed.
+
+// Encryption :
+    // Symmetric Encryption– Data is encrypted using a key and the decryption is also done using the same key.
+    // Asymmetric Encryption-Asymmetric Cryptography is also known as public key cryptography. It uses public and private keys to encrypt and decrypt data. 
+
+
+    Non- repudiation– Non-repudiation means to ensure that a transferred message has been sent and received by the parties claiming to have sent and received the message. Non-repudiation is a way to guarantee that the sender of a message cannot later deny having sent the message and that the recipient cannot deny having received the message.
+
+    // Digital certificate vs digital signature :
+        Digital signature is used to verify authenticity, integrity, non-repudiation ,i.e. it is assuring that the message is sent by the known user and not modified, while digital certificate is used to verify the identity of the user, maybe sender or receiver.
+
+
+// RSA Algorithm : 
+    The idea of RSA is based on the fact that it is difficult to factorize a large integer. 
+
+    // Public Key :
+        Select two prime no's. Suppose P = 53 and Q = 59.
+        Now First part of the Public key  : n = P*Q = 3127.
+        We also need a small exponent say e such that : 
+            An integer.
+            Not be a factor of n.
+            1 < e < Φ(n) [Φ(n) is discussed below], 
+        Our Public Key is made of n and e
+
+    // Private Key :
+        Φ(n) = (P-1)(Q-1) 
+        Private Key (d) = (k * Φ(n) + 1) / e for some integer k.
+
+    // Encryption :
+        Encrypted Data (c) = (text)^e mod n
+    // Decryption :
+        Decrypted Data = (encryptedText)^d mod n
+
+// Diffie-Hellman Algorithm :
+    

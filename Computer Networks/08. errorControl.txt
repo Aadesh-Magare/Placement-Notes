@@ -3,15 +3,24 @@ There can be two kinds of errors
     Retransmission solves it, ack is used for detection.
 // Packet Corrupted :
     some bits get changed due to external things.
-
     // Error detection : 
         detect whether packet is Corrupted or not.
         we can ask for Retransmission.
         ways to detect:
-            Parity check
+            Simple Parity check :
+                1 is added to the block if it contains odd number of 1’s, and
+                0 is added if it contains even number of 1’s
+                This scheme makes the total number of 1’s even, that is why it is called even parity checking.
+            Two-Dimensional Parity Check :
+                Parity check bits are calculated for each row and each column.
+            Checksum :
+                1. data is divided into k segments each of m bits.
+                2. In the sender’s end the segments are added using 1’s complement arithmetic to get the sum. The sum is complemented to get the checksum.
+                3. At the receiver’s end, all received segments are added (including the segment with checksum) using 1’s complement arithmetic to get the sum. The sum is complemented.
+                4. If the result is zero, the received data is accepted; otherwise discarded.
             CRC : Cyclic redundancy check.
-            Checksum
-
+                CRC is based on binary division.
+                
     // Error correction :
         we know packet is corrupted and are able to correct it also.
         ways to correct:

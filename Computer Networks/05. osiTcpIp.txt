@@ -1,0 +1,207 @@
+// Layers in OSI model : Open Systems Interconnection.
+	
+	1. physical layer :
+		// Functions:
+		1. Bit synchronization : the layer provids clock that controls both sender and receiver this providing bit synchronization.
+		2. Bit rate Control.
+		3. Physical topology
+		4. Transmission mode : simplex, half-duplex, full-duplex.
+
+	2. data link layer :
+		to make sure data transfer is error free from one node to another, over the physical layer.
+		Packet received from Network layer is further divided into frames depending on the frame size of NIC(Network Interface Card).
+		The Receiver’s MAC address is obtained by placing an ARP(Address Resolution Protocol) request onto the wire.
+
+		// Data Link Layer is divided into two sub layers :
+			Logical Link Control (LLC)
+			Media Access Control (MAC)
+
+		Functions:
+		1. Framing : This can be accomplished by attaching special bit patterns to the beginning and end of the frame.
+		2. Physical Addressing : adding Physical addresses of sender, receiver to packet headers.
+		3. Error control: provides the mechanism of error control in which it detects and retransmits damaged or lost frames.
+		4. Flow Control: flow control coordinates that amount of data that can be sent before receiving acknowledgement.
+		5. Access control: When a single communication channel is shared by multiple devices, MAC sub-layer of data link layer helps to determine which device has control over the channel at a given time.
+
+	3. Network layer :
+		Provides IP protocol, it has unreliable service.
+		Functions:
+		1. Routing: The network layer protocols determine which route is suitable from source to destination.
+		2. Logical Addressing: In order to identify each device on internetwork uniquely, network layer defines an addressing scheme. The sender & receiver’s IP address are placed in the header by network layer. 
+
+	4. transport layer :
+		Sender’s side: 
+			Transport layer receives the formatted data from the upper layers, performs Segmentation and also implements Flow & Error control to ensure proper data transmission. It also adds Source and Destination port number in its header and forwards the segmented data to the Network Layer
+		Receiver’s side:
+			Transport Layer reads the port number from its header and forwards the Data which it has received to the respective application. It also performs sequencing and reassembling of the segmented data.
+		Functions:
+		1. Segmentation and Reassembly
+		2. Service Point Addressing: service point address or port address. By specifying this address, transport layer makes sure that the message is delivered to the correct process.
+
+	5. session layer :
+		The layer is responsible for establishment of connection, maintenance of sessions, authentication and also ensures security.
+		Functions :
+		1. Session establishment, maintenance and termination
+		2. synchronization : This layer allows a process to add checkpoints which are considered as synchronization points into the data
+		3. Dialog Controller : The session layer determines which device will communicate first and the amount of data that will be sent.
+
+	6. presentaton layer :
+		Functions:
+		1. Translation 
+		2. Encryption/ Decryption
+		3. Compression
+
+	7. application layer
+	
+	OSI model acts as a reference model and is not implemented in Internet because of its late invention. Current model being used is the TCP/IP model.
+	
+// Layers in TCP/IP model :
+	1. Network Access Layer (1 & 2) :
+		It looks out for hardware addressing and the protocols present in this layer allows for physical transmission of data.
+
+	2. Internet layer (3) :
+		The main protocols residing at this layer are :
+			IP : responsible for delivering packets from the source host to the destination host by looking at the IP addresses
+			ICMP : It is encapsulated within IP datagrams and is responsible for providing hosts with information about network problems.
+			ARP :It’s job is to find the hardware address of a host from a known IP address. 
+	3. transport layer (4) :
+		converts upper layer data into segments.
+		responsibility of UDP or TCP is to extend IP protocols delivery service between two nodes to between two processes.
+
+		// Multiplexing : it takes data from various sockets encapsulate it into transport layer segment, adds some headers and sends to network layer.
+
+		//Demultiplexing : it takes segment from network layer and decapsulate data and send to receipent socket.
+
+
+		// Transmission Control Protocol (TCP) : It is known to provide reliable and error-free communication between end systems. It performs sequencing and segmentation of data.
+		// User Datagram Protocol (UDP) : go to protocol if your application does not require reliable transport as it is very cost-effective.
+		Unlike TCP, which is connection-oriented protocol, UDP is connectionless.
+
+		TCP and UDP headers have fields for source port and destination port. these are 16 bit no. 
+	
+	4. application layer (5,6, & 7) :
+		Some of the protocols present in this layer are : HTTP, HTTPS, FTP, TFTP, Telnet, SSH, SMTP, SNMP, NTP, DNS, DHCP, NFS, X Window, LPD.
+
+// TCP :
+		connection oriented protocol, but the its not circuit switched network. the connection is maintained by end systems only i.e. source and destination. 
+
+		TCP provides reliable communication with something called Positive Acknowledgement with Re-transmission(PAR)
+
+		no multicasting with TCP, its only for point to point communication.
+
+		connection is established by three way handshake cause three packets are transferred for connection establishment.
+
+		it creates segments whose maximum size depends on underlying MTU (maximum transmission unit supported by physical layer)
+
+		the header for TCP contains source and destination port no , checksum field, sequence no , ack no.
+
+		the sequence no in TCP is not segment no but it depends on the bytes transferred and size of each segment. 
+
+		ACk no in TCP is the next sequence no its expecting. so if destination recieved sequence no 8, it will send ACK 9 since it now needs sequence no 9.
+
+		Piggybacked : the ack for reciept of one packet may be sent with another packet carrying data so the acknowledgement is said to be Piggybacked with data.
+
+		selective acknowledgement :
+		out of order segments are not individually ack by reciever., it waits till it fills in the gap in them before sending the cumulative ack. 
+		out of order segments are ack selectively and not blindly .
+
+		flow control : speed matching service.
+		sender should not full the buffers of reciever.
+		sender may be told to slow down due to congestion control.
+		cumulative acknowledgement avoids retransmission of data.
+
+		TCP flow control : TCP provids flow control using recieve window. in every segment reciever sends how much space it has remaining in the recieve window, accordingly sender slows down.
+
+		// Three way handshake :
+			client to server : SYN segment, with syn bit set to 1 and random seq no.
+			server to client : SYNACK segment, with syn bit set to 1, ack no as seq no + 1 and a random seq no. this is connection granted segment and this is time when server should allocate resource to the client but doing so makes it vulnerable to DOS attack, hence thats done after third step.
+			client to server : allcoates buffers and send ack for connection grantd segment with ack no as seq no from server + 1. SYN bit is set to 0. this segment may carry data also.
+
+
+		to terminate connection FIN segment is sent for which other party sends ACK, upon recieving the ACK, terminator sends its ACK and connection is closed.
+
+		// congestion control : network layer does not provide it so transport layer must ensure it through end to end control.
+		segment loss (timeout or tripple ack) or increase in round trip delay can mean congestion has occured.	
+		network assisted congestion control : routers tell end systems about congestion in medium by some messges
+		router may send a packet to sender directy stating congestion (choke packet) or modify the packet going from sender to reciever so that reciever gets to know about congestion.
+
+		TCP congestion control : (additive increase multiplicative decrease)
+			slow start : the rate is doubled on each ack recieved, till there is loss due to  time out that means congestion.
+			once its detected slow start phase is restarted, rate is brought down to lowest and threshold is set to half of when congestion occured.
+			now second time when we cross threshold slow start phase ends.
+			congestion avoidance : 
+				the rate is increased by one instead of doubling it. when congestion occurs in this state same algorithm is followed. i.e. rate is brought down to lowest and threshold is set to half of when congestion occured.
+				when tripple ACK are there instead of timeout rate is brought down to half of currnet value instead of lowest. since tripple ACK does not mean sure congestion while timeout means congestion.
+
+// Network Layer :
+	
+	virtual circuit network : connection service at network layer. connection is implemented by end systems as well as routers along path.
+	datagram network : connectionless service at network layer.
+
+	network layer packet is called datagram.
+
+	// VC :
+		it consist of path between source and destination, along path each link has some VC no. each router has forwarding table with entries for incoming VC no and outgoing VC no. a packet belonging to VC will carry a VC no in its header, router changes the VC no in packet to VC no of link after forwarding it on some link.
+		whenever a new VC is established across router its entry is added into router.
+		routers are involved in circuit as opposed to TCP circuit where only end systems know about the circuit.
+
+	// Datagram Network :
+		sends a packet with destination address without creating circuit.
+	
+	// Source route is sequence of ip addresses that datagram must follow.
+
+	// IPv4 :
+		TTL : time to leave field is present in ip datagram header. its value is decreamented by each router before forwarding. when it reaches to 0 packet is dropped. this is to avoid circulation of packet forever.
+
+		the header also contains a field, protocol which tells to which upper layer the packet should be given to i.e. to TCP or UDP.
+
+		source and destination address in header contains ultimate source and destination for packet.
+
+		when MTU of link layer is smaller than the datagram size, it needs to be fragmented. destination host then reassembles the fragments into original datagram. routers dont reassemble the fragments they just forward it.
+
+		each datagram has unique identification no. when its fragmented, its fragments also have same identification no, from this destination can determine that these are fragments of same datagram. to know their sequence, offset is provided which represets the position of fragment in original datagram. to indicate last fragment special bit is used.
+
+		subnet mask : 123.1.3.0/24 means left most 24 bits define the subnet, while the remaining 8 bits can be used to identify individual hosts in subnet. generalization of this addressing strategy is called classless interdomain routing (CIDR)
+
+		255.255.255.255 is used for broadcast, packets with this destination address will be forwarded to all interfaces.
+
+		// DHCP : dynamic host configuration protocol.
+			DHCP can be configured so that a host gets same IP every time, or temp IP every time he connects to internet. DHCP also allows host to learn subnet mask, first-hop router address(default gateway), local dns server.
+			its also called plug and play protocol.
+
+			its client server protocol, newly connected host is client. each subnet may have DHCP server or a relay agent (router) that knows address of DHCP server.
+
+			steps :
+				server discovery : it broadcast a DHCP discover msg with source address 0.0.0.0
+				server offer : server broadcast its offer with ip address for the host, its having some time lease.
+				DHCP request : client on recieving the offer will reply back with the configuration details sent by server.
+				DHCP ACK : server sends ACK confirming the parameters.
+		// NAT :
+			NAT enabled router looks like single host to outside world. all outgoing and incoming packets from outside have ip of NAT router which circulate it inside the sub network.
+
+			it maintains a NAT table. whenever packet is going outside, its source address is changed to that of NAT router, port is changed by NAT to some available port and entry is added to  NAT table with original ip and port against new port and destination ip.
+			when response comes NAT does lookup for that destination ip and port and gets original ip and port, forwards packet to that.
+
+		// ICMP : Internet Control message protocol.
+			used for error reporting, it lies just above IP.
+			ICMP contains first 8 bytes of datagram which caused that ICMP message.
+
+			source quench message was used for congestion control by sending source quench ICMP to source for it to slow down but its not used now, instead transport layer function is used for congestion control.
+
+			parameter problem ICMP message is used to notify source about corruption of a packet.
+
+			Time exceeded message is sent back to source when TTL becomes 0 for packet.
+			// Traceroute program :
+				its used to trace route between source and destination.
+				its implemented with ICMP messages. it sends UDP messages to destination with TTL value starting from 1 to n with a wrong port no. the packets are lost from routers according to TTL value, so 1st, 2ndt...nth router are discovered. when router discards the packet it sends ICMP warning to source, due to this source gets to know about that router. source stops sending messages when the packet loss due to TTL stops and some packet reaches destination and sends back port unreachable ICMP message. (because it uses some random port in that message so that when destinatino recieves it, it should give some error)
+
+		// IPv6 : uses 128bit addressing. in addition to unicast and multicast it also support anycast address i.e. any one of the available host can recieve message.
+
+		it has flow labeling and priority i.e. different treatment can be given to diff packets.
+
+		fragmentation/asselbly of packets is done at source/destination only, routers are not allowed to fragment. if the packet size is too big, it simply discards packet and sends ICMP error msg to source.
+
+		header checksum is removed.
+
+		to shift from ipv4 to ipv6 tunneling maybe used. i.e. on the interface that doenst support ipv6 protocols, its encapsulated into ipv4 packet and sent. 
+

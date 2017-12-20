@@ -1,0 +1,55 @@
+// Casting :
+    sending packet from one host to another.
+
+    // Unicast : from one host to another host.
+
+    // Broadcast : from one host to many hosts.
+        // Limited :
+            Host sending packets to all hosts in the same network. (it's sent out to address 255.255.255.255 and received by everyone in that network)
+        // Directed :
+            Host sending packets to all hosts in some other network. (it's sent out to 
+            address Nid.255.255.255 and received by everyone in that network)
+			
+// Broadcast protocols :
+	// N-way unicast (source duplication) : if packet is to be sent to N nodes, its N copies are made each having diff destination and are sent. but it wastes bandwidth, its complicated to know address of all destinations
+
+	// Uncontrolled flooding : send one copy to each neighbour, which will further forward copies to their neighbours except the one from which it came. but if graph contains cycle then packet may keep cycling in the network.
+	also when a node is connected to two or more nodes (having cycle) it will go on creating multiple copies of packet on each iteration, so creating broadcast storm
+
+	// Controlled flooding :
+		1. Sequence no Controlled flooding : broadcast packet contains a sequence no, each node contains list of sequence no it has already forwarded so that it never forwards tha packet again.
+		2. Reverse path forwarding : (RP Broadcasting) A node will forward the packet only when it has recieved the packet from the node which is present on the shortest path from current node to source of packet.
+
+	// Spanning Tree Broadcast :
+		forward the packet on only those edges which are part of spanning tree.
+		method to construct spanning tree is center based approach.
+		a center node (rendezvous point or core ) is defined. all nodes send tree-join message towards center, when the message reach center or any node connected to center, new edge is added into ST.
+
+// MultiCast:
+	to deliver msg to specific people only, their group is created called as multicast group. to form and maintain group IGMP is used.
+
+	Class D ip addresses are reserved for Multicast groups.
+
+	// Internet Group Management Protocol.
+		IGMP provides the host method to inform router that the host wants to join specific group, scope of IGMP is only till host and its first router.
+
+		so to route packets between these multicast routers we need another mechanism i.e. multicast routing algorithm.
+
+		IGMP provides 3 messages i.e. membership_query message that the router sends to its interface to know which hosts are part of which multicast group, on recieving membership_query, hosts send membership_report. host can also send membership_report first without getting any membership_query if he wants to join before. third type of message is leave Group.
+
+		soft state protocols are the ones in which a state is removed due to timeout if its not refreshed after some interval.
+		in IGMP even if host dont send leave message, it can be removed from group, if it doest reply to the membership_query message.
+
+// Multicast routing algorithm :
+	1. using group-shared tree :
+		the tree can be constructed using center based approach. and then packets can be forwarded on it.
+	2. using source-based tree :
+		construct a tree for each source. RPF algorithm is used to construct the tree for each source vertex.
+
+		if there are routers in tree which do not wish to recieve messages will send prune message to its upstream router so that upstream router wont send packets to this router.
+
+	// Protocol independent Multicast (PIM) router protocol :
+		it has two conditions dense mode and sparse mode.
+
+		in dense mode it uses source-based tree approach with RPF  with prune.
+		sparse mode uses center based tree approach.

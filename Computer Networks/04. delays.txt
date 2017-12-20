@@ -4,18 +4,23 @@
             L : length of packet
             B : bandwidth of network.
     
+    delay at router to push packet onto network, that depends on size of packet and transmission rate of medium.
+
     K, M and G in terms of bandwidth and data (packet size) are different.
     e.g.
         1K data => 1024 bits
         1Kbps   => 1000 bits/sec
 
 // Propagation delay :
+    time required for packet to travel through medium. that depends on the length of path.
+
     time taken by data to reach from sender to receiver.
         Tp = d / v
         d : distance to be covered
         v : velocity with which signals travel (e.g. 70% of v of light)
 
-    Round Trip Time (RTT) = 2 * Tp
+    // Round trip time : time for packet to travel from client to server and back to client.
+        Round Trip Time (RTT) = 2 * Tp
     
 // Queuing delay (Tq) :
     time spent by the packet in the receiver queue before it is processed.
@@ -24,4 +29,6 @@
     time taken by receiver to process the packet.
 
     Tq and Tpro are generally considered zero unless given since they depend on receiver and no formula to calculate them.
-    
+
+// Nodal delay : 
+    processing delay + queueing delay + transimssion delay + propagation delay
