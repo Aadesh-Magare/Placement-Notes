@@ -18,7 +18,7 @@
 
 	// Controlled flooding :
 		1. Sequence no Controlled flooding : broadcast packet contains a sequence no, each node contains list of sequence no it has already forwarded so that it never forwards tha packet again.
-		2. Reverse path forwarding : (RP Broadcasting) A node will forward the packet only when it has recieved the packet from the node which is present on the shortest path from current node to source of packet.
+		2. Reverse path forwarding : (RP Broadcasting) A node will forward the packet only when it has received the packet from the node which is present on the shortest path from current node to source of packet.
 
 	// Spanning Tree Broadcast :
 		forward the packet on only those edges which are part of spanning tree.
@@ -35,7 +35,7 @@
 
 		so to route packets between these multicast routers we need another mechanism i.e. multicast routing algorithm.
 
-		IGMP provides 3 messages i.e. membership_query message that the router sends to its interface to know which hosts are part of which multicast group, on recieving membership_query, hosts send membership_report. host can also send membership_report first without getting any membership_query if he wants to join before. third type of message is leave Group.
+		IGMP provides 3 messages i.e. membership_query message that the router sends to its interface to know which hosts are part of which multicast group, on receiving membership_query, hosts send membership_report. host can also send membership_report first without getting any membership_query if he wants to join before. third type of message is leave Group.
 
 		soft state protocols are the ones in which a state is removed due to timeout if its not refreshed after some interval.
 		in IGMP even if host dont send leave message, it can be removed from group, if it doest reply to the membership_query message.

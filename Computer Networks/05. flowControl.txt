@@ -1,4 +1,4 @@
-The rate at which sender sends packets should not be too greater than receivers processing rate else the receiver queue might get full and cause subsequent packages to be discarded.
+The rate at which sender sends packets should not be too greater than receiver's processing rate else the receiver queue might get full and cause subsequent packages to be discarded.
 
 
 // Capacity of link :

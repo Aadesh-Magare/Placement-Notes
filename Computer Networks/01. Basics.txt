@@ -1,5 +1,4 @@
-Internet standards are developed by Internet engineering task force, their standard documents are called requests for comments.
-Internet can be seen as infrastructure that provides services to application. Internet API are used by applications to send data to other hosts over the network.
+Internet standards are developed by Internet engineering task force, their standard documents are called requests for comments. Internet can be seen as infrastructure that provides services to application. Internet API are used by applications to send data to other hosts over the network.
 
 Open system is the one connected to network and ready for communication while closed system is not connected and not available for communication.
 
@@ -7,14 +6,12 @@ Physical medium : which actually carry signals
 	guided media : cables
 	unguided media : wireless, satelites.
 
-Packet switching : source breaks the file to be sent into chunks known as  packets. these travel through communication links and packet switches. (router or link-layer switches).
-
 Baseband vs BroadBand :
 	baseband : entire bandwidth is consumed by single signal.
 	BroadBand : signals are sent on multiple frequencies.
 Transmission :
 	store and forward, the packet switches may store packets till it recieves all of them and then forward them.
-	if the network is conjusted, packets are saved in output buffer and this call queue delay due to buffer.if buffer is full, incoming packets are lost.
+	if the network is conjusted, packets are saved in output buffer and this is called queue delay due to buffer. If buffer is full, incoming packets are lost.
 
 	circuit switching networks:
 	resources needed along the path are reserved while in packet switched network they aren't reserved. telephones use circuit switching, before th e call is made circuit is reserved. due to this guranteed constat rate is achieved for transfers.

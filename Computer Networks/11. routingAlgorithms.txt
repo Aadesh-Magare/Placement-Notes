@@ -1,10 +1,10 @@
 // Routing Algorithms :
-	global algorithms which have info of every node is network,  called link state algorithms.
+	global algorithms which have info of every node in network,  called link state algorithms.
 
-	decentralized algorithms : which dont have information about the whole network and starts with each node having knowledge of its neighbours only.
+	decentralized algorithms : which dont have information about the whole network and starts with each node having knowledge of its neighbors only.
 
 	static routing algorithms : path does not change often.
-	dynamic routing algorithms : path can change at anytimme.
+	dynamic routing algorithms : path can change at anytime.
 
 	load-sensitive algorithms : cost of link vary according to congestion.
 	load-insensitive algorithms : cost of link does not vary according to congestion.
@@ -20,7 +20,7 @@
 		asynchronous, distributed.
 		each node maintains a distance vector i.e. vector of distances of other nodes from it.
 		it also maintains copy of distances vector of its neighbours.
-		periodically nodes send thier distance vector to neighbours then neighbours use bellman ford algorithm to update thier distance vector table. if its distance vector is changed it will forward it to neighbours.
+		periodically nodes send their distance vector to neighbours then neighbours use bellman ford algorithm to update their distance vector table. if its distance vector is changed it will forward it to neighbours.
 
 		// This algorithm is vulnerable to problem of count till infinity i.e. when two nodes think that its shortest path passes through other they keep bouncing the packet in between. to solve this issue poisoned reverse method is used. but it can only solve problem of looping for two nodes, not more than 3 nodes.
 
@@ -32,9 +32,9 @@
 
 			// RIP : routing information protocol.
 				its Distance Vector protocol.
-				maximum cost is 15. so its limited to AS whoes diamter is 15. 
+				maximum cost is 15. so its limited to AS whose diameter is 15. 
 				in RIP routing info is shared between router every 30 sec using RIP response message (RIP advertisements.)
-				each router maintains routing table, which includes forwarding table and distance vector. after each 30 sec router recieves advertisement from neighbours and so it updates its routing table, if it doesnt hear from some neighbour for 180 sec, then its considered that neighbour died, so it updates table and notifies others about this.
+				each router maintains routing table, which includes forwarding table and distance vector. after each 30 sec router receives advertisement from neighbours and so it updates its routing table, if it doesn't hear from some neighbour for 180 sec, then its considered that neighbour died, so it updates table and notifies others about this.
 
 				alternative to RIP is HELLO protocol which uses time instead of distance for optimal routing
 

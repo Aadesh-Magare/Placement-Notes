@@ -17,7 +17,7 @@ e.g.
 
     Bitwise AND of given address with subnet mask will give you the network Id (subnet Id) of the address.
     
-    If a packet matches multiple subnets during the routing then it should be sent out to the subnet with max subnet max. (one with more 1's for subnet max)
+    If a packet matches multiple subnets during the routing then it should be sent out to the subnet with max subnet match. (one with more 1's for subnet max)
 
     subnet inside a network can be of different sizes it's called variable length subnet.
     larger subnet will have smaller subnet mask.
