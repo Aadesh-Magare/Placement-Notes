@@ -1,8 +1,23 @@
-when input values are changed output is changed almost instantaneously, delayed only by the propagation time of singals through gate, known as gate delay.
+when input values are changed output is changed almost instantaneously, delayed only by the propagation time of signals through gate, known as gate delay.
 
+// Functionally complete or universal operations :
+    a set of operations which can represent any switching function.
+
+    a set is functionally complete if we can derive a set from it which is known to be functionally complete.
+
+    If a set is functionally complete after taking support from 0 or 1.
+    i.e. without using 0 or 1 explicitly it's not possible to prove functionally complete property then it's called partial functionally complete.
+    
 // Functionally complete set of gates :
     any boolean function can be implemented by using only gates in the set.
 
+// Positive logic system :
+    when high voltage is treated as 1 and low voltage as 0.
+// Negative logic system :
+    when high voltage is treated as 0 and logic voltage as 1.
+
+    If we change the logic system from +ve to -ve or vice versa the effect is same as taking dual.
+    
 General gate outputs:
 input : A, B
 
@@ -11,4 +26,4 @@ OR : A + B
 NOT : ~A
 NAND : ~(A.B)
 NOR : !(A + B)
-XOR : A~B + B~A
+XOR : A~B + B~A (XOR acts like sum modulo 2 function)

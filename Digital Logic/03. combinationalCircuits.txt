@@ -5,7 +5,7 @@ a boolean function is simplified cause simplified one will required less no of g
     Karnaugh maps
     Quine-McKluskey tables
 
-    // K-map :
+    // K-map : Row and column headers are cycle code i.e. adjacent ones vary by one bit only.
 
         00  01  11  10
     00  -   -   -   -
@@ -13,8 +13,12 @@ a boolean function is simplified cause simplified one will required less no of g
     11  -   -   -   -
     10  -   -   -   -
 
-    find group by 1's of size 2,4,8 that are adjacent.
+    find group of 1's of size 2,4,8 that are adjacent.
+    these groups are called subcube. subcube must have size of 2^m. A valid subcube will have cells such that each cell has m adjacent cells from the subcube.
     Minimize the groups : in the group the value which is different will get dropped and common ones will be retained.
+
+    Covering function : function f is said to cover function g if f is super set of g i.e. all min-terms of g are already present in f.
+
 
     // Quine-McKluskey :
         1. create table with rows as product terms in given equation and columns as variables, sorted according to number of 1's in columns.
@@ -39,16 +43,20 @@ a boolean function is simplified cause simplified one will required less no of g
     
 // Decoder :
     it has number of output lines, only one of which is asserted at a time, dependent on the pattern of input lines.
-    in-general it has n input and 2^n output lines.
+    in-general it has n input and 2^n output lines out of which only one is active at a time.
+
+// Encoder :
+    opposite of Decoder. takes 2^n input lines out of which only one is active at a time and gives out binary encoding for that.
+    e.g. 4 to 2 encoder : it will have 4 input lines out of which one will be active at a time and two output lines whose value will depend on input line.
 
 // ROM are basically combinational circuits since it's fixed and is created during fabrication process, 
 
 // Adder :
-    in normal adder, every bit adder has to depend on the carry from previous adder, so the gate delay repples through and becomes significant till it reaches most significant bit.
-    solution to this problem is carry lookahead.
+    in normal adder, every bit adder has to depend on the carry from previous adder, so the gate delay ripples through and becomes significant till it reaches most significant bit.
+    solution to this problem is carry look-ahead.
     
         C0  = A0B0
-        C1  = A1B1 + A1(C0) + B1(C0)  (substitue C0 value)
+        C1  = A1B1 + A1(C0) + B1(C0)  (substitute C0 value)
             = A1B1 + A1A0B0 + B1A0B0
         C2  = A2B2 + A2(C1) + B2(C1)
             = A2B2 + A2(A1B1 + A1A0B0 + B1A0B0) + B2(A1B1 + A1A0B0 + B1A0B0)
@@ -59,5 +67,6 @@ a boolean function is simplified cause simplified one will required less no of g
         no of AND gates in carry generator circuit of n bits adder = n(n+1) / 2
         and no of OR gates = n
         
-         
-
+    
+    half adder / sub-tractor needs 5 nand / nor gates to be implemented.
+    full adder / sub-tractor needs 9 nand / nor gates to be implemented.

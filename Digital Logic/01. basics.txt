@@ -1,17 +1,21 @@
-Basic logical operations:
-AND = .
-OR = +
-NOT = overbar (-)
+// Basic logical operations:
+    AND = .
+    OR = +
+    NOT = overbar (-)
 
-De morgans theoram :
-    not(A.B) = not A + not B
-    not(A+B) = not A . not B
+// De morgans theorem :
+    ~(A.B) = ~ A + ~ B
+    ~(A+B) = ~ A . ~ B
     
-Important simplifications:
-~a + ab = ~a + b    (can be proved by taking complement)
-a + ~ab = a + b
+// Important simplifications (Absorption Laws) :
+    ~a + ab = ~a + b    (can be proved by taking complement)
+    a + ~ab = a + b
+    a + ab = a 
 
-Functionally complete operation set :
+// Consensus theorem :
+    xy + ~xz  + yz = xy + ~xz
+
+// Functionally complete operation set :
     set of logic functions from which any arbitrary boolean function can be realized.
     e.g.
         1. OR, AND, NOT
@@ -19,4 +23,45 @@ Functionally complete operation set :
         3. NOR
         4. XOR, AND
         5. 2 to 1 multiplexer.
-        
+
+// Principle of Duality:
+    Dual of ~x + ~y => ~x . ~y
+    It's different from complement since in dual only operator and constants (0,1) are negated not the variables.
+     
+// Representation of function :
+    // min term : 
+        a product term which contain all variables present in function in complemented form or un-complemented form.
+            e.g. for function on variables a, b, c
+            min terms are abc, a~bc, ~abc etc.
+        a min terms gives output 1 for exactly one combination of it's terms.
+    // Canonical sum of products (disjunctive normal form) :
+        sum of all min terms for which function assumes value 1. 
+    
+    // Max term :
+        a sum term which contain all variables present in function in complemented or un-complemented form.
+         e.g. for function on variables a, b, c
+            min terms are a+b+c, ~a+b+~c etc
+        a max term gives output 0 for exactly one combination of it's terms.
+    // Canonical product of sums (conjunctive normal form) :
+        product of all max terms for which function assumes value 0.
+
+    Canonical SOP or POS forms are unique for a particular function.
+    functions with identical Canonical SOP or POS forms are said to be equivalent functions.
+
+// Neutral functions:
+    having equal no of min terms and max terms.
+    no of Neutral functions : (2^n) C (2^n-1)
+
+// Self-dual : 
+    if a function and it's dual are equal then it's called self-dual.
+    
+    It's closed under complement.
+    
+    conditions for Self-dual :
+        function must be Neutral (no of min terms = max terms)
+        function doesn't contain two mutually exclusive terms.
+            e.g. ABC -  ~A~B~C
+                 A~B~c - ~ABC   are mutually exclusive terms.
+
+    No of Self-dual functions possible for n variable function :
+        2^(2 ^ (n-1)) : 2 raised to (2 raised to n-1)

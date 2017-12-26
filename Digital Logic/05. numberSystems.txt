@@ -13,16 +13,37 @@
 
     // Decimal to Binary :
 
-        // Integar part :
+        // Integer part :
             repeated division by 2 gives Binary representation of number from lsb to msb.
 
         // Fractional part :
             multiply Fractional part by 2, the integar part of multiplication result is the msb of binary number.
             consider fractional part of result for further calculation, stop when desired no of bits are found.
-
 // Hexadecimal system:
     base or radix : 16
 
     // Hex to binary or binary to hex :
         group of 4 digits in binary forms a digit in hex.
         
+// Numbers Encoding :
+
+    // BCD (Binary Coded Decimal) : 8421 code :
+        simply convert decimal numbers (0 to 9) into 4 bit binary numbers.
+        0000, 0001, 0010, 0011, 0100 etc.
+        45 => 0100 0101 
+
+        BCD number greater than 9 is invalid and we add 6 into it to make it correct.
+            e.g. 1010 is wrong in bcd representation.
+                1010 + 0110 = 0001 0000 is the correct representation for 10.
+    
+    // Excess-3 Code :
+        3 is added to bcd representation to get Excess-3 representation.
+        // Excess-3 of 5 :
+            5 => bcd(5) + 3 => 5 in Excess-3
+            5 => 0101 => 1000 
+        in Excess-3 codes 0->9, 1->8 etc are self complementing.
+        Excess-3 is the only unweighted code which is self complementing.
+    // Gray Code :
+        Binary numbers where subsequent number differ by no more than 1 bit.
+        e.g. 00 => 01 => 11 => 10 also known as cyclic code.
+        Binary numbers can be converted into gray code by simply creating sequential table.
