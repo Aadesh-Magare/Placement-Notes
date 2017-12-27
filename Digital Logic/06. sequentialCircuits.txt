@@ -74,7 +74,7 @@ We use sequential circuits to design Counters, Registers, RAM, MOORE/MEALY Machi
 
     register with n flip flops can count up to 2^n - 1
 
-    counts are of type synchronous and asynchronous. synchronous are faster since one flip flop does not depend on the output of earlier one.
+    counters are of type synchronous and asynchronous. synchronous are faster since one flip flop does not depend on the output of earlier one.
 
     // asynchronous counter (Ripple counter):
         change to increment counter occurs at one end and Ripples to other end.

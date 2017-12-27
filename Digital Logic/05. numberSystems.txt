@@ -46,4 +46,4 @@
     // Gray Code :
         Binary numbers where subsequent number differ by no more than 1 bit.
         e.g. 00 => 01 => 11 => 10 also known as cyclic code.
-        Binary numbers can be converted into gray code by simply creating sequential table.
+        Binary numbers can be converted into gray code by simply creating sequential table of gray codes and then assign them sequentially to Binary numbers.

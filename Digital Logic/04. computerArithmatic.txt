@@ -20,12 +20,12 @@ a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
 // Converting the bit length:
 	when sign Magnitude method is used, simply move the sign bit to new leftmost position and fill in with zeros
 
-	when two complement mehtod is used, move the sign bit to new leftmost position and fill in with copies of sign bit.
+	when two complement method is used, move the sign bit to new leftmost position and fill in with copies of sign bit.
 
 // Fixed point representation :
-	for whole numbers radix point is fixed and assumed to be to the right of rightmost digit, same representaion can be used for binary fractions.
+	for whole numbers radix point is fixed and assumed to be to the right of rightmost digit, same representation can be used for binary fractions.
 
-// Integer Arithmatic :
+// Integer Arithmetic :
 	
 	// Negation :
 		in sign Magnitude method just invert the sign bit.
