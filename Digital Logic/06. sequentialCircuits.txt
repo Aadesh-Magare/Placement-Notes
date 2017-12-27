@@ -3,6 +3,14 @@ combinational circuits provide no memory or state info, hence for that a more co
 The current output of Sequential circuits depends on not only the current input but also the history of inputs.
 Sequential circuits make use of combinational circuits.
 
+We use sequential circuits to design Counters, Registers, RAM, MOORE/MEALY Machine and other state retaining machines.
+
+// Asynchronous sequential circuit :
+    These circuit do not use a clock signal but uses the pulses of the inputs. These circuits are faster than synchronous sequential circuits because there is no clock pulse and change their state immediately when there is a change in the input signal. We use asynchronous sequential circuits when speed of operation is important and independent of internal clock pulse.
+// Synchronous sequential circuit :
+    These circuit uses clock signal and level inputs. The output pulse is the same duration as the clock pulse for the clocked sequential circuits. Since they wait for the next clock pulse to arrive to perform the next operation, so these circuits are bit slower compared to asynchronous. 
+
+
 // Flip-Flop :
     simplest form of Sequential circuits.
     
@@ -29,9 +37,21 @@ Sequential circuits make use of combinational circuits.
             Input   Output
             0       0
             1       1
-    // J-K Flip Flop:
+    // J-K Flip Flop :
+    
+        J   K   Qn+1
+        0   0   Qn
+        0   1   0
+        1   0   1
+        1   1   Toggle (~Qn)
+
         uses two inputs but there are no invalid inputs.
         top 3 outputs are similar to S-R and 11 condition is known as toggle, it toggles the previous output value.
+    // T Flip Flop :
+            uses single input.
+            T      Qn+1
+            0       Qn
+            1      ~Qn
 
 // Registers:
     It's an application of flip flops.
@@ -54,15 +74,16 @@ Sequential circuits make use of combinational circuits.
 
     register with n flip flops can count up to 2^n - 1
 
-    counts are of type synchronous and asynchrous. synchronous are faster since one flip flop does not depend on the output of earlier one.
+    counts are of type synchronous and asynchronous. synchronous are faster since one flip flop does not depend on the output of earlier one.
 
-    // asynchrous counter (Ripple counter):
+    // asynchronous counter (Ripple counter):
         change to increment counter occurs at one end and Ripples to other end.
-
         can be constructed using set of J-K flip flops.
-    
+
+        only the first flip flop is triggered by clock signal subsequent flip flops are triggered by the output of previous flip flop.
+
     // Synchronous counter :
         all flip flops change at the same time, makes use of clock cycle.
-        
         can be constructed using set of J-K flip flops.
 
+        Single global clock which drives each flip flop. it can operate on higher frequency than asynchronous counter as it does not have cumulative delay because of same clock is given to each flip flop.

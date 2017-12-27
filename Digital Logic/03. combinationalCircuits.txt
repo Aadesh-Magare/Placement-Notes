@@ -1,39 +1,39 @@
 interconnected set of gates whose output at any time depends only on input at that time.
 
 a boolean function is simplified cause simplified one will required less no of gates for construction. simplification method:
-    Algebric simplification
-    Karnaugh maps
-    Quine-McKluskey tables
+// Algebraic simplification :
+    // K-map : 
+        Row and column headers are cycle code i.e. adjacent entries vary by one bit only.
 
-    // K-map : Row and column headers are cycle code i.e. adjacent ones vary by one bit only.
+            00  01  11  10
+        00  -   -   -   -
+        01  -   -   -   -
+        11  -   -   -   -
+        10  -   -   -   -
 
-        00  01  11  10
-    00  -   -   -   -
-    01  -   -   -   -
-    11  -   -   -   -
-    10  -   -   -   -
+        find group of 1's of size 2,4,8 that are adjacent.
+        these groups are called subcube. subcube must have size of 2^m. A valid subcube will have cells such that each cell has m adjacent cells from the subcube.
+        Minimize the groups : in the group the value which is different will get dropped and common ones will be retained.
 
-    find group of 1's of size 2,4,8 that are adjacent.
-    these groups are called subcube. subcube must have size of 2^m. A valid subcube will have cells such that each cell has m adjacent cells from the subcube.
-    Minimize the groups : in the group the value which is different will get dropped and common ones will be retained.
-
-    Covering function : function f is said to cover function g if f is super set of g i.e. all min-terms of g are already present in f.
+        Covering function : function f is said to cover function g if f is super set of g i.e. all min-terms of g are already present in f.
 
 
-    // Quine-McKluskey :
+    // Quine-Mckluskey :
         1. create table with rows as product terms in given equation and columns as variables, sorted according to number of 1's in columns.
         2. find pairs of terms which differ in only one variable, mark the rows where such match is found
         3. combine the pair by eliminating the variable that differs in two terms.
         4. the result is new table with expressions formed after elimination in 3rd step
         5. new table is formed with result from 4th step and the process is continued until a table is formed which has no matches.
-        6. after this the terms which have not been eliminted are used to formed final matrix, its rows are the entries that have not been eliminated in any of the tables. and columns are the expressions in the original matrix.
-        7. a X is placed at the intersection where the row is compmatible wit column, i.e. column contains row.
+        6. after this the terms which have not been eliminated are used to formed final matrix, its rows are the entries that have not been eliminated in any of the tables. and columns are the expressions in the original matrix.
+        7. a X is placed at the intersection where the row is compatible wit column, i.e. column contains row.
         8. X that are alone in column are circled.
         9. put those x in square which has circled x in its row.
         10. if every column has squared or circled x then we are done.
         11. the rows which contain circled and squared x are part of solution.
         
 // Multiplexer :
+    Circuit having 2^n input lines, n select lines and one output. It's used to select one input from input lines based on given select lines.
+
     4 to 1 Multiplexer: 4 input lines and 1 output line, 2 signals lines to select one value out of 4.
 
     It's used in digital circuits to control signal and data routing. e.g. loading of program counter (PC), it might get one of the following values:
@@ -41,6 +41,12 @@ a boolean function is simplified cause simplified one will required less no of g
         instruction register
         output of ALU.
     
+    Multiplexer can act as universal combinational circuit. All the standard logic gates can be implemented with multiplexers.
+
+    higher order multiplexer can be made by using lower order mux.
+    e.g. 8:1 mux can be created by using 7 2:1 multiplexers.
+        in general 2^n:1 mux requires 2n-1 number of 2:1 multiplexers.
+
 // Decoder :
     it has number of output lines, only one of which is asserted at a time, dependent on the pattern of input lines.
     in-general it has n input and 2^n output lines out of which only one is active at a time.
@@ -49,8 +55,15 @@ a boolean function is simplified cause simplified one will required less no of g
     opposite of Decoder. takes 2^n input lines out of which only one is active at a time and gives out binary encoding for that.
     e.g. 4 to 2 encoder : it will have 4 input lines out of which one will be active at a time and two output lines whose value will depend on input line.
 
-// ROM are basically combinational circuits since it's fixed and is created during fabrication process, 
-
+// ROM :
+    ROM are basically combinational circuits since it's fixed and is created during fabrication process. 
+    a 4X4 ROM has 4 input lines i.e. it stores content in 4 memory locations. and it stores 4 bits at each location.
+    Types of ROM:
+        // Mask ROM : programmed during manufacture. Costly.
+        // PROM : programmable. manufactured as blank and later on programmed. data once programmed cannot be changed.
+        // EPROM : Erasable PROM. data can be erased with special UV light and EPROM can be reprogrammed later.
+        // EEPROM : Electrically Erasable PROM. easy to erase. used to store BIOS.
+        // Flash ROM : faster than EEPROM. since it's accessed in blocks of data while EEPROM is byte accessed.
 // Adder :
     in normal adder, every bit adder has to depend on the carry from previous adder, so the gate delay ripples through and becomes significant till it reaches most significant bit.
     solution to this problem is carry look-ahead.
