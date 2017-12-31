@@ -17,7 +17,9 @@ a boolean function is simplified cause simplified one will required less no of g
 
         Covering function : function f is said to cover function g if f is super set of g i.e. all min-terms of g are already present in f.
 
-
+        prime implicants : largest possible group of 1.
+        essential prime implicants : which has at least single 1 which is not covered by any other prime implicant.
+        
     // Quine-Mckluskey :
         1. create table with rows as product terms in given equation and columns as variables, sorted according to number of 1's in columns.
         2. find pairs of terms which differ in only one variable, mark the rows where such match is found

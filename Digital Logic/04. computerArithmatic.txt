@@ -17,6 +17,12 @@ a 8 bit can represent numbers from 0 to 255 (unsigned numbers).
 		-2^(n-1) to +2^(n-1) – 1
 	one's complement has two representations of 0. +ve and -ve zero. hence twos complement is preferred which has only one representation for 0.
 	
+	Range of Numbers : For n bit number.
+		Unsigned Number : 0 to 2^(n) - 1
+		Signed Number : –2^(n-1) + 1 to 2^(n-1) – 1
+		1's Complement : -2^(n-1) + 1 to 2^(n-1) - 1 
+		2's Complement : -2^(n-1) to 2^(n-1) - 1 
+
 // Converting the bit length:
 	when sign Magnitude method is used, simply move the sign bit to new leftmost position and fill in with zeros
 

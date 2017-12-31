@@ -47,3 +47,12 @@
         Binary numbers where subsequent number differ by no more than 1 bit.
         e.g. 00 => 01 => 11 => 10 also known as cyclic code.
         Binary numbers can be converted into gray code by simply creating sequential table of gray codes and then assign them sequentially to Binary numbers.
+    // Booths Encoding :
+        Booths Encoding for decimal number :
+            find two's complement of decimal number.
+            add extra 0 to the right of number. 
+            Take difference between every consecutive terms from right side to get booth encoding.
+            e.g. 
+                2's complement of a number = 11000111
+                append 0 = 110001110
+                         = 0-100100-1

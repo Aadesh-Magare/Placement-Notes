@@ -10,7 +10,9 @@ when input values are changed output is changed almost instantaneously, delayed 
     
 // Functionally complete set of gates :
     any boolean function can be implemented by using only gates in the set.
-
+    e.g. AND : XOR,
+         2:1 multiplexer.
+         
 // Positive logic system :
     when high voltage is treated as 1 and low voltage as 0.
 // Negative logic system :

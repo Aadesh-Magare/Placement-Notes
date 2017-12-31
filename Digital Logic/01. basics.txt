@@ -48,6 +48,7 @@
     Canonical SOP or POS forms are unique for a particular function.
     functions with identical Canonical SOP or POS forms are said to be equivalent functions.
 
+    SOP circuit can be easily realized by using NAND gates alone. 
 // Neutral functions:
     having equal no of min terms and max terms.
     no of Neutral functions : (2^n) C (2^n-1)
