@@ -19,7 +19,7 @@ Described by 6 tuple :
 
     for input of length n, it well produce output of length n. because each output depends on input symbol.
 
-// Conversion of Moore to Mealy : Both have same power and can be interconverted.
+// Conversion of Moore to Mealy : Both have same power and can be inter converted.
 
     1. remove output associated with the states.
     2. for each transition, see the state to which it is going (destination) and associate the output from that state to the transition.

@@ -27,7 +27,7 @@ Push down automata : FA + Stack.
 
     PDA can accept strings in two ways : acceptance by final state and acceptance by empty stack.
 
-    if PDA comes accross a transition that is not defined it goes into dead state and program is halted.
+    if PDA comes across a transition that is not defined it goes into dead state and program is halted.
 
     PDA cannot accept a language like a^nb^mc^nd^m :
         since we have to match no of a with no of c but till the time c comes up in input we have already pushed b onto the stack, no way to compare c against a. hence PDA can't accept this language.

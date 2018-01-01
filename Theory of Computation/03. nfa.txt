@@ -1,7 +1,7 @@
 on seeing a particular input, you can end up in many states from the current state.
 
 most of real life machines are DFA.
-NFA machines are not real, theoratical concept.
+NFA machines are not real, theoretical concept.
 
 if for some state, its not defined where it goes on seeing a particular symbol, we say that it goes to null state.
 
@@ -24,10 +24,10 @@ NFA will always have less no of states than corresponding DFA. hence no of state
         C       {}      {}
 
 
-    convet the table into state transition table for DFA:
+    convert the table into state transition table for DFA:
         for fields with multiple states ( {A,B}) create a new combined state with the name of those states (AB)
-        only include those states which are reachable from state symbol.
-        for adding transitions for combined state, take union of rows for those states from NFA's transition table.
+        only include those states which are reachable from start symbol.
+        for adding transitions for combined state, take union of rows for those states from NFA transition table.
         initial state will remain same in both cases
         final state in DFA will be all those states which contain final state from NFA.
 
@@ -35,19 +35,19 @@ NFA will always have less no of states than corresponding DFA. hence no of state
     when DFA is complemented language getting accepted by it gets complemented as well but that's not the case with NFA.
 
     the language accepted by NFA need not get complemented when NFA is complemented, it may get complemented but not always.
-        if L = (a + b)*`
+        if L = (a + b)*
         L1 is some subset of L, obtained by NFA M1.
         if L2 is language obtained by Complement of M1.
         L2 = L - L1 is not always true.
     
 // Conversion of E-NFA to NFA :
 
-    E-NFA is NFA with espilon moves.
+    E-NFA is NFA with epsilon moves.
 
-    E-closure of state : set of states you can reach from the current state with espilon input.
+    E-closure of state : set of states you can reach from the current state with epsilon input.
     E-closure of a state always contains the state itself.
 
-    DFA, NFA and E-NFA have same power and are interconvertible.
+    DFA, NFA and E-NFA have same power and are inter convertible.
 
     1. create state transition table for NFA
     2. include only non-epsilon moves in the table since its for NFA and not E-NFA.

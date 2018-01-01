@@ -1,6 +1,6 @@
 symbol = a, b, c, 0, 1 etc
 Alphabet (sigma) = {a, b} set of symbols. always finite.
-string = sequence of Alphabets.
+string = finite sequence of Alphabets.
 language = set of strings of a particular alphabet. it can be finite or infinite language.
 sigma^1 : set of all strings of length 1
 sigma^2 : set of all strings of length 2
@@ -39,7 +39,7 @@ Types of FA :
     // transition function is defined for every state on every input.
     // Null or e move is not allowed i.e. it cannot change state without any input.
 
-    transition function delta : Q * sigma = Q 
+    transition function delta :  Q X ∑ --> Q 
     There can be many possible DFA for given pattern, a DFA with minimum states is preferred.
 
 // NFA : Non deterministic finite automata
@@ -48,7 +48,7 @@ Types of FA :
     // Null or e moves are allowed i.e. it can change state without any input.
     // ability to transit any number of states for particular input (including null or e input)
 
-    transition function : Q * sigma = 2^Q
+    transition function : Q X (∑ U ϵ ) --> 2 ^ Q. 
     in NFA if any path for a input string leads to final state then the input string is accepted.
     if all strings in a language are accepted and all strings not in language are rejected then the language is said to be accepted.
 
@@ -56,5 +56,5 @@ Types of FA :
     // every DFA is NFA but not vice versa.
     // both DFA and NFA have same power and each NFA can be translated to DFA.
     // there can be multiple final states in DFA and NFA.
-    // NFA is more of theoratical concept.
+    // NFA is more of a theoretical concept.
     // DFA is used in lexical analyser in compiler.
