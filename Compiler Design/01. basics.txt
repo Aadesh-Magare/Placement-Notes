@@ -2,7 +2,7 @@ HLL : high level language like C, input to the compiler
 
     1. Lexical Analysis (LA) => Stream of tokens
     2. Syntax Analysis (SA) => Parse Tree (hence step #2 is called parser sometimes)
-    3. Semantic Analysis (SMA) => Parse Tree (symantically verified)
+    3. Semantic Analysis (SMA) => Parse Tree (semantically verified)
     4. Intermediate Code Generation (IC) => Three Address Code
     5. Code optimization (CO) => Optimized Intermediate Code
     6. Target Code Generation (TCG) => Target Code.
@@ -10,3 +10,27 @@ HLL : high level language like C, input to the compiler
     All phases of compiler will interact with Symbol table manager and Error handling module.
 
     Steps 1-4 are known as Front-end, while 5-6 as Back-end.
+
+// Static / Dynamic Scoping:
+    // Static :
+        scoping used by most regular languages.
+        scope of variable is within current block.
+    // Dynamic :
+        each variable has a global stack of bindings and the occurrence of a variable is searched in the most recent binding.
+        i.e. variables are global scoped and most recently assigned value is used in that block.
+
+        # A perl code to demonstrate dynamic scoping
+        $x = 10;
+        sub f
+        {
+            return $x;
+        }
+        sub g
+        {
+            # Since local is used, x uses
+            # dynamic scoping.
+            local $x = 20;
+            return f();
+        }
+        print g()."\n"; # prints 20
+        print f()."\n"; # prints 10 

@@ -12,6 +12,7 @@ languages are subsets of sigma^* for given alphabet
 we want to determine whether a string is present in language or not, since language can be infinite we need some finite representation of language so that we can compare and determine whether the string is present in language or not.
 this finite representation is called finite automata.
 
+Countably infinite and uncountable are two different things. If a set is countably infinite then it's power set will be uncountable. (e.g. set of all languages over ∑ is uncountable)
 
 // Finite automata :
 finite automata is a simplest machine to recognize patterns.

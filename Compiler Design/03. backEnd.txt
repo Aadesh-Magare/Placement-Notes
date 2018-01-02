@@ -31,10 +31,10 @@
             the formal and actual parameters refer to same memory location. The l-value of actual parameters is copied to the activation record of the called function.
 
         // Call by copy restore :
-            compiler copies the value in formal parameters when the procedure is called and copy them back in actual parameters when control returns to the called function. The r-values are passed and on return r-value of formals are copied into l-value of actuals.
+            compiler copies the value in formal parameters when the procedure is called and copy them back in actual parameters when control returns to the called function. The r-values are passed and on return r-value of formal parameters are copied into l-value of actual parameters.
 
         // Call by name :
-            Formals are substitued by actual parameters in all the places where formals appear in the procedure. It is also referred as lazy evaluation because evaluation is done on parameters only when needed.
+            Formals are substituted by actual parameters in all the places where formals appear in the procedure. It is also referred as lazy evaluation because evaluation is done on parameters only when needed.
 
 
 // Code Optimization :

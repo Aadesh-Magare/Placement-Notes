@@ -10,7 +10,7 @@
 
 // Syntax Analyser : takes grammar and tokens as input.
 
-    Yeild of parse tree is nothing but output of parse tree, to get the yeild we can traverse the tree top to bottom, left to right
+    Yield of parse tree is nothing but output of parse tree, to get the yield we can traverse the tree top to bottom, left to right
     
     // Ambiguous-Unambiguous grammar :
         If grammar generates more than one parse trees or LMD or RMD for a string then the grammar is ambiguous.
@@ -22,7 +22,7 @@
 
         // Removing ambiguity of grammar :
             
-            Should take care of associativity and precedence in case of arithmatic grammars.
+            Should take care of associativity and precedence in case of arithmetic grammars.
             
             A left-recursive grammar will make sure that left associativity is followed while right recursive will make sure right associativity is followed.
                 LR : A -> Aa | b
@@ -54,10 +54,10 @@
                 A  -> aA'
                 A' -> b1 | b2 | b3 
         
-        left-factoring postpones the descision making in choosing the production till we see a symbol that is not common across conflicting productions.
+        left-factoring postpones the decision making in choosing the production till we see a symbol that is not common across conflicting productions.
 
     
-    Removing Non-Determinism from the grammar will not remove the ambiguity.
+        Removing Non-Determinism from the grammar will not remove the ambiguity.
 
     // Types of parsers :
         None of the parsers would work with ambiguous grammar except the operator precedence parser.
@@ -66,13 +66,13 @@
             // CLR
                 // LALR
                     // SLR              |
-                        // LR           | LL might overlapp with these two but its totally 
+                        // LR           | LL might overlap with these two but its totally 
                     // LL               | contained in LALR.
                     
         // Top Down Parsers (TDP) : 
-            here main descision is which production to choose at every stage of constructing parse tree. The parse tree is built in left-most derivation fashion.
+            here main decision is which production to choose at every stage of constructing parse tree. The parse tree is built in left-most derivation fashion.
             // TDP with full backtracking
-                Bruteforce method
+                Brute force method
             // TDP without full backtracking : No Left-Recursion, No Non-Determinism
                 Recursive descent : Does not need extra stack, uses OS stack directly.
                     write an actual program (C language mostly) for the grammar.
@@ -81,6 +81,7 @@
                     3. main function that will call function corresponding to initial variable and check the end of input string after return from initial call.
                 Non-Recursive descent LL(1) :
                     LL(1) : Left to right, Left-most derivation, look ahead of 1 symbol.
+                    grammar with left-factoring or left recursion cannot be LL(1)
                     // First() :
                         First of a variable is the first of its RHS from production i.e. the terminal symbol. It can include epsilon as well.
                         Rules:
@@ -92,10 +93,10 @@
                                 If FIRST (Yi) contains Є for all i = 1 to n, then add Є to FIRST(X).
                     // Follow() :
                         Follow of a symbol is first of the group that follows it in the production RHS.
-                        for right-most symbol its follow is follow of LHS. also for some variable everything on its right can become epsilon then its follow will include follow of LHS.
+                        for right-most symbol, it's follow is follow of LHS. also for some variable everything on its right can become epsilon then its follow will include follow of LHS.
                         Rules:
                             FOLLOW(S) = { $ }   // where S is the starting Non-Terminal
-                            If A -> pBq is a production, where p, B and q are any grammar symbols, then everything in FIRST(q)  except Є is in FOLLOW(B.
+                            If A -> pBq is a production, where p, B and q are any grammar symbols, then everything in FIRST(q)  except Є is in FOLLOW(B).
                             If A->pB is a production, then everything in FOLLOW(A) is in FOLLOW(B).
                             If A->pBq is a production and FIRST(q) contains Є, then FOLLOW(B) contains { FIRST(q) – Є } U FOLLOW(A) 
                     // Parsing table :
@@ -108,7 +109,7 @@
                             2. if RHS is epsilon only : find Follow() of the LHS, the production goes into the results cell.
                              
         // Bottom Up Parsers (BUP) : 
-            here main descision is when to reduce a terminal into variable. The parse tree is build in reverse order of right-most derivation. (bottom-up)
+            here main decision is when to reduce a terminal into variable. The parse tree is build in reverse order of right-most derivation. (bottom-up)
             // Operator precedence parser : can work with ambiguous grammar as well.
                 // Operator grammar : grammar in which no two variable are adjacent.
                 // Operator relation table :
@@ -169,13 +170,13 @@
                         2. place the reduce move in Follow() of LHS only.                
                 // CLR(1) : Canonical LR
                     Canonical collection of LR(1) items is used to construct LR parsing table.
-                    LR(1) items = LR(0) items + look ahead. No of states in LR(1) might be greater than no of states in LR(0) due to look-aheads.
+                    LR(1) items = LR(0) items + look ahead. No of states in LR(1) might be greater than no of states in LR(0) due to look-ahead.
 
-                    Look aheads are used to determine where the items in final state are placed in parsing table.
+                    Look ahead are used to determine where the items in final state are placed in parsing table.
                     // Construction of parsing table:
                     1. Start with augmented production, look ahead is always $ for this.
                     2. For the production : A -> a.Bb, a/b
-                        here a/b are two look aheads, now because of .B we'll add all productions of B to closure.
+                        here a/b are two look ahead, now because of .B we'll add all productions of B to closure.
                             B -> .r, look ahead
                             here look ahead will be First() of remaining stuff after .B in above production i.e. First(b, a/b) = c (say)
                             B -> .r, c
@@ -188,7 +189,7 @@
                 // LALR(1) : Look ahead LR
                     Canonical collection of LR(1) items is used to construct LR parsing table.                
                     // Construction of parsing table is same as in CLR(1)
-                        1. No of states here are reduced than CLR(1) since we merge the states which differ only in look-aheads. hence it has same no of states as LR(0) and SLR(1).
+                        1. No of states here are reduced than CLR(1) since we merge the states which differ only in look-ahead. hence it has same no of states as LR(0) and SLR(1).
                             How to merge : merge state 3 and 6
                                 1. change all the shift moves 
                                     e.g. s3, s6 to s36, s36
@@ -204,7 +205,7 @@
 
 
 // Syntax Directed Translation (SDT) : grammar + sematic rules = SDT.
-    some rules are given alongwith grammar :
+    some rules are given along with grammar :
         1. For each reduction in bottom-up parsing some action is also performed. 
         2. For each substitution in top-down parsing the tree includes one more branch for action associated with the production.
 
