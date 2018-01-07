@@ -111,7 +111,7 @@
         // Bottom Up Parsers (BUP) : 
             here main decision is when to reduce a terminal into variable. The parse tree is build in reverse order of right-most derivation. (bottom-up)
             // Operator precedence parser : can work with ambiguous grammar as well.
-                // Operator grammar : grammar in which no two variable are adjacent.
+                // Operator grammar : grammar in which no two variable are adjacent and there are no null-transition.
                 // Operator relation table :
                     rows as well as columns are terminals (operators)
                     basically we are comparing precedence of operators against each other.
@@ -126,7 +126,7 @@
                 // Generating parse tree:
                     A stack is used which initially contains $, the input string ending with $ is compared against the contents of stack.
 
-                    if item is stack has less precedence than input symbol : push the symbol onto stack.
+                    if item in stack has less precedence than input symbol : push the symbol onto stack.
                     if item in stack has more precedence than input symbol : pop the symbol from stack and reduce it using its production.
 
                     following the procedure we get a parse tree in bottom-up fashion.
@@ -184,7 +184,7 @@
                         by step #2 here remaining stuff after .B is only (a/b)
                         hence look ahead for B -> .r, look ahead will be same as the production i.e. a/b
                     4. When new state is created due to some transition the look ahead will remain same. 
-                    5. The reduce moves are only placed in the look-aheads. hence its less than LR(0) and SLR(1) so no of conflicts are reduced. Due to more no of empty cells error detection is improved.
+                    5. The reduce moves are only placed in the look-ahead. hence its less than LR(0) and SLR(1) so no of conflicts are reduced. Due to more no of empty cells error detection is improved.
 
                 // LALR(1) : Look ahead LR
                     Canonical collection of LR(1) items is used to construct LR parsing table.                
@@ -241,4 +241,4 @@
     The following are commonly used intermediate code representation :
         Postfix notation
         Syntax tree
-        Three-address code
+        Three-address code : 3-address code is linear representation of syntax tree in which each statement can have at most 3 addresses.

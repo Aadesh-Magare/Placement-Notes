@@ -17,7 +17,9 @@ It's procedural query language which takes relation as input and relation as out
 // Set Difference (-) :
     same as set difference.
     two tables must have same set of attributes for set difference.
-
+    
+    Note: in set theory :  X intersection Y = X - Y' 
+                           X intersection Y' = X - Y
 // Rename (ρ) :
     rename an attribute of table.
 

@@ -7,11 +7,18 @@
 
         Tree of activations which shows the flow of execution is activation tree.
 
+        The sequence of procedure calls corresponds to a pre-order traversal of the activation tree.
+        The sequence of returns corresponds to a post-order traversal of the activation tree.
+
     // Activation Records or Control stack :
         control stack or runtime stack keeps track of procedure activations.
 
         Information needed by single execution of a procedure is managed using an activation record or frame. when a procedure is called an activation record is pushed onto stack and popped when procedure returns.
     
+        Control links and access link both are optional field in activation record for managing information needed by a procedure.
+        Control link is dynamic link which points to activation record of calling procedure.
+        Access link is static link field which holds information about the actual parameters.
+
     // Parameter Passing :
         // R - value : Value of expression is called it's r-value.
                     Appears on right-side of assignment.

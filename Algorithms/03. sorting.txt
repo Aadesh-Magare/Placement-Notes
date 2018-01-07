@@ -4,13 +4,12 @@ external sorting : sorting data on disk, huge data that cant fit in ram
 
 	it uses n-way merge, ie. take some data from all such sorted chunks and output sorted sequence to disk.
 
-in-place sorting :  which doesnt need extra space i.e. small(constant) extra space is used by algorithm
+in-place sorting :  which doesn't need extra space i.e. small(constant) extra space is used by algorithm
 stable sorting : for similar elements, same order is maintained as that of input
 
+// Classic Bubble Sort:
 
-//Classic Bubble Sort:
-
-	compare two elements and swap if out of order, after each iteration largest element is at its right place at the end of array
+	compare two elements and swap if out of order, after each iteration largest element is at it's right place at the end of array.
 	no of comparisons after each iterations are n-1, n-2, n-3 ...1
 	n^2 complexity
 	for(i = 0; i < n; i++)
@@ -21,33 +20,32 @@ stable sorting : for similar elements, same order is maintained as that of input
 	it checks if during a iteration no swaps are done that means array is completely sorted and no need to continue further
 	maintain a exchange variable initially false, during iteration if a swap happens turn it to true if exchange is false break out of loop
 
-//Selection Sort:
+// Selection Sort:
 
 	select the min element in array and put it in its proper place, go on doing it
 
 	no way to improve it like bubble sort
 
-//Insertion Sort:
+// Insertion Sort:
 	go on taking a element and insert the element into its proper place.
 
 	insertion sort is efficient if the array is almost sorted, whenever the the array is sorted we have to do only one comparison for the next element to insert. so its just like linear.
 
-
-//shell sort
+// Shell sort
 	divide the array into sub-arrays.
 	take interval as inc
 	if inc = 4
-	then subarrays will be
+	then sub arrays will be
 	original array : index 1 to 10
-	subarrays :
+	sub arrays :
 		indexes : 
 					1 5 9
 					2 6 10
 					3 7 
 					4 8
-	sort these subarrays
+	sort these sub arrays
 	repeat this till you get inc size as 1 (go on reducing inc after each pass)
-	envolves insertion sort internally, the comlexity is n^1.5
+	involves insertion sort internally, the complexity is n^1.5
 
 //Bucket Sort (counting sort)
 

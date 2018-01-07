@@ -2,17 +2,16 @@ Time Complexity:
 
 the order of time is 
  
- logn < n< nlogn < n^2 < 2^n < n!
+ logn < n < nlogn < n^2 < 2^n < n!
 
  Big Oh (O) : Upper Bound
  Big Omega :  lower bound
  Big Theta :  both upper and lower bound, The theta notation bounds a functions from above and below
 
- //Profiling :
+ // Profiling :
  	 The process of generating a statistical analysis of a program that shows processor time and the percentage of program execution time used by each procedure in the program.
 
-
-//Time Complexity of loops:
+// Time Complexity of loops:
 	Time Complexity of a loop is considered as O(Logn) if the loop variables is divided / multiplied by a constant amount.
 	for (int i = 1; i <=n; i *= c)  or  for (int i = n; i > 0; i /= c) 
 

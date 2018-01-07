@@ -26,7 +26,7 @@ Searching :
 
 // Interpolation search :
 
-	for sorted array. if keys are uniformly destributed then it may be better than binary search O(log(logn))
+	for sorted array. if keys are uniformly distributed then it may be better than binary search O(log(logn))
 
 	the algorithm is same as binary search except that for finding mid we use interpolation formula
 
@@ -37,23 +37,20 @@ Searching :
 
 	but if keys are not uniformly distributed then in worst case it becomes sequential search. in reality keys tend to be clustered and non-uniform thats why binary search is preferred.
 
-//Fibonaaci Search
-
+// Fibonacci Search
 	1. search a no x in array of n numbers.
-	2. let n is mth fibonacci no (if n is not a fibonacci no, take the first fib no greater than n, and padd array n with remaining values)
+	2. let n is mth fibonacci no (if n is not a fibonacci no, take the first fib no greater than n, and pad array n with remaining values)
 	3. set k = m, if k == 0 then no match
 	4. test whether x == Fk-1 (if x equal to k-1 th fib no)
 	5. if matched then finish we got the no
 	6. if x is less than Fk-1 then , discard entries form Fk-1 + 1 to n and set k = k-1 and go to 3
 	7. if x is greater than Fk-1 then, discard entries from 1 to Fk-1 and search in remaining
 
-
-
 // Hashing for Searching :
 	
-	can find items in O(1) constant time if no collisions
+	Can find items in O(1) constant time if no collisions
 
-	some hash functions :
+	Some hash functions :
 	
 		1. Mid - Square : 
 			square the given no and use some middle bits from the answer. if r bits are used we can map it to 2^r buckets, so the hash table will have 2^r buckets
@@ -83,11 +80,11 @@ Searching :
 
 		hash table in converted into buckets, each bucket map to physical device as a physical block or track.
 
-		or we can store hash table in some continous location, at start load it into main memory and have data in non-continous fashion. to search we use in-memory hash table to find pointer to actual data on disk, such hashtable is called index.
+		or we can store hash table in some continuous location, at start load it into main memory and have data in non-continuous fashion. to search we use in-memory hash table to find pointer to actual data on disk, such hash table is called index.
 
 		while reading we load entire bucket into memory and then do sequential search on it, since size of bucket is small, its quite efficient.
 
-		for files that changing rapidly and unpredictively such simple hashing technique is not effiecient in terms of space or time, so we use dynamic hashing.
+		for files that changing rapidly and un-predictively such simple hashing technique is not efficient in terms of space or time, so we use dynamic hashing.
 
 	//Dynamic Hashing :
 
@@ -102,7 +99,7 @@ Searching :
 
 		we cant sequentially access records with search keys, since we search them by hash values only, this is major limitation of hashing technique.
 
-//Selection rank algorithm :
+// Selection rank algorithm :
 	to find ith max/min no in array :
 		note that ith min no will be in ith position in sorted array, using this :
 
