@@ -1,4 +1,4 @@
-//Thread :
+// Thread :
 	it has :
 		thread ID, Program counter, register set and stack
 
@@ -6,13 +6,13 @@
 
 	useful in client-server architecture, where a server will create a thread for each client request.
 
-	//Benefits of Multi-threading :
+	// Benefits of Multi-threading :
 		1. Responsiveness : increases Responsiveness even if some part of process is doing lengthy computation, another thread can respond to user
 		2. Resource sharing : its costly to share resources with a process, where threads of a process share resources implicitly
 		3. Economy : creation of threads is much cheaper than process. e.g. (in solaris creation is 30x cheaper and context switch is 5x faster when compared to process)
 		4. scalability : benefits of multi-threading are large on multi-processor system. multithreading on multi-processor system increases concurrency. 
 
-	//Multi-Core programming :
+	// Multi-Core programming :
 		Multi-Core means having many processors on single chip, here concurrency is more relative to single core processors.
 
 		tha areas which present challenges for Multi-Core programming:
@@ -22,7 +22,7 @@
 			4. Data Dependency : while diff threads are running care must be taken for checking dependecy between the data that they manipulate
 			5. Testing and Debugging : testing and Debugging of Multi-Core programms is difficult
 
-//Multithreading Models :
+// Multithreading Models :
 
 	Deals with relationship between user-level threads and kernel threads.
 
@@ -41,7 +41,7 @@
 
 		no blocking problem as in many to one model, less overhead in creating user thread than in one to one model
 
-//Issues with Multithreading :
+// Issues with Multithreading :
 
 	1. Fork and Exec :
 		if some thread of process calls fork, there are two options create new process with all the threads of calling process or just create a process with one thread which called fork. some unix provide both versions of fork

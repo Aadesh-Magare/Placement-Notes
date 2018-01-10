@@ -1,4 +1,4 @@
-//I/O streams :
+// I/O streams :
 	
 	ios = base class for all i/o its virtual base class.
   
@@ -8,33 +8,33 @@
 	cin.getline(line, size) : reads whole line or size characters 
 	cout.write(line, size) : write size characters from line string, it doesnt stop till size characters are written even if string ends.
 
-	//eof():
+	// eof():
 		detects end of file, returns non-zero value on end of file, 0 otherwise.
 
-	//File handling :
-		ofstream outfile("filename");	//create object for file writing.
-		ifstream infile("filename1");	//create object for file reading.
+	// File handling :
+		ofstream outfile("filename");	// create object for file writing.
+		ifstream infile("filename1");	// create object for file reading.
 
-		outfile << name << "\n";	//written to file
-		infile >> name;				//read from file
+		outfile << name << "\n";	// written to file
+		infile >> name;				// read from file
 
 		infile.close();
 		infile.open("newfile");
 
 
 		if(infile.eof() != 0)
-			//end of file
+			// end of file
 
 		infile.open("newfile", ios::in | ios::out);	//	read/write mode.
-		infile.seekg(n)	//seek to n bytes from start.
+		infile.seekg(n)	// seek to n bytes from start.
 
-		//read and write functions
+		// read and write functions
 			they operate on binary data.
 
 			infile.read((char *) &ObjectToBeWritten, sizeof(ObjectToBeWritten));
 			infile.write((char *) &ObjectToBeWritten, sizeof(ObjectToBeWritten));
 
-//Exception Handling :
+// Exception Handling :
 	
 	synchronous (due to programs error) Exception and asynchronous (caused due to external factors) Exception. we can handle synchronous Exception only.
 
@@ -44,15 +44,15 @@
 
 	throw throws an object, it can be of custom class, that we created.
 
-	catch(...)	//it can handle any exception irrespecitve of its type.
+	catch(...)	// it can handle any exception irrespecitve of its type.
 
-//New Features of ANSI C++ :
+// New Features of ANSI C++ :
 	
-	//new data types : 
+	// new data types : 
 		bool : true and false are keywords 
 		wchar_t : to hold 16bit wide characters. 
 					to represent wide character literal we use L'asad'
-	//new operators : 
+	// new operators : 
 			c style cast
 				double y = (double) n;
 			c++ style cast
@@ -75,21 +75,21 @@
 				its used to check type of object at runtime. 
 					typeid(object).name();
 	
-	//RTTI : runtime type information:
+	// RTTI : runtime type information:
 		its available to classes with at least one virtual function
 
-	//explicit keyword :
+	// explicit keyword :
 		myclass m1(100);
 		myclass m1 = 100;
 		both these object initialization work because implicit conversion happens in second case. to disable this feature we can declare the constructor as explicit which avoids its implicit conversoin like this :
-				myclass m1 = 100 //wont work now.
-				myclass m1(100)	//will still work.
+				myclass m1 = 100 // wont work now.
+				myclass m1(100)	// will still work.
 
-	//Mutable keyword :
+	// Mutable keyword :
 		if we want a class to be const but still want some of its member to be changeable then declare that member as Mutable. then even if its class is const the member can be changed.
 			mutable int m;
 
-	//Operator keyword :
+	// Operator keyword :
 		&& = and
 		|| = or
 		!= not_eq
@@ -98,7 +98,7 @@
 		|= or_eq
 		^= xor_eq
 
-	//Namespace :
+	// Namespace :
 		
 		namespace myname{
 			int m;
@@ -114,11 +114,11 @@
 		m = 40;
 		myfun();
 
-		//unnamed namespace 
+		// unnamed namespace 
 			the contents of such namespace are global you can use them directly.
 			they are accessible in the current file
 
-//Templates :
+// Templates :
 	
 	it provides support for generic programming by enabling us to define generic classes and generic functions.
 
@@ -135,30 +135,30 @@
 					myclass(Type *a);		
 			}
 			template<class Type>	
-			//its necessary to write this again. each template statement is for //following one block only 
+			// its necessary to write this again. each template statement is for // following one block only 
 			myclass<Type> :: myclass(Type *a){
 				for(int i = 0; i < size; i++)
 							arr[i] = a[i]
 			}
 
 
-			myclass <int> m1(100);	//this is called instantiation.
+			myclass <int> m1(100);	// this is called instantiation.
 			Type in template class will be replaced by int.
 
-	//template can have multiple parameters.
+	// template can have multiple parameters.
 
 			template<class T1, class T2>
 			class myclass{
-				//use T1 and T2 as data types.
+				// use T1 and T2 as data types.
 			}
 
-	//Default values can be given to parameters, so that if some instantiation does not give types, Default type is taken 
+	// Default values can be given to parameters, so that if some instantiation does not give types, Default type is taken 
 			template<class T1 = int, class T2 = float>
 
-	//one of the parameters can be normal also (Non-type template)
-		template<class T1, 5> //here second argument is just int not generic
+	// one of the parameters can be normal also (Non-type template)
+		template<class T1, 5> // here second argument is just int not generic
 
-	//Function Templates :
+	// Function Templates :
 		template<class T>
 		void swap(T &x, T &y){
 			T temp = x;
@@ -166,20 +166,20 @@
 			y = temp;
 		}
 
-		//it also support multiple parameters
+		// it also support multiple parameters
 			template<class T1, class T2>
 
-		//Template functions can be overloaded.
+		// Template functions can be overloaded.
 			template<class T>
 			void show(T a){
-				//do something;
+				// do something;
 			}
 			template<class T, class S>
 			void show(T a, S b){
-				//do something;
+				// do something;
 			}
 			void show(int p){
-				//do something;
+				// do something;
 			}
 
 			overloading resolution :

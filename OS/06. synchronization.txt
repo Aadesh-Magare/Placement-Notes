@@ -1,12 +1,12 @@
-//Race Condition :
+// Race Condition :
 	when several processes access and manipulate same data concurrently and outcome depend on order in which access take place, is called race condition.
 
-//Critical section : 
+// Critical section : 
 	the section of code in which process changes some variables, update data.
 
 	only one process is to be allowed to execute its critical section at a time, so process must take permission before etering its critical section.
 
-//Critical-Section Solution :
+// Critical-Section Solution :
 
 	solution to the problem must satisfy these requirements
 
@@ -17,14 +17,14 @@
 	3. Bounded waiting :
 		a process must wait for only bounded time before entering its C.S., there shouldn't be indefinite waiting.
 
-//race conditions in Kernel :
+// race conditions in Kernel :
 	the data structure maintaining list of open files, structures for memory allocation, process lists, interrupt handling.
 
-	//preemptive kernel : allows kernel mode processes to be preempted.
+	// preemptive kernel : allows kernel mode processes to be preempted.
 	
-	//nonpreemptive kernel : doesnt allow kernel mode process to be preempted, so its free from race condition.
+	// nonpreemptive kernel : doesnt allow kernel mode process to be preempted, so its free from race condition.
 
-//Peterson's Solution to critical section problem :
+// Peterson's Solution to critical section problem :
 
 	its a software solution.
 	there's no gurantee that this will work on modern processors since the way they do load and store instructions
@@ -41,10 +41,10 @@
 
 	here even if concunrrent access take place the value of turn will be either i or j, so only one process will enter critical section and once that comes out of it, other process will surely enter critical section. hence it ensure all 3 properties of critical section problem solution
 
- //to solve the critical section problem in more efficent way, we need support from hardware. most of hardware provide some atomic instructions for this matter.
+ // to solve the critical section problem in more efficent way, we need support from hardware. most of hardware provide some atomic instructions for this matter.
  most processor provide TestAndSet or Swap instructions.
 
- 	//TestAndSet :
+ 	// TestAndSet :
  		its an atomic instructions that returns old value and sets the variable.
 
  		boolean TestAndSet(target){
@@ -52,7 +52,7 @@
  			target = true;
  			return old;
  		}
- 	//Swap
+ 	// Swap
  		its atomic instructions that swaps values of two variables
 
  		void Swap(key, lock){
@@ -63,7 +63,7 @@
 
  		the key is true and lock variable is initially false, the moment one swap becomes suceesful lock becomes true so that so that swap for other processes doesnt have any effect. 
 
-//Semaphores:
+// Semaphores:
 	
 	its an interger value that can be accessed through two atomic functions wait (P) and signal (V).
 
@@ -74,7 +74,7 @@
 		the wait operation is :
 			wait(S){
 				while(S <= 0)
-					//do nothing
+					// do nothing
 				S--;
 			}
 			signal(S){
@@ -111,37 +111,37 @@
 
 				signal(S){
 					s->value++;
-				//only when s->value is less than 0 there are processes in list
+				// only when s->value is less than 0 there are processes in list
 					if(s->value <= 0){	
 						remove process P from list
 						wakeup(P)
 					}
 				}
 	
-	//semaphores must be executed atomically, we must guarantee that no two processes can execute wait and signal on same semaphore at the same time.
+	// semaphores must be executed atomically, we must guarantee that no two processes can execute wait and signal on same semaphore at the same time.
 
-	//on a single processor system we can ensure this and working of other critical section problems by disabling the interrupts, till the critical section is complete.
+	// on a single processor system we can ensure this and working of other critical section problems by disabling the interrupts, till the critical section is complete.
 
 	executing wait and signal is critical section problem, we may use spinLocks for them. (here we havent eliminated busy waiting completely, but we have reduced it from entry section to critical section which is most of times shorter)
 
-//Priority Inversion :
+// Priority Inversion :
 
 	if Process with High Priority (H) is waiting for resource held by process with low Priority (L), in such situation if process L is preempted by a medium priority process (M), then M has delayed the execution of higher priority process (H) this is called priority Inversion.
 
 	it occurrs in systems with more than 2 priorities.
 
-	//Priority Inheritance Protocol :
+	// Priority Inheritance Protocol :
 		this problem is solved by priority inheritance protocol.
 		all processes holding the resources needed by higher priority process inherit the higher priority until they release the resource.
 
-//Classical Synchronization Problems :
+// Classical Synchronization Problems :
 
 	1. Bounded-Buffer Problem
 
 		empty semaphore : count of empty buffer. (if empty buffer is 0, producer cant produce items)
 		full semaphore : count of full buffer. (if full buffer 0, consumer cant consume )
 
-		//Producer :
+		// Producer :
 				
 				while(1){
 					wait(empty)
@@ -151,12 +151,12 @@
 					signal(full)
 				}
 
-		//Consumer :
+		// Consumer :
 
 				while(1){
 					wait(full)
 					wait(mutex)
-					//remove item from result
+					// remove item from result
 					signal(mutex)
 					signal(empty)
 				}
@@ -173,22 +173,22 @@
 		all other readers use mutex semaphore.
 		readcount keeps count of readers currently reading
 
-		//writer :
+		// writer :
 			while(1){
 				wait(wrt)
-				//write data
+				// write data
 				signal(wrt)
 			}
 
-		//reader :
+		// reader :
 			while(1){
-			//mutex is used to modify the readcount variable
+			// mutex is used to modify the readcount variable
 				wait(mutex)
 				readcount++
 				if(readcount == 1)
 					wait(wrt)
 				signal(mutex)
-				//read data
+				// read data
 
 				wait(mutex)
 				readcount--

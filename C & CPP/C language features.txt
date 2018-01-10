@@ -1,17 +1,17 @@
-//Macros Related :
+// Macros Related :
 
 	A predefined macro __FILE__ contains the location of a C program file, it's used in program to print its own source code.
 
 	//#pragma once 
 		this avoids include of files multiple times.
-//Static :
+// Static :
 	Static functions in C can be called from same file (in which its declared) only.
 
-//Precedence :
+// Precedence :
 
 	~ (not) > & (bitwise and) > ^ (xor) > | (or) > && (logical and ) > || (or)
 
-//Macro substitution :
+// Macro substitution :
 	if parameter name is preceded by #, it will turn into "value_of_parameter", i.e. value of paramater inside quotes.
 	## is concatenation operator
 	e.g. 
@@ -25,33 +25,33 @@
 
 // C does not have call by reference, only call by value is there, we use address of variable (&) as a workaround for call by reference.
 
-//Pointer to specific location :
+// Pointer to specific location :
 	unsigned int *ptr = (unsigned int *) 0x123;
-	//typecast is important.
+	// typecast is important.
 
-//Max memory :
+// Max memory :
 	malloc can allocate max 64K memory to get more you should use farmalloc and farfree functions.
 
-//Malloc and Calloc
+// Malloc and Calloc
 	calloc will initialize memory to zero while malloc doesnt.
 
-//sprintf :
+// sprintf :
 	its used to print output to a string buffer instead of stdout.
 
-//Function Pointers array :
+// Function Pointers array :
 	// array of 3 function pointers.
 	float (*ptr[3]) (int, int);
         ptr[0] = &myfun1;
         (*ptr[0])(3, 4);
 
-//BitFields :
+// BitFields :
 	you can specify that certain variables will use only 1 bit (or n bits), then compiler will allow them that many bits only. saves memory.
 			struct{
 			  unsigned int widthValidated : 1;
 			  unsigned int heightValidated : 1;
 			} status;
 
-//Volatile variable :
+// Volatile variable :
 	volatilve int x;
 	tells compiler that x is volatilve variable i.e. its value can be changed by external things i.e. not by this code.
 	Volatile variables are useful when multi-threaded programs have global variables and any thread can modify these shared variables.

@@ -49,7 +49,7 @@
 
 	It is required that when system is taking a checkpoint no transaction should make any changes to disk blocks or buffer blocks (checkpoint system which allows changes to be done while taking checkpoint is called fuzzy checkpoint).
 
-//Shadow Paging:
+// Shadow Paging:
 
 	Database is devided into pages just like OS memory management.
 	there are two page tables, current and shadow, current in memory and shadow in stable-storage, initially both are same, as per transactions changes are done to current page table e.g. for write(X) operation, a new block is created with the new value of x and current page table is updated with it, whereas old page containing old value remains same. in case of failure shadow page table is brought into memory and renamed as current page table, since all its old data is at right place . in case of commit the current page table is written into stable -storage which replaces shadow table, thats all we need to do

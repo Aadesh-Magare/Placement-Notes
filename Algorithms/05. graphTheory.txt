@@ -9,7 +9,6 @@ cycle is simple path in which first and last vertex is same
 sum of degree of all vertices is twice the no of edges. (Handshaking theorem)
 no of vertices with odd degree in any graph is even. (Handshaking theorem for undirected graphs)
 
-
 regular graph - all vertices of equal degree.
 
 // Planar Graph : 
@@ -28,12 +27,12 @@ regular graph - all vertices of equal degree.
 	A matching M of graph G is said to be maximal if on adding an edge which is in G but not in M, makes M not a matching.
 
 	A matching M of graph G is said to be maximum if it is maximal and has the maximum number of edges.
-	Every maximum matching is a maximal matching but not every maximal matching is a maximum matching.
+	Every maximum matching is a maximal matching but every maximal matching is not a maximum matching.
 
 	A matching M of graph G is said to be perfect if every vertex is connected to exactly one edge
 	the number of edges in the matching must be V / 2 where V is the number of vertices.
 
-//Representation:
+// Representation:
 
 	1. Adjacency Matrix :
 
@@ -54,22 +53,22 @@ regular graph - all vertices of equal degree.
 
 		each node in array will contain its value and pointer to next node.
 
-//Weighted Graph :
+// Weighted Graph :
 	graph in which edges have some value i.e. cost or something.
 
-//Spanning Tree :
+// Spanning Tree :
 	tree which contains edges from graph and include all the vertices.
 	
 	MST : spanning tree with minimum cost of construction.
 
-	//Algorithm for finding MST:
+	// Algorithm for finding MST:
 
 		1. Prims algorithm :
 				1. start with any vertex.
 				2. select edges of minimum cost such that, after selecting it the resultant figure remains a tree (no disconnected components and no cycles) 
 				for this to work out, select minimum edge coming out of any of vertices that are already included in MST (ensure no cycles)
 
-			in this alorithm, at any stage we have a tree (connected vertices)
+			in this algorithm, at any stage we have a tree (connected vertices)
 
 			steps:
 
@@ -84,6 +83,10 @@ regular graph - all vertices of equal degree.
 					then update its key. (equal to weight from i)
 				6. loop to step 3 until, MST has included all vertices, to check this keep count of vertices added to mst.
 
+			
+			// Time Complexity :
+				It's O(V^2), by using adjacency list representation it can be reduced to O(ElogV).
+				further by using using fibonacci heaps it can be reduced to O(E + logV)
 
 		2. Kruskals algorithm:
 			1. select the minimum edge
@@ -95,21 +98,22 @@ regular graph - all vertices of equal degree.
 
 				1. sort the edges on weights
 				2. take one edge check if it forms a cycle
-				--> for this use union-find algorithm
+					for this use union-find algorithm.
+						// Union-Find Algorithm :
 
-					//Union-Find Algorithm :
+							1. all connected nodes will have a common parent (maybe the last node or first node)
+							2. if two nodes have same parent, then edge joining them will form a cycle.
 
-					1. all connected nodes will have a common parent (maybe the last node or first node)
-					2. if two nodes have same parent, then edge joining them will form a cycle.
+							find function : returns parent of given node
+							union-find : takes two nodes, makes second one's parent, parent of first i.e. makes them connected
 
-					find function : returns parent of given node
-					unionfind : takes two nodes, makes second one's parent, parent of first i.e. makes them connected
-
-				--> find on both vertices of edge 
+					find on both vertices of edge 
 					if both have same parent, ignore edge and continue
-					if both have diff parents, include edge in mst and do unionfind on vertices
+					if both have diff parents, include edge in mst and do union-find on vertices
 
-//DFS : O(V + E)
+			// Time Complexity :
+				It is O(ElogE) or O(ElogV)
+// DFS : O(V + E)
 	
 	traverse a path as long as it can get i.e. till you find a node with all adjacent vertices as visited.
 
@@ -128,11 +132,11 @@ regular graph - all vertices of equal degree.
 
 
 
-//BFS : O(V + E)
+// BFS : O(V + E)
 
-	visite all vertices in order of level i.e. from a vertex i, all of its adjacent vertices are visited first, then their adjacent are visited in same order
+	visit all vertices in order of level i.e. from a vertex i, all of its adjacent vertices are visited first, then their adjacent are visited in same order
 
-	non-recursive verion use Queue:
+	non-recursive version use Queue:
 		
 		1. enqueue the root into Queue
 		2. while Queue is not empty
@@ -142,12 +146,12 @@ regular graph - all vertices of equal degree.
 	BFS finds the shortest paths from starting vertex if edges are not-weighted
 
 
-//Shortest Path :
+// Shortest Path :
 	
-	//Dijkstra (Single Source Shortest Path) : O(V^2) (Greedy)
+	// Dijkstra (Single Source Shortest Path) : O(V^2) (Greedy)
 		complexity can be reduced to O(VlogV) by using Binary Heap and adjacency list representation.
 
-	//It doesnt work for graphs with -ve weights
+		It doesn't work for graphs with -ve weights
 		
 		Given a starting vertex S, find shortest path from S to all other vertices, in Graph G
 
@@ -160,7 +164,7 @@ regular graph - all vertices of equal degree.
 			4. pick vertex thats not included in tree and has minimum distance from source (in first iteration it'll be source)
 			5. include it in our tree (vertex u) and update distances of its adjacent vertices
 			6. to update the distances of vertices : 
-				iterate to all adjacent vertices, for each vertex (v) if sum of distance from source to u + weight of edge (u, v) is less than distace of v from source then update the distance of v to that value. 
+				iterate to all adjacent vertices, for each vertex (v) if sum of distance from source to u + weight of edge (u, v) is less than distance of v from source then update the distance of v to that value. 
 
 			void dijkstra(int graph[V][V], int src){
      			int dist[V];
@@ -168,7 +172,7 @@ regular graph - all vertices of equal degree.
 			    for (int i = 0; i < V; i++)
 			        dist[i] = INT_MAX, sptSet[i] = false;
 	 			dist[src] = 0;
-			//when count = V-1, all vertices are included in SPT
+			// when count = V-1, all vertices are included in SPT
 				for(int count = 0; count < V-1; count++){
 		        	int u = minDistance(dist, sptSet);
     				sptSet[u] = true;
@@ -179,16 +183,16 @@ regular graph - all vertices of equal degree.
 				}
 			}
 
-	//Bellman-Ford Algorithm : O(VE) (Dynamic Programming)
+	// Bellman-Ford Algorithm : O(VE) (Dynamic Programming)
 
 		Given a starting vertex S, find shortest path from S to all other vertices, in Graph G
 
-	//works with -ve edge weights also, if there is -ve weight cycle in graph, then shortest distance comes out to be -inf, hence in such cases, -ve cycle is reported instead of calculating shortest path
+		works with -ve edge weights also. If there is -ve weight cycle in graph, then shortest distance comes out to be -inf, hence in such cases, -ve cycle is reported instead of calculating shortest path
 
 		steps:
 			1. set distance of all vertices as inf 
 			2. set distance of source as 0 (so its picked at first)
-			3. iterate the loop throgh V-1 times 
+			3. iterate the loop V-1 times 
 			4th step is known as "Relaxation"
 			4. for each edge u-->v
 				if dist[v] > dist[u] + weight(u, v)
@@ -213,7 +217,7 @@ regular graph - all vertices of equal degree.
 				            int v = graph->edge[j].dest;
 				            int weight = graph->edge[j].weight;
 				            
-				            //dist[u] != INT_MAX this check is imp if you didnt' check it, it may cause interger overflow on addition
+				            // dist[u] != INT_MAX this check is imp if you didn't check it, it may cause integer overflow on addition
 
 				            if (dist[u] != INT_MAX && dist[u] + weight < dist[v])
 				                dist[v] = dist[u] + weight;
@@ -235,20 +239,20 @@ regular graph - all vertices of equal degree.
 	   			}
 
 
-	//Flyod-Warshall algorithm : O(V^3)
+	// Flyod-Warshall algorithm : O(V^3)
 
-	its all-pairs shortest-path algorithm, it works with +ve or -ve weight edges, but not with -ve weight cycles.
+		its all-pairs shortest-path algorithm, it works with +ve or -ve weight edges, but not with -ve weight cycles.
 
-	Given a Graph G, it finds shortest-path between every pair of vertices.
+		Given a Graph G, it finds shortest-path between every pair of vertices.
 
-	here we consider, every vertex as possible intermediate point between, some shortest path, so for every path from i to j, we check if vertex k (from 1 to V) can be an intermediate on the path or not
+		here we consider, every vertex as possible intermediate point between, some shortest path, so for every path from i to j, we check if vertex k (from 1 to V) can be an intermediate on the path or not
 
-	for every path (source, dest) there are two possible cases:
+		for every path (source, dest) there are two possible cases:
 		case 1: k is not an intermediate vertex on path from source to dest, so we keep value of dist[source][dest] as it is.
 
 		case 2 : k is an intermediate vertex on path from source to dest, so we update the distance dist[source][dest] = dist[source][k] + dist[k][dest]
 
-		//pick intermediate vertex one by one
+		// pick intermediate vertex one by one
 		for (k = 0; k < V; k++){
 	        
 	        // Pick all vertices as source one by one
@@ -264,12 +268,12 @@ regular graph - all vertices of equal degree.
 	        }
 	    }
 
-//Topological Sorting:
+// Topological Sorting: O(V+E) same as dfs
 	
 	its an ordering of vertices of a graph in such a way that if there is an edge from i to j then i precedes j in topological sorting.
 
-	its useful in cases where, we need to organise some things such that some of them have prerequisites of other.
-	like courses in univeristy, some courses must be before some others due to prerequisite in such case we can use topological sorting
+	its useful in cases where, we need to organize some things such that some of them have prerequisites of other.
+	like courses in university, some courses must be done before some others due to prerequisite in such case we can use topological sorting
 
 	we can use dfs-like traversal to find topological sort.
 
@@ -281,7 +285,6 @@ regular graph - all vertices of equal degree.
 				for (int i = 0; i < V; i++)
 		      		if (visited[i] == false)
         				topologicalSortUtil(i, visited, Stack);
-
 
 		3. mark that vertex visited, for all of its adjacent vertices if they are not visited, call toposort on them.
 		4. when a vertex has been visited and all of its adjacent ones have been visited then push that vertex to stack
@@ -300,9 +303,9 @@ regular graph - all vertices of equal degree.
 				        Stack.pop();
 				}
 
-//Euler Circuit - Euler Tour:
+// Euler Circuit - Euler Tour:
 
-	Find the path in graph which visites every edge only once, and as an extra challenge, finishes on the same vertex as the starting one.
+	Find the path in graph which visits every edge only once, and as an extra challenge, finishes on the same vertex as the starting one.
 
 	Euler circuit (which ends on the starting vertex) is possible only when graph is connected and every vertex has an even degree, (one for entering and one for leaving the node).
 
@@ -311,10 +314,9 @@ regular graph - all vertices of equal degree.
 
 	Any connected graph, with all of vertices having even degree must have an Euler circuit, that circuit can be found in linear time
 
-
 // Hamiltonian Path :
 	A simple path in a graph G that passes through every vertex exactly once is called a Hamiltonian path.
 
 	If there is a vertex of degree one in a graph then it is impossible for it to have a Hamiltonian circuit.
 
-// Finding a simple cycle in undirected graph , that visites evey vertex, is known as hamiltonian cycle problem and doesnt have efficient algorithm
+// Finding a simple cycle in undirected graph , that visits every vertex, is known as hamiltonian cycle problem and doesn't have efficient algorithm

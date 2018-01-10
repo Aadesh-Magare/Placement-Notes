@@ -1,6 +1,6 @@
-//set of processes are deadlocked if every process in the set is waiting for an event that can be caused only by another process in the set.
+// set of processes are deadlocked if every process in the set is waiting for an event that can be caused only by another process in the set.
 
-//Conditions for DeadLock:
+// Conditions for DeadLock:
 	a deadlock occurs if following Conditions hold "simultaneously".
 
 	1.Mutual exclusion :
@@ -12,7 +12,7 @@
 	4. circular wait : 
 		processes must exist such that it forms a cycle of waiting ones for each other.
 
-//System Resource-Allocation Graph :
+// System Resource-Allocation Graph :
 
 		it is a directed graph, where a edge Pi to Rj means that process Pi has requested resource Rj and is waiting for that resource where as edge Rj to Pk means that resource Rj is given to process Pk. former is request edge while later is assignment edge.
 
@@ -21,7 +21,7 @@
 		if the graph contains no cycle theres no DeadLock, if it contains cycle there may be a deadlock.
 		if resource have only one instance of it, then presence of cycle means they are DeadLocked.
 
-//Methods for handling DeadLocks :
+// Methods for handling DeadLocks :
 
 	most OS choose to ignore deadlocks in applications, its left to user to ensure dead lock free programs
 
@@ -51,7 +51,7 @@
 
 		Deadlock Avoidance approach requires that each process declare information about resources of each type that it will require and releasing information. given this information the algorithm ensures that system wont deadlock.
 
-		//Resource-Allocation state :
+		// Resource-Allocation state :
 
 			it is defined by no of available and allocated resources and maximum demands of processes.
 
@@ -88,37 +88,37 @@
 				3. allocation[n][m] allocated resource to each process
 				4. need[n][m] requirement of each process ater allocation.
 
-			//Safety algorithm :
+			// Safety algorithm :
 				
 				to check is current system is in safe state.
 				we have to check for safe sequence.
 
-				available //available resources at this moment
+				available // available resources at this moment
 				finish[n] = false
 
 				find all i such that	
-					finish[i] == false //process i is not finished
+					finish[i] == false // process i is not finished
 					need[i] <= available		
-					//the requirement for resources by process i is less than total available. (total available includes, current available plus allocated to prev processes)
+					// the requirement for resources by process i is less than total available. (total available includes, current available plus allocated to prev processes)
 
 					if found such process i
 					finish[i] = true;
 					available += allocated[i] 
-					//process i is finished add its resources to available list.
+					// process i is finished add its resources to available list.
 
 				at last if all processes are finished then system is in safe state.
 
-			//Resource-Request Algorithm :
+			// Resource-Request Algorithm :
 
 				algorithm to check if given request can be granted
 				Request(i) is request for resources by process i
 
-				//process requested resources in limit i.e. <= needed for it.
+				// process requested resources in limit i.e. <= needed for it.
 
 				if(Request(i) <= need[i]){
-					//if request if more than available then process must wait.
+					// if request if more than available then process must wait.
 					if(Request(i) <= available){
-						//pretend resources are allocated
+						// pretend resources are allocated
 						available -= request(i)
 						allocated[i] += request(i)
 						need[i] -= request(i)
@@ -133,28 +133,28 @@
 
 	3. Deadlock Detection :
 
-		//Single-Instance of all Resources :
+		// Single-Instance of all Resources :
 			we use the wait-for graph to detect deadlock.
 			its variation of resources-allocation graph.
 
 			the edges,
-				Pi --> Rj //Pi needs resource Rj
-				Rj --> Pk //Resources Rj is allocated to process Pk
+				Pi --> Rj // Pi needs resource Rj
+				Rj --> Pk // Resources Rj is allocated to process Pk
 			in resource allocation graph 	
 			are replaced by edge,
-				Pi --> Pk //Pi is waiting for Pk
+				Pi --> Pk // Pi is waiting for Pk
 			 in wait-for graph 
 
 			now deadlock exists if graph contains a cycle, to detect deadlock system needs to maintain wait-for graph and periodically invoke cycle-detection algorithm [O(n^2)]
 
-		//Several instances of Resources :
+		// Several instances of Resources :
 
 			we use following data structures :
-			1. available[m] //available resources in system
-			2. allocated[n][m] //resources allocated to all processes
-			3. Request[n][m] //current request by each process
+			1. available[m] // available resources in system
+			2. allocated[n][m] // resources allocated to all processes
+			3. Request[n][m] // current request by each process
 
-			available //current available resources in system
+			available // current available resources in system
 			finished[n] = false
 
 			find all i such that 
@@ -169,7 +169,7 @@
 			if for some process i finished[i] is still false then process i is deadlocked
 			if no such process then there's no deadlock.
 
-		//when to invoke the algorithm is another question, on an extreme case we can invoke it whenver a process is made to wait for resource, since deadlock can only occur when someone is made to wait. but thats not efficient. if we invoke algorithm after a long time, then lots of cycles may be created in graph and we won't be able to identify which process cause deadlock.
+		// when to invoke the algorithm is another question, on an extreme case we can invoke it whenver a process is made to wait for resource, since deadlock can only occur when someone is made to wait. but thats not efficient. if we invoke algorithm after a long time, then lots of cycles may be created in graph and we won't be able to identify which process cause deadlock.
 
 	4. Recovery from Deadlock :
 

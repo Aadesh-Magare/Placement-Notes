@@ -1,3 +1,3 @@
-//Reflection :
+// Reflection :
 	Process of finding out diff features of class dynamically i.e. methods and fields present inside that class at run time.
 	reflection can be used to inspect an object to check if it has a function and if it has call the function.

@@ -1,23 +1,23 @@
-//Implement Queue using Stack:
+// Implement Queue using Stack:
 	can be done using two stacks s1 and s2:
 	either enqueue or dequeue can be done at O(1) but not both, for either of two elements must be moved.
 
-	//1 costly enqueue:
+	// 1 costly enqueue:
 		
 		while s1 is not empty pop everything and push onto s2
 		insert element into s1.
 		pop everything from s2 onto s1
 
-	//2 costly dequeue:
+	// 2 costly dequeue:
 		if s2 is not empty pop from s2 directly
 		if s2 is empty, pop everything from s1 onto s2
 		pop from s2 and return
 
-//To implement LRU cache algorithm :
+// To implement LRU cache algorithm :
 
 	we need to use Queue so that least recently used item (at the beginning of Queue)  will be removed.
 
-	we can use additional hashtable that will tell whether particular page is in memory (boot true) or not (false), if present it'll give pointer to that node in Queue.
+	we can use additional hashtable that will tell whether particular page is in memory (bool true) or not (false), if present it'll give pointer to that node in Queue.
 
 	algorithm :
 		when a page is referenced, we'll find the hash and check if its present in Queue, if it is then we'll move it to the end of queue (denoting that its recently used)

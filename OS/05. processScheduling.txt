@@ -2,7 +2,7 @@ CPU scheduling is possible because a process is mix of alternate CPU burst and I
 
 Scheduler (short term schedular / cpu schedular) selects process from ready Queue to schedule. ready queue may be a fifo queue, priority queue, tree or linked list.
 
-//Scheduling may occur when :
+// Scheduling may occur when :
 	
 	1. process switch from running to waiting state
 	2. process switch form running to ready state (due to interrupt)
@@ -19,7 +19,7 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 
 		some sections of code disable interrupt at entry and enable on exit to prevent from interrupt changing imp code.
 
-//Dispatcher :
+// Dispatcher :
 	
 	its the module that gives control of cpu to process selected by scheduler.
 	it does following :
@@ -28,7 +28,7 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 		3. jump to proper location.
 	time taken by Dispatcher is called dispatch latency.
 
-//Scheduling Criteria :
+// Scheduling Criteria :
 
 	1. CPU utilization : it should be maximum
 	2. Throughput : no of processes that are completed per unit time.
@@ -37,9 +37,9 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 	5. Response time : time from request submission till first response produced, i.e. time it takes for responding.
 		the response time should be uniform i.e. variance should be minimum, rather than having faster response in some cases and slower in some cases, its better to have uniform response.
 
-//Scheduling Algorithms :
+// Scheduling Algorithms :
 
-	//Gantt chart : 
+	// Gantt chart : 
 
 		bar chart that illustrates a particular schedule.
 
@@ -85,13 +85,13 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 
 			if higher priority process keeps coming then some lower priority process may keep waiting indefinitly
 
-		//ageing : solution to above problem is ageing i.e. gradually increase the priority of processes waiting in ready queue for long period of time.
+		// ageing : solution to above problem is ageing i.e. gradually increase the priority of processes waiting in ready queue for long period of time.
 
 	4. Round-Robin Scheduling :
 
 		its like FCFS algorithm with preemption. each process is granted cpu for a specific time quantum. after which its preempted and next process is given cpu. it puts the preempted process at the end of queue. new process are also added to the end of queue. it treats ready queue as a circular queue.
 
-		//Processor sharing :
+		// Processor sharing :
 			if time quantum is very large it essentially becomes FCFS algorith. while if the quantum is very small the situation is called Processor sharing. since it create an illusion that there are as many slow processors as the no of processes 
 
 		the time quantum should be much larger than the context switch time otherwise large portion of CPU time will be wasted in context switch.
@@ -122,7 +122,7 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 
 		new process is added to high priority queue, if its burst does not finish within the time quantum then its moved to low priority queue, due to this processes with small time quantum remain in high priority queue and those with longer time quantum goes into low priority queue.
 
-//Thread Scheduling :
+// Thread Scheduling :
 
 	1. Contention Scope :
 		threading library will schedule user threads onto the LWP its known as Process Contention Scope (PCS)
@@ -131,11 +131,11 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 
 // Multiple-Processor Scheduling :
 
-	//Asymmetric MultiProcessing : 
+	// Asymmetric MultiProcessing : 
 
 		single processor does all scheduling descisions, I/O processing and system activities, while others only run user code.	
 
-	//Symmetric MultiProcessing (SMP):
+	// Symmetric MultiProcessing (SMP):
 		
 		all processes may be in common ready queue or each processor has its own ready queue. scheduler for each processor selects process to schedule. in such cases it must be programmed well, to ensure no two processor select the same process and processes aren't lost from queue.
 
@@ -148,7 +148,7 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 		soft-afinity : process is allowed to be moved to other processors
 		hard-affinity : process is not allowed to be moved.
 
-		//NUMA : Non uniform memory access
+		// NUMA : Non uniform memory access
 			if processor has some memory attached to it, then accessing that memory is faster for it, and slower for other processors, its called non-uniform memory access.
 
 		for NUMA and processor Afinity to work out better, os must schedule process on processor having Afinity and keep the process in the memory associated with that processor.

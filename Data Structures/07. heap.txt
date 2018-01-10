@@ -1,4 +1,4 @@
-Binary Heaps are used for sorting in heapsort
+Binary Heaps are used for sorting in heap sort
 
 Heapify procedure is used to build an heap from array
 
@@ -6,14 +6,14 @@ heapify can be applied to a node only if its children are already heapified, so 
 
 we start with the lowest level non-leaf, i.e. the node which has only one level of children below it
 
-//TO Build HEAP: works in linear time
+// Build heap: works in linear time due to being bottom up.
 
-if array a[0..n] then we start from a[n/2] down to index 0
-	on each index we call heapify procedure
+	if array a[0..n] then we start from a[n/2] down to index 0
+		on each index we call heapify procedure
 
-Heapify is recursive procedure , it checks left and right child of a node and finds out which is max from the three (root, left, right) it places the max on root and calls heapify on faulty children
+	Heapify is recursive procedure , it checks left and right child of a node and finds out which is max from the three (root, left, right) it places the max on root and calls heapify on faulty children
 
-to heapsort :
+// Heapsort :
 	swap the root with last element of array, reduce the size of heap by one and call heapify on the root
 	
 							while(n > 1){

@@ -74,7 +74,7 @@ Searching :
 
 		4. have buckets with more slots, like have a 2D array	
 		
-	//Hashing in external storage.
+	// Hashing in external storage.
 
 		on external storage, space is not an issue but time for I/O is too much, so we try to optimize disk access at the expense of storage.
 
@@ -86,7 +86,7 @@ Searching :
 
 		for files that changing rapidly and un-predictively such simple hashing technique is not efficient in terms of space or time, so we use dynamic hashing.
 
-	//Dynamic Hashing :
+	// Dynamic Hashing :
 
 		h() is a hash function that produce w bit hash values, out of which we use b bits and construct a no, hb(key), the no is between 0 to m, where m is the no of buckets in hash table.
 

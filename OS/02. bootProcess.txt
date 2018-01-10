@@ -2,16 +2,16 @@ The computer begins the boot sequence by executing the software stored in ROM ( 
 
 BIOS has functionality to search devices which are eligible to participate in booting. and load a SMALL PROGRAM from special section i.e.boot sector of that device.
 
-Computer can only execute instructions present in ram, initially os is not present in ram, so we have to execute a relativly small program stored in rom with bare minimum of data needed to access the hard drive from which os is to be loaded into ram.
+Computer can only execute instructions present in ram, initially os is not present in ram, so we have to execute a relatively small program stored in rom with bare minimum of data needed to access the hard drive from which os is to be loaded into ram.
 
-the small program which start loading of os into the ram is called bootstrap loader or bootloader
+the small program which start loading of os into the ram is called bootstrap loader or bootloader.
 
 
 BIOS -> 
 
 	1. POST:power on self test (checks whether all necessary hardware present) 
 	2. Hardware devices are initialized.
-	3.  bios goes through list of devices to find any bootable , i.e. it checks boot sectors of devices that are specified in cmos.
+	3. Bios goes through list of devices to find any bootable , i.e. it checks boot sectors of devices that are specified in cmos.
 	4. loads the boot sector(mbr = in first sector of drive) which is bootable into ram 
 	->boot sector has code to load kernel
 

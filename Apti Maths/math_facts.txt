@@ -1,5 +1,5 @@
 
-//square of natural number never ends with 2, 3, 7, 8 it ends with 0 1 4 5 6 9 
+// square of natural number never ends with 2, 3, 7, 8 it ends with 0 1 4 5 6 9 
 
 //
 x^n + a^n will be divisible by x+a only when n is odd.
@@ -7,7 +7,7 @@ x^n - a^n will be divisible by x+a only whne n is even.
 
 
 
-//a number successivly divided by 4,5, 6 gives reminder 2, 3, 4 then whats the no?
+// a number successivly divided by 4,5, 6 gives reminder 2, 3, 4 then whats the no?
 
 4 	x
 5	y-2
@@ -18,7 +18,7 @@ x^n - a^n will be divisible by x+a only whne n is even.
 	y = 5 * z + 3 = 53
 	x = 4 * y + 2 = 212
 
-//Find day of Week :
+// Find day of Week :
 	remember one day 1 jan 1900 was monday.
 	every 400 years later, it remains same, so skip multiple of 400.
 	every 100 years has 5 odd days, so its shfited by 5 days after each 100 years.

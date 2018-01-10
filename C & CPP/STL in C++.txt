@@ -1,4 +1,4 @@
-//Components :
+// Components :
 	1. Containers :
 		it store data, its implemented by template classes. so it can be used for any type of data.
 
@@ -8,7 +8,7 @@
 	3. Iterator :
 		Iterator is an object that points to an element in Containers. its just like pointers.
 
-//Containers :
+// Containers :
 	
 	Three types of Containers :
 		1. Sequence Containers : 
@@ -42,60 +42,60 @@
 		set, multiset, map and multimap are ordered i.e. they keep data sorted.
 		unordered_set, unordered_multiset, unordered_map, unordered_multimap are also availabe which doesnt keep data sorted, so are more efficeint.
 
-//Algorithms :
+// Algorithms :
 	they manipulate Container objects however they are not friend function or member function of Container class.
 
-//Iterator :
+// Iterator :
 	its like pointers that are used to access Container elements.
 	vector<int> :: iterator i;
 
-//Useful Member Functions of Containers :
+// Useful Member Functions of Containers :
 
 	int array[] = {10, 20, 20, 50, 10, 40}
 	vector<int> v(10);
 	deque<int> d(10);
 	list<int> l(10);
 	forward_list<int> fl(10);
-	set<int> s(array, array + 6);	//take unique value only.
-	multiset<int> ms(array , array + 6) //takes all values.
+	set<int> s(array, array + 6);	// take unique value only.
+	multiset<int> ms(array , array + 6) // takes all values.
 	map<string, int> m;	// m["yo"] = 5;
-	multimap<string, int> mm; //mm["yo"] = 5; mm["yo"] = 24; 
+	multimap<string, int> mm; // mm["yo"] = 5; mm["yo"] = 24; 
 
 	i = v.begin() 
 	i != v.end()
-	i = v.rbegin() //revers begin (last element)
-	i != v.rend() //first
-	auto ip = v.cbegin() //cbegin const_iterator to begin, that wont be changed.
-	//here auto type identifier will automatically detect type of argument and assign ip the same data type.
-	v.size() //no of elements.
-	v.max_size() //max no of elements it can hold.
-	v.empty() //whether its empty i.e. size = 0
-	v.resize(a, b) //resize Container to hold a values. intialize extra values with b
-	v.resize(a) //resize Container to hold a values. intialize them to 0
-	v.capacity() //current space allocated to object i.e. how many elements it can hold without resizing.
-	v.shrink_to_fit(); //reduce capacity to size, to prevent space waste.
-	v.reserve(n) //request that capacity be at least n elements.
-	v.front() //return reference to first element not iterator i.e. returns a value
-	v.back() //returns reference to last element(pass by value,pass by reference,remember?
-	v.assign(a, b) //a elements with value b
+	i = v.rbegin() // revers begin (last element)
+	i != v.rend() // first
+	auto ip = v.cbegin() // cbegin const_iterator to begin, that wont be changed.
+	// here auto type identifier will automatically detect type of argument and assign ip the same data type.
+	v.size() // no of elements.
+	v.max_size() // max no of elements it can hold.
+	v.empty() // whether its empty i.e. size = 0
+	v.resize(a, b) // resize Container to hold a values. intialize extra values with b
+	v.resize(a) // resize Container to hold a values. intialize them to 0
+	v.capacity() // current space allocated to object i.e. how many elements it can hold without resizing.
+	v.shrink_to_fit(); // reduce capacity to size, to prevent space waste.
+	v.reserve(n) // request that capacity be at least n elements.
+	v.front() // return reference to first element not iterator i.e. returns a value
+	v.back() // returns reference to last element(pass by value,pass by reference,remember?
+	v.assign(a, b) // a elements with value b
 	v.insert(i, b) // insert at iterator i value b
-	v.insert(i, 4, b) //insert at iterator i value b 4 times. 
-	v.erase(i) //erase element pointed by i. erase(i, j) erase from i to j
-	v.emplace_back(b)	//insert after the last element, uses constructor and value b
-	v.push_back(b)	//adds at the last
-	v.pop_back(b)	//removes last element.
-	v.emplace_front(); v.push_front(); v.pop_front();	//same as above.
-	v.clear() //clears the Containers, makes size 0;
-	v.swap(w)	//swaps contents of two Containers.
-	v.data()	//returns actual pointer to array used by vector.
-	l.remove(20)	//remove value 20 from list
-	l.unique() //removes duplicates that are consequitive (good for sorted list)
-	l.merge(m) //merge lists l and m; if both are sorted output is also sorted.
-	l.sort() //sort the list.
-	l.reverse()	//reverse list.
-	s.emplace(a)	//inserts new element into set if its unique.
-	s.count(a)	//returns no of elements with value a
-	s.find(a)	//searches for value a and returns iterator to it, goes to end if notfound
-	s.upper_bound(a)	//return iterator to next value greater than a
-	s.lower_bound(a)	//return iterator to first value which is not less than a
-	s.equal_range(a)//return two iterators first <= a and second greater than a
+	v.insert(i, 4, b) // insert at iterator i value b 4 times. 
+	v.erase(i) // erase element pointed by i. erase(i, j) erase from i to j
+	v.emplace_back(b)	// insert after the last element, uses constructor and value b
+	v.push_back(b)	// adds at the last
+	v.pop_back(b)	// removes last element.
+	v.emplace_front(); v.push_front(); v.pop_front();	// same as above.
+	v.clear() // clears the Containers, makes size 0;
+	v.swap(w)	// swaps contents of two Containers.
+	v.data()	// returns actual pointer to array used by vector.
+	l.remove(20)	// remove value 20 from list
+	l.unique() // removes duplicates that are consequitive (good for sorted list)
+	l.merge(m) // merge lists l and m; if both are sorted output is also sorted.
+	l.sort() // sort the list.
+	l.reverse()	// reverse list.
+	s.emplace(a)	// inserts new element into set if its unique.
+	s.count(a)	// returns no of elements with value a
+	s.find(a)	// searches for value a and returns iterator to it, goes to end if notfound
+	s.upper_bound(a)	// return iterator to next value greater than a
+	s.lower_bound(a)	// return iterator to first value which is not less than a
+	s.equal_range(a)// return two iterators first <= a and second greater than a

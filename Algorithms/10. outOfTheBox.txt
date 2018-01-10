@@ -62,8 +62,8 @@
 
 // max of two nos without using > or < :
 	max(a,b)
-		c = a - b 	//check MSB of C if its 1 or 0.
-		k = (1 << 31 ) & c 	//since c is 32 bit no.
+		c = a - b 	// check MSB of C if its 1 or 0.
+		k = (1 << 31 ) & c 	// since c is 32 bit no.
 		max = a - k * c
 
 // All pairs in array that sum up to X :
@@ -88,7 +88,7 @@
 					}
 // Add without using + sign :
 	recursively add till one of no becomes zero.
-	we use the algorithm that sum of two no is equal to sum of (thier addition without considering any carry + their addition by considering only carry)
+	we use the algorithm that sum of two no is equal to sum of (their addition without considering any carry + their addition by considering only carry)
 
 	int add_no_arithm(int a, int b) {
 		if (b == 0) return a;
@@ -97,13 +97,13 @@
 		return add_no_arithm(sum, carry); // recurse
 	}
 
-//Generate random subset of size n from array :
+// Generate random subset of size n from array :
 	
 	int * pickMRandomly(int original[], int n){			
 			int subset[n];
 			int array[] = original.clone();
 			for (int j = 0; j < n; j++){					
-				int index = rand(j, array.length - 1);	//random no between j to length
+				int index = rand(j, array.length - 1);	// random no between j to length
 				subset[j] = array[index];				
 				array[index] = array[j]; 	
 				// array[j] is now “dead” that wont be considerd for next choosing this is to avoid repetation of same no
@@ -111,7 +111,7 @@
 			return subset;
 	}
 
-//No of two's between 0 to n :
+// No of two's between 0 to n :
 			int count2sR(int n) {	
 					// Base case
 					if (n == 0) return 0;
@@ -138,9 +138,9 @@
 					return nTwosFirst + nTwosOther;
 			}
 
-//XoR of range [L,R]
+// XoR of range [L,R]
 
-		//xor from 0 to no x :
+		// xor from 0 to no x :
 
 
 		long long xorsum(long long x){

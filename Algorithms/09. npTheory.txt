@@ -1,8 +1,6 @@
 some problems cant be solved by computer even with unlimited time e.g. 
 	turing halting problem : given program and a input, determining if that program will run forever or terminate.
 
-
-
 // P :
 	these are problems that can be solved in polynomial time by deterministic turing machine.
 
@@ -10,9 +8,9 @@ some problems cant be solved by computer even with unlimited time e.g.
 	these are decision problems that can be solved in polynomial time by non-deterministic turing machine.
 	P is subset of NP.
 
-//NP-Complete problem : 
-	whoes status is unknown. no polynomial time algorithm has been discovered for them nor anyone has proved that it doesnt exist.
+// NP-Complete problem : 
+	whose status is unknown. no polynomial time algorithm has been discovered for them nor anyone has proved that it doesn't exist.
 	if any one of the NP complete problems can be solved in polynomial time, then all of them can be solved.
 
-//NP hard 
+// NP hard 
 	NP complete is subset of NP hard.

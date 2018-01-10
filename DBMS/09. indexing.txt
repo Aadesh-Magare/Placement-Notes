@@ -48,7 +48,7 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 
 			​A non clustered index just tells us where the data lies, i.e. it gives us a list of virtual pointers or references to the location where the data is actually stored. Data is not physically stored in the order of the index. 
 
-			//secondary indices doesnt have the same ordering as the records in the file, so its not enough to save pointer to first entry of each search key(cause the records in file are sorted on primary key and not secondary key). so we must save pointer to every entry associated with search key. we can use indirection here, secondary indices will point to a block which in turn will point to all entries associated with that key
+			// secondary indices doesnt have the same ordering as the records in the file, so its not enough to save pointer to first entry of each search key(cause the records in file are sorted on primary key and not secondary key). so we must save pointer to every entry associated with search key. we can use indirection here, secondary indices will point to a block which in turn will point to all entries associated with that key
 
 			so secondary indices must be dense type
 
@@ -79,7 +79,7 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 		Hashing is very inefficient for range queries, so its used only when dbms has very rare range queries otherwise ordered indexing is used
 
 
-//B+ Tree : 
+// B+ Tree : 
 
 	Imposes insertion, deletion and space overhead but its acceptable when its advantages are taken into account.
 

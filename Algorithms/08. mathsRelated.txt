@@ -1,6 +1,6 @@
 // Every no can be expressed as product of primes.
 
-//Prime Factorization :
+// Prime Factorization :
 
 		prime_factorization(long x){
 			long i;
@@ -22,9 +22,9 @@
 			if (c > 1) printf("%ld\n",c);
 		}
 
-//Finding all divisors of number :
+// Finding all divisors of number :
 	a divisor of no is subset of its prime Factors.
-	all possible subsets may create duplicate factos which needs to be counted only once.
+	all possible subsets may create duplicate factors which needs to be counted only once.
 	
 // No of primes :
 	There are roughly x / ln(x)  primes <= x

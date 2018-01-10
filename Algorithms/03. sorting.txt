@@ -47,14 +47,14 @@ stable sorting : for similar elements, same order is maintained as that of input
 	repeat this till you get inc size as 1 (go on reducing inc after each pass)
 	involves insertion sort internally, the complexity is n^1.5
 
-//Bucket Sort (counting sort)
+// Bucket Sort (counting sort)
 
 	the hashing sort O(n) thats regularly used is called bucket sort.
 	it uses hashing instead of comparisons and puts results into buckets, it may use linked list to store elements within the bucket
 
 	if there are K buckets then its O(n+k) since k is small it becomes O(n)
 
-//Radix sort
+// Radix sort
 	sort numbers based on their digits, starting frm lsb to msb internally it can use any stable sorting technique 
 	stable sort = 223 233 if these two are being sorted on unit place then they must appear in same order 223, 233 as they were originally
 
@@ -97,33 +97,36 @@ stable sorting : for similar elements, same order is maintained as that of input
 			    for (i = 0; i < n; i++)
 			        arr[i] = output[i];
 			}
-//Binary Tree sort
+
+			Time Complexity : O(wn) where n : size of array, w : no of bits in a number on average.
+// Binary Tree sort
 	construct a binary tree and do inorder traversal, avg its O(nlogn) but in worst case it becomes O(n^2) when its a linked list instead of tree
 
-//Heap sort
+// Heap sort
 	build the max heap from given data
-	swap max elment(at root) with the last element in array
+	swap max element(at root) with the last element in array
 	correct the heap by neglecting the last element
 	repeat it
-
-//MergeSort
+	Time Complexity : O(nlogn)
+// MergeSort
 	
 	if you want to sort arr(0, n-1)
 	then pass arguments to mergesort as 0 & n-1 only dont send n, that complicates things
 
-	//for finding mid :
+	// for finding mid :
 		mid = l+r / 2 may cause int overflow for large values
 		instead you can do l + (r-l)/2
-	//Recursive :
+	// Recursive :
 		mergesort() recursive call till you get size of 1
 		then 
 		merge(arr, low, mid, high)
 		merge will merge the two sorted halves into single array and return it
 
-		it requires O(n) extra space to merge
-	//Iterative:
-		Merge subarrays in bottom up manner, like merge array of size 1 to form that of 2, then that of 4 etc.
-		maintain current size of subarray, that would vary from 1 to <= n and double after each pass
+		it requires O(n) extra space to merge.
+
+	// Iterative:
+		Merge sub arrays in bottom up manner, like merge array of size 1 to form that of 2, then that of 4 etc.
+		maintain current size of sub array, that would vary from 1 to <= n and double after each pass
 		find left starting point and right starting point (mid + 1) along with end points and simply call the usual merge operation
 		left_start = it will begin from 0 and increment by current_size * 2 till its n-1
 		mid = it would be left_start + current_size -1 
@@ -142,9 +145,9 @@ stable sorting : for similar elements, same order is maintained as that of input
 		}
 
 
-//QuickSort:
+// QuickSort:
 	take a pivot element (first)
-	partition the array into two halves, less than pivot on one side and greater then pivot on another, doing so place the pivot at its proper place by swapping
+	partition the array into two halves, less than pivot on one side and greater than pivot on another, doing so place the pivot at its proper place by swapping
 	recursively do same for two arrays thus formed
 
 

@@ -1,14 +1,12 @@
-
 Recursion :
 
-
-//Tail Recursion :
-	A function is said to be Tail Recursive if it doesnt do anything except return 
+// Tail Recursion :
+	A function is said to be Tail Recursive if it doesn't do anything except return 
 	after the recursive call returns
 	typically in recursion, we do the recursive call and then using the results do some computation, but for this to work out, actual computation is performed once all of the recursive calls have been returned. to improve this we use tail recursion where we do the computation and then pass on the results in recursive call
 	
 	Compilers optimize tail recursive calls, since the last statement is recursive call that means after it returns there is nothing to do, so there is no need to save the current stack frame
-//Towers of honoie :
+// Towers of honoie :
 
 	take leap of faith!
 	move n disks from column start to end using aux column

@@ -1,4 +1,4 @@
-//Basics :
+// Basics :
 	Objects : 
 		instances / variables of type class
 	class : 
@@ -22,7 +22,7 @@
 	Object based language : supports objects, Encapsulation, Abstraction, overloading.
 	Object-Oriented : supports inheritance and dynamic binding also.
 
-//Limitations of structures :
+// Limitations of structures :
 	
 	C structures :
 		cant have function
@@ -36,7 +36,7 @@
 
 	C++ structure and classes are alomost same with the only difference, the default type in class is private while in structure it is public.
 
-//Classes :
+// Classes :
 	member functions can be defined outside class or inside the class. we want to separate implmentation from definition so its good practice to define it outside.
 	the functions defined inside class are treated as "inline" functions.
 
@@ -49,7 +49,7 @@
 	a function that doesnt change any value in class can be declared as const, its prototype and definition is followed by keyword const. e.g.
 		void mul(int, int) const;
 
-//Static Variables (Class variables) :
+// Static Variables (Class variables) :
 	
 	only one copy of static variables is used per class, not separate for separate objects
 	its visible within the class only but lifetime is throughout program.
@@ -57,17 +57,17 @@
 
 	type and scope of static variables must be defined outside class. e.g.
 		int className :: count; 
-		//note that definition doesnt has static keyword, only 
+		// note that definition doesnt has static keyword, only 
 	it can also be given initial value
 		int className :: count = 6;
 	the statement is outside the class, just like member functions are defined outside class, static variables are also declared in class and defined outside class.
 
-	//static functions :
+	// static functions :
 		it can only access static variables or static functions.
 		it can be called by using class name
 			className :: function();
 
-//Friend Function :
+// Friend Function :
 	it has access to private members of class, its as good as a member function.
 	it needs to be defined only once and any class can use it only condition is that the class should declare it as friend function. it can be declared both as private or public (that doesnt change anything).
 
@@ -80,7 +80,7 @@
 
 	its called without using any object because it doesnt belong to any object, it can access members of class but it has to use the dot notation for accessing it (Object.member)
 
-//Forward Declaration :
+// Forward Declaration :
 	sometimes we need to use a class's name before using it e.g.
 	add is an friend function in both classes.
 			add(class1 a, class2 b);
@@ -90,7 +90,7 @@
 		class class2;
 	its called Forward declaration.
 
-//Pointers to Members in class :
+// Pointers to Members in class :
 
 	we can have Pointers to members of class just like we have normal Pointers.
 	class className{
@@ -110,7 +110,7 @@
 
 		cp->m = 5 is same as cp->*ip = 5 
 
-		//function pointer :
+		// function pointer :
 
 			void myfun(int a);
 
@@ -120,9 +120,9 @@
 
 			void (className :: *funpoint) (int m) = className :: show;
 
-			(myclass.*funpoint)(10); //function call
+			(myclass.*funpoint)(10); // function call
 
-//Local classes :
+// Local classes :
 	
 	the classes defined inside a function or block are called Local classes to that function or block.
 
@@ -130,7 +130,7 @@
 
 	the class cant have static members, and functions must be defined inside class only. the enclosing function cant access private members of class.
 
-//Constructors and Destructors :
+// Constructors and Destructors :
 
 	to allow initialization of objects when they are created just like built-in data types and destruction them when are done with.
 
@@ -153,10 +153,10 @@
 	parameterized Constructor :
 		we pass arguments to Constructor. during object creation we can pass arguments by explicit call or implicit call to Constructor.
 
-		integer int1 = integer(5); //explicit.
-		integer int1(5);	//implicit or shorthand method.
+		integer int1 = integer(5); // explicit.
+		integer int1(5);	// implicit or shorthand method.
 
-	//Copy Constructor :
+	// Copy Constructor :
 		a Constructor can take any arguments except the variable of its own class 
 			e.g. 
 				A(A a) is illegal since its Constructor of class A, it cant take object of same type.
@@ -167,29 +167,29 @@
 
 		Copy Constructor :
 			A b(a);
-			A b = a;	//both of these invoke copy Constructor.
+			A b = a;	// both of these invoke copy Constructor.
 
 			A c;
-			c = b //does not invoke copy Constructor. uses = overloading
+			c = b // does not invoke copy Constructor. uses = overloading
 
 		when no copy Constructor is given compiler create its own copy Constructor which does nothing
 
-	//Difference between assignment (=) and copy constructor.
+	// Difference between assignment (=) and copy constructor.
 		copy constructor is called when new object is created from existing object
-			myClass m1 = m3;	//copy constructor
+			myClass m1 = m3;	// copy constructor
 		assignment operator is called when already initialized object is initialized new value.
-			m1 = m3; 	//assignment operator
+			m1 = m3; 	// assignment operator
 
-	//once we write our Constructor then we must include one default Constructors (without parameters). (if no Constructor is written then compiler writes default Constructor but if we wrote one parameterized Constructor then it must have default also)
+	// once we write our Constructor then we must include one default Constructors (without parameters). (if no Constructor is written then compiler writes default Constructor but if we wrote one parameterized Constructor then it must have default also)
 	if it doesnt have default Constructor then we cant do :
 		className c1; 	// this needs default Constructor.
 
-	//we can specify default arguments to Constructor like :
+	// we can specify default arguments to Constructor like :
 		className(int m, int l = 0)
 
 		when we have default arguments like className(int i = 0), then it may be called as className() or className(6) but when we use first case then it create ambiguity whether to call default Constructor or to call this Constructor with default values.
 
-	//Constructor in Derived Class :
+	// Constructor in Derived Class :
 
 		if base class Constructor takes one or more arguments then derived class must have a constructor and pass arguments to base class constructor.
 
@@ -210,12 +210,12 @@
 			constructor will be called in order, mother then father not the other way around. order depends on order in which they are inherited.
 		constructor for virtual class is envoked first and then for other base classes.
 
-	//Const object :
+	// Const object :
 		we can create const object that doesnt change any value.
-			const className my(5, 6)	//called Constructor.
+			const className my(5, 6)	// called Constructor.
 			a const object can only call const methods.
 
-	//Destructor :
+	// Destructor :
 		its used to free up the memory reserved by object before destroying it.
 		memory allocated by new should be freed by delete in destructor.
 
@@ -225,14 +225,14 @@
 			}
 		doesnt not take any arguments  and does not return anything.
 
-//Name Hiding :
+// Name Hiding :
 	
 	Suppose Base class has one overloaded method with two parameters and three parameters
 	its derived class, overrides two parameters method but not the three parameters one.
 
 	so derived class can only call two 	parameters method. we expect that it should be able to call three parameters method from base class, but since you have overriden the method its name is hidden, to use it you must override the three parameters version also.
 
-//Operator Overloading :	
+// Operator Overloading :	
 	
 	These cannot be overloaded :
 		1. operator to access class members (. or .*)
@@ -254,14 +254,14 @@
 		3. some operator cant be overloaded by using friend function but can be by using member function only ( = , (), [], -> )
 		4. + - * and / must return value and not change arguments.
 
-	//Overload << and >> operators 
+	// Overload << and >> operators 
 		originally these are overloaded operators which return istream and ostream objects, to overloade these in our program :
 
 			istream & operator >>(istream &din, array &a){
 				for(int i = 0; i < size; i++)
 					din  >> a[i]
 				return din
-			}	//this return a variable of istream (by reference )
+			}	// this return a variable of istream (by reference )
 
 			ostream & operator << (ostream &dout, array &b){
 				for(int i = 0; i < size; i++)
@@ -269,7 +269,7 @@
 				return dout
 			}
 
-	//Type conversion :
+	// Type conversion :
 
 		1. from Basic to Class :
 			it uses constructor of class. e.g.
@@ -283,8 +283,8 @@
 			}
 
 				char *name = "aadesh"
-				string s1 = name; //this calls constructor of class string
-				//this is as good as calling s1 constructor with arg name.
+				string s1 = name; // this calls constructor of class string
+				// this is as good as calling s1 constructor with arg name.
 
 		2. class to basic :
 			we overload the casting operator like
@@ -295,8 +295,8 @@
 
 			there must be no reurn type and argument to this overload function.
 
-			value = s1 //here s1 is object, so its overloaded casting operator is called.
-			//the casting function gets all data of s1 without using dot operator.
+			value = s1 // here s1 is object, so its overloaded casting operator is called.
+			// the casting function gets all data of s1 without using dot operator.
 
 		3. Class to another class :
 
@@ -320,4 +320,4 @@
 					member2 = a.get2()
 				}
 
-				p1 = a //constructor of p1 is called with a as argument.
+				p1 = a // constructor of p1 is called with a as argument.

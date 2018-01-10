@@ -12,7 +12,7 @@
 4. If that DNS server has the address for that domain, it will return it. Otherwise, it will forward the query along to DNS server it is configured to defer to. This happens recursively until the request is fulfilled or it reaches an authoritative name server and can go no further. (If the authoritative name server doesn't recognize the domain, the response indicates failure and the browser generally gives an error like "Can't find the server at www.lkliejafadh.com".) The response makes its way back to the client machine much like the request traveled to the DNS server.
 
 
-///////DNS///////www.example.net////////
+/////// DNS/////// www.example.net////////
 browser will send dns request to default dns server which will send response to browser once it gets the right result. now the dns server works on behalf of us to find ip addresse. 
 first it will connect to root dns server, which maintains info like which dns servers are responsilbe for .net, .com, .org etc so the root server will tell us which top level dns server (TLD) is responsible for our .net domain.
 so contact TLD server now, it will tell us another server which is the authoritive server for our desired link

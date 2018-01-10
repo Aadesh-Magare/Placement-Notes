@@ -1,4 +1,4 @@
-//AVL TREES :
+// AVL TREES :
 
 		AVL trees (height balanced trees):
 			the height of children differ by no more than 1.
@@ -9,7 +9,7 @@
 			if bf > 1 : left subtree is unbalanced
 			if bf < -1 : right subtree is unbalanced
 
-		//Rotation:
+		// Rotation:
 			
 			Left rotate:
 
@@ -32,17 +32,17 @@
 					lchild->right = temp;
 					temp->left = gchild;
 
-		//Balancing trees:
+		// Balancing trees:
 
 			after insertion or deletion tree maybe become unbalanced, so balancing is required.
 
-//B-Trees :
+// B-Trees :
 
 	when we want to store data in secondary storage, prime concern is to reduce disk access, so we reduce the height of tree and store more data in one node, thats why B trees are created
 
-	//Multi-way search tree of order n can store n-1 values and can have n children
+	// Multi-way search tree of order n can store n-1 values and can have n children
 
-	//B-tree satisfies following properties:
+	// B-tree satisfies following properties:
 		1. it can be only one node (root)
 		2. every non-leaf node (except root) must have at least ceil(n/2) children and at most n children	
 		3. node having n children must have n-1 values in ascending order
@@ -50,13 +50,13 @@
 		5. subtree on left of a value has all values less than that one while a subtree on right side must have all values greater than that one.
 
 
-	//Searching in B-tree :
+	// Searching in B-tree :
 
 		to search a value n in B-tree, its first compared with value[0] if n is less than that then search is continued in 0th child of current node, if n is greater than value[5] but less than value[6] then search is continued in 6th child.
 		if n is greater than last value (value[m]) then its searched in last child  
 		same recursive procedure is followed in child for search.
 
-	//Insertion in B-tree (order of tree is m):
+	// Insertion in B-tree (order of tree is m):
 
 		value is always inserted into a leaf node, to insert its searched, on search we get the node in which we should insert the value, there are two cases here, the node is full or has space for insertion
 
@@ -70,7 +70,7 @@
 
 			if parent becomes full due to this then same procedure is applied to parent
 
-	//Deletion from B-tree(order of tree is m):
+	// Deletion from B-tree(order of tree is m):
 
 		value to be deleted is searched and removed from the node, on its removal the node is checked if it violates any property of B-trees, there are two cases here.
 
@@ -92,7 +92,7 @@
 
 				after this parent is checked if it contains less than required values if so, same procedure is applied to the parent as well.
 
-//B+ Tree:
+// B+ Tree:
 
 	Major drawback of B-trees is difficulty in traversing the keys sequentially, since its binary tree like structure, accessing sequential keys is costly since for it you need to travel up to parent and then continue.
 

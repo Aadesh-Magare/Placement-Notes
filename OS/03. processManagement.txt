@@ -1,8 +1,8 @@
-//Process :
+// Process :
 
 	it is a program in execution.  (was called job in early days)
 	
-	//process includes :
+	// process includes :
 	
 		1. text area (program code)
 		2. current activity (represented by Program counter PC and registers)
@@ -22,35 +22,35 @@
 			7. I/O information (list of open files, i/o devices)
 			8. it also contain information about threads.
 
-//Process Queues in System :
+// Process Queues in System :
 	
-	//job queue contains all the processes in system, whenever new process enters in system its put into job queue.
+	// job queue contains all the processes in system, whenever new process enters in system its put into job queue.
 
-	//Ready queue : processes in main-memory ready to execute are put in ready queue. its a linked list of PCBs. a running process quits, is interrupted or starts waiting for some event, in that case its put up in appropriate queue.
+	// Ready queue : processes in main-memory ready to execute are put in ready queue. its a linked list of PCBs. a running process quits, is interrupted or starts waiting for some event, in that case its put up in appropriate queue.
 
-	//Each I/O device has its own queue, a process waiting for that device is added to device's queue
+	// Each I/O device has its own queue, a process waiting for that device is added to device's queue
 
 	// a new process in put in ready queue, until its scheduled. while running
 		it may issue I/O request and get moved to I/O queue
 		it may create new process and wait for its termination
 		it may be removed from running due to its time slice is finished
 
-//Scheduler:
+// Scheduler:
 
 	selects process to be executed from queue.
 
-	//often there are more processes than can be scheduled immediately, so these are stored on disk for later execution. 
+	// often there are more processes than can be scheduled immediately, so these are stored on disk for later execution. 
 	thus long-term scheduler or job scheduler selects processes from disk to load into main-memory.
 	short-term scheduler or CPU scheduler selects process to execute from main-memory
 
 	// I/O bound process : spends more time doing I/O 
 	   CPU bound process : spends more time doing calculations
 
-	   a long term scheduler must select good mix of these to ensure good efficiency. It decides degree of multiprogramming (number of processes in memory)
+	   a long term scheduler must select good mix of these to ensure good efficiency. It decides degree of multi-programming (number of processes in memory)
 
 	there may be a medium-term scheduler which swaps processes out of memory and swaps in when required, this can improve the mix of I/O bound and cpu bound processes.
 
-//Context-Switch :
+// Context-Switch :
 
 	whenever interrupt occurs system must save the context of current process so that it may be resumed late on. Context is represented by PCB of process 
 
@@ -58,47 +58,47 @@
 	context switch time is pure overhead since no useful work is done in that time, it depends on hardware (no of registers, memory etc)
 
 
-//Process Creation :
+// Process Creation :
 
 	parent creates child process, then it may continue to execute along with children or wait till the child has terminated
 
-	//to execute code in both the blocks of "if and else" we can use fork system call
+	// to execute code in both the blocks of "if and else" we can use fork system call
 
-	//child inherits open files from its parent
+	// child inherits open files from its parent
 
-	//Fork vs Vfork
+	// Fork vs Vfork
 
-		fork creates duplicate, copying all of the memory of parent, which is costly operation, sometimes when child exec immediately, the copying is worthless, to avoid this vfork was created. it doesnt create copy, but suspends parent process, but its hard to use cause you shouldnt change any of parents data, even reading data is risky.but later on fork was improved with copy-on-write technique, where it doesnt create any copy until either parent or child change some data, thats very efficient, so now vfork is no longer used, and sometimes you may find that vfork internally calls forks
+		fork creates duplicate, copying all of the memory of parent, which is costly operation, sometimes when child exec immediately, the copying is worthless, to avoid this vfork was created. it doesn't create copy, but suspends parent process,but its hard to use cause you shouldnt change any of parents data, even reading data is risky.but later on fork was improved with copy-on-write technique, where it doesn't create any copy until either parent or child change some data, thats very efficient, so now vfork is no longer used, and sometimes you may find that vfork internally calls fork
 
 		still vfork in efficient way to create process sometimes its used in command line shell interface.
 
-//Process termination :
+// Process termination :
 	
 	a process can terminate by calling exit call, it may return some status (integer) to its parent (through wait function)
 
-	//cascading termination : some systems do not allow child to run if their parent is terminated. in such cases on termination of parent all of its children are terminated by force its called cascading termination.
+	// cascading termination : some systems do not allow child to run if their parent is terminated. in such cases on termination of parent all of its children are terminated by force its called cascading termination.
 
 	upon termination of child, the wait call in parent returns the pid of child 
 
-//Orphan process :
+// Orphan process :
 
 	those processes that are running but their parent have terminated.
 	these are adopted by init process (pid 1) which waits on them
 
-//Zombie Process (defunct process) :
+// Zombie Process (defunct process) :
 	
-	process has completed, its in terminated state (via exit call) but still present in process table. the entry is present for the parent process to read the exit status of child. (its read via wait sys call) once the status is read by parent entry is removed and its said to be reaped. all children are first zombies but they are immediately reaped. unless theres some error in which case they remain zombies.
+	process has completed, its in terminated state (via exit call) but still present in process table. the entry is present for the parent process to read the exit status of child. (its read via wait sys call) once the status is read by parent, entry is removed and its said to be reaped. all children are first zombies but they are immediately reaped. unless theres some error in which case they remain zombies.
 
-	//kill command has no effect on zombies
+	// kill command has no effect on zombies
 
-	//a process that is both zombie and orphan will be reaped immediately. since it will be adopted and waited upon by init.
+	// a process that is both zombie and orphan will be reaped immediately. since it will be adopted and waited upon by init.
 	
-//Deamon Process 
+// Deamon Process 
 
 	A daemon is a process that detaches itself from the terminal and runs, disconnected, in the background, waiting for requests and responding to them.
 	e.g init, inetd.
 
-//Interprocess Communication
+// Interprocess Communication
 
 	Independent Process : which cannot affect or be affected by other process
 	Co-operating Process : which can affect or be affected.
@@ -109,17 +109,17 @@
 
 			Posix provide shmget, shmat, shmdt, shmctl(to remove), sprintf functions to work with shared memory
 
-		2. Message Passing : (P1 to kernel memory, Kernel memory to P2), involves system calls during passing, slower mechanism. easier to implement in intercomputer communication
+		2. Message Passing : (P1 to kernel memory, Kernel memory to P2), involves system calls during passing, slower mechanism. easier to implement in inter-computer communication
 
-			processes may send and recieve messages by using PID of each other, but this has certain limitations like knowing the pid of proceess.
+			processes may send and receive messages by using PID of each other, but this has certain limitations like knowing the pid of process.
 
-			the communication can be indirect, by using mailbox or ports, where processes send and recieve messages to and from certain mailbox identified by no. the mailbox may be of a process or owned by os itself.
+			the communication can be indirect, by using mailbox or ports, where processes send and receive messages to and from certain mailbox identified by no. the mailbox may be of a process or owned by os itself.
 
 			the communication may be synchronous (blocking) or asynchronous (non-blocking)
 
 			the processes keep buffer queue to store messages whenever the medium has no space.
 
-//IPC in Client-server Systems :
+// IPC in Client-server Systems :
 
 	1. Sockets :
 
@@ -133,17 +133,17 @@
 
 		RPC deamon are listening on some port on remote machine , they have identifiers for functions and arguments to pass. as per request they execute function and send back the results
 
-		to solve the issue with little and big indian systems, before sending any value its converted into external data representation (XDR) thats standard form, which on recieving is converted as per the architecture of machine
+		to solve the issue with little and big indian systems, before sending any value its converted into external data representation (XDR) thats standard form, which on receiving is converted as per the architecture of machine
 
 	3. Pipes : 
 		ordinary pipes provide unidirectional flow, one process write and other reads data. it cannot be accessed from outside of process. so only parent can communicate with its child because child inherits all open files from parent (including special files such as pipe)
 
-		every process should cloes the un-used end of file, it helps other process in detecting the end of pipe
+		every process should close the un-used end of file, it helps other process in detecting the end of pipe
 
 		cease to exist when communicating process terminate 
 
-		//Named Pipes :
-			Biredirectional , no parent-child relationship required, several process can use named pipe for communication.
+		// Named Pipes :
+			Bidirectional , no parent-child relationship required, several process can use named pipe for communication.
 			continue to exist even when communicating processes terminate
 
 			Called FIFO in Unix (mkfifo sys call for creation, normal read write for operation)

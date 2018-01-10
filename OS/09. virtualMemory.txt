@@ -1,4 +1,4 @@
-//Basics :
+// Basics :
 
 	entire program need not be present in the memory for its execution, the ability to execute a program thats partially in memory have many benefits.
 	program would not be constrained by the amount of physical memory available
@@ -10,7 +10,7 @@
 
 	sharing of objets or library pages is very easy, each process thinks that libray is part of its address space but in reality its only linked, that same libray page can be linked with many processes.
 
-//Demand Paging :
+// Demand Paging :
 	
 	pages are loaded only when they are needed, pages never accessed are never loaded into memory.
 
@@ -48,7 +48,7 @@
 
 	one optimization is that we dont swap out code pages since they never change we just descard those pages and whne required read from file system again, we save cost of writing them to swap.
 
-//Copy-on-Write :
+// Copy-on-Write :
 	
 	in fork system call, most of times child does exec after fork , so its useless to copy all of parent data into child, so we use copy on write technique that allows parent and child to share pages initially. they are marked on copy on write pages, when either process write a copy of that page is created.
 
@@ -56,7 +56,7 @@
 
 	zero-fill-on demand : free pages that have been zeroed-out before being allocated, erasing previous contents.
 
-//Page replacement :
+// Page replacement :
 
 	we find a victim page in memory and replace it with new page. the victim is written out to swap place.  so it involces movement of two pages, one in and other out. to optimize this we keep a modify bit with every page. which is set when that page is modified. so if the victim page has modify bit set then only write it to swap space else just discard it.
 
@@ -66,7 +66,7 @@
 
 	in general as the no of frames increase in system the no of page fault decreaseses
 
-	//Algorithm :
+	// Algorithm :
 		a bad choice of page to be replaced does not cause any errors in execution but it increases the no of page faults.
 
 		1. FIFO :
@@ -162,7 +162,7 @@
 			modification to free frame pool is to remember which page was in which frame while its in pool. so when a page fault occurs look into pool if that frame is still here, it its in pool directly use that frame since its contents haven't been changed.
 			this reduces i/O so its huge improvement.
 
-//Allocation of Frames :
+// Allocation of Frames :
 	
 	how free frames are allocated to processes.
 	processes require some minimum no of frames for its execution thats determined by the hardware depending upon instructions, some instructions that access memory indirection may require multiple pages to be present in memory.
@@ -172,7 +172,7 @@
 		2. Proportional allocation : allocate frames in proportion to its size of virtual memory.
 		we can also allocate these in proportion to priority of processes
 
-//Global vs Local allocation :
+// Global vs Local allocation :
 	
 	Gloabal : page replacement selects pages from any process
 	local replacement : page replacement selects pages from current process only .e. process can not take pages from other proceses.
@@ -181,18 +181,18 @@
 
 	global is widely used and gives more throughput.
 
-//NUMA systems :
+// NUMA systems :
 	non uniform memory access systems, memory and processors are on different boards so processor can access some part of memory faster than rest of it. it creates many troubles in our scheme.
 
 	so schedule should schedule process on the last processor it was running on, and memory management system tries to allocate frames on the closest memory then cache hits will be improved and memory access time will be less. 
 
-//Thrashing :
+// Thrashing :
 
 	a process is thrashing if it is spending more time paging than executing.
 
 	if no of frames allocated to a process falls below the minimum no required by the computer architecture then we must suspend that process's execution  and page out its remaining pages.
 
-	//Cause :
+	// Cause :
 
 		Operating system monitors CPU utilization, if cpu utilization is too low, it increases degree of multiprogramming by adding more processes to memory. Global page replacement algorithm is used. if some process needs more pages, it starts faulting and taking away frames from other processes, so these other processes starts faulting due to lack of sufficient pages. in turn they take pages from others. due to this paging device gets lot of requests in ready queue. processes wait for paging device, and cpu utilization decreases.
 
@@ -205,13 +205,13 @@
 
 		to prevent this we must allocate a process with as many frames as it needs
 
-		//Locality Model :
+		// Locality Model :
 				it states that access to data by a process is not random, its in form of localities. e.g. when a function is called, a new locality is defined. the memory reference are made to this functions data, when we exit the function the locality changes.
 
 				Locality model is unstated principle behind the working of cache, in caching we cache one locality of process so that further memory access are from cache and not memory.
 				if data access were random cache would be useless.
 
-	//Working-set Model :
+	// Working-set Model :
 
 		its based on assumption of locality.
 
@@ -225,13 +225,13 @@
 
 		the difficulty is maintaining the working windows since its changed on each memory reference.
 
-	//Page-Fault Frequency :
+	// Page-Fault Frequency :
 
 		Thrashing means very high page-fault rate while very low page-fault rate means process has given too many pages. so we can establish upper bound and lower bound on page-fault rate. 
 
 		so when the rate is too high we allocate more frames to process where as when its too low we take away some frames. if rate is too high and we dont have free frames then we must suspend some process and take away its frames.
 
-//Memory-Mapped Files :
+// Memory-Mapped Files :
 	
 	Memory mapping of file is achieved by mapping a block of file to pages in memory. initial access to file proceeds through page fault and portion of file is loaded into pages. further read/write happends to these pages instrea of using system calls for read/write so its much faster. the write to file are not synchronous (immediate). os may decide to write to file after some interval. on file close everything is written back to file.
 
@@ -239,14 +239,14 @@
 
 	multiple processes can share the memory mapped file easily by sharing the pages. copy-on-write may be incorporated here to allow diff access
 
-	//Memory mapped I/O :
+	// Memory mapped I/O :
 
 		to allow convenient access to I/O devices , we allow memory mapped i/o. some memory addresses are mapped to device registers. read/writes to these addresses cause data transfer to these registers.
 
 		programmed i/o = use polling
 		interrupt driven i/o = use interrupts
 
-//Allocating Kernel Memory :
+// Allocating Kernel Memory :
 
 	memory allocation in Kernel is different from normal memory allocation because:
 		most os do not do paging for kernel code and data, so kernel should not waste space in internal fragmentation. also it uses data structures of various sizes so chances of internal fragmentation are more.
@@ -272,13 +272,13 @@
 
 		its very fast to allocate and free data structues since you only need to mark free and used.
 
-//Prepaging :
+// Prepaging :
 	
  	in demand paging large no of page faults occur at the beginning of process, when trying to get initial locality into memory, or when swapped out process is brought into memory. all its pages are brought into memory by page fault. instead we can bring all these pages into memory at the start of process to prevent this initial paging. this is called prepaging.
 
  	in system using working set method, if we suspend a process we remember its working set then at the time of resuming it we bring back working set into memory. only condition to worry about here is that whether the cost of prepaging is less than inital paging. then only its useful to prepage.
 
- //Page size :
+ // Page size :
 
  	each process maintains a copy of page table so the size of page table must be reasonable. as the page size decreases the page table becomes larger. hence page size must be chosen appropriately.
  	larger page size :
@@ -294,7 +294,7 @@
  		due to above, smaller page means less i/o since locality is improved, less memory allocation.
  		more page faults
 
- //TLB reach :
+ // TLB reach :
 
  	to increase TLB hit ratio we can increase the no of entries in TLB (its size)
  	but thats very expensive.
@@ -306,15 +306,15 @@
  	to increase the reach we may increase page size or use multiple page size.
  	support for multiple page size must be provided by OS and not hardware, thus it requires managing TLB by os (i.e.in software instead of hardware) and thats slow but the advantage of multiple page size is much more which includes better hit ratio. hence recent trends are towards software managed TLB and multiple page sizes.
 
- //Inverted page tables:
+ // Inverted page tables:
  	these do not work great with demand paging.
  	since on a page fault we dont know from where to swap in the page because we dont keep all information about process in Inverted page table.
  	thus it is required to keep per process tables as well (normal page tables) that must be used during page fault. since they aren't always used they themselves are paged out. so handling page fault may require handling two page faults (one for process and one for its page table) this needs to be handled carefully in kernel
 
- //Program structure
+ // Program structure
  	if programs are written keeping in mind locality concept it can significantly improve performance.
 `
- //I/O interlock:
+ // I/O interlock:
  	if we are doing I/O using demand paging then its not acceptable that pages related to i/o gets swapped out by some other process to prevent this we allow locking of pages, by keeping a lock bit with each frame. locked pages cannot be paged out.
 
  	we may also want to lock pages that are brought into memory but haven't been used because before using the page process was scheduled. if such pages are replaced then the effort to swap in them previously was useless.

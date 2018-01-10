@@ -175,7 +175,7 @@ The queries to deal with relational database can be categories as:
 		But primary key creates clustered index while unique key creates non clustered index. 
 		Primary key doesn't allow NULLs while unique key allows.
 
-	//Truncate vs delete :
+	// Truncate vs delete :
 		Truncate will delete everything all rows (but structure of table remains) it deallocates pages of the table. doest create log so cant undo it.
 
 		delete will remove one row at time, writes log so it can be undone.

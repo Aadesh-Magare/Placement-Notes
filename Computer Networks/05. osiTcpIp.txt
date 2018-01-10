@@ -70,7 +70,7 @@
 
 		// Multiplexing : it takes data from various sockets encapsulate it into transport layer segment, adds some headers and sends to network layer.
 
-		//Demultiplexing : it takes segment from network layer and decapsulate data and send to receipent socket.
+		// Demultiplexing : it takes segment from network layer and decapsulate data and send to receipent socket.
 
 
 		// Transmission Control Protocol (TCP) : It is known to provide reliable and error-free communication between end systems. It performs sequencing and segmentation of data.

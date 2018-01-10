@@ -1,38 +1,38 @@
-//Java is not Fully OO :
+// Java is not Fully OO :
 	due to primitive data types which are not objects. int, float etc.
-//Autoboxing:
+// Autoboxing:
 	java compiler converts primitive data types ito their object representation or wrapper type (Integer, Float) etc.
-//Unboxing :
+// Unboxing :
 	auto transaformation of wrapper type variables into primitive data types.
 
-//String vs StringBuffer
+// String vs StringBuffer
 	String is immutable i.e. it cannot be changed, when you change it a new object may get create but you cant change existing object.
 	StringBuffer / StringBuilder objects are mutable.
-//Overloading vs overriding :
+// Overloading vs overriding :
 	overloading : same function name but diff in no or type of arguments
 	overriding : same function declaration in both base and derived class. when base class reference is pointing to derived class object the function call should invoke the function from derived class.
-//Copy-constructor :
+// Copy-constructor :
 	Java does not have copy constructor.
 
-//Exception :
+// Exception :
 	Exceptions are objects and are thrown, but any objects cant be thrown, only those who inherit from Throwable can be thrown.
 
 	unchecked Exceptions : runtime Exceptions which are handled by JVM, need not worry about them
 	checked Exception : we have to handle it by either try catch block or throwing it to superclass
 	errors : thrown for some serious problems.
 
-//Throw vs Throws 
+// Throw vs Throws 
 	Throw : it actually throws the Exception
 	Throws : it lists the Exceptions that the function might throw
 		void myfun() throws PRException, XYZ, PQR {
 
 		}
-///Byte stream vs character stream :
+/// Byte stream vs character stream :
 
 	Byte stream : to perform I/O to files in terms of bytes i.e. binary data.
 	character stream : deals with character instead of binary data.
 
-//FileInputStream vs FileOutputStream :
+// FileInputStream vs FileOutputStream :
 	
 	FileInputStream : has input byte from file
 	FileOutputStream : has output byte to be written to file
@@ -43,7 +43,7 @@
 			bytesRead = inputStream.read(buffer);
 			outputStream.write(buffer, 0, bytesRead);
 
-//FileReader vs FileWriter :
+// FileReader vs FileWriter :
 
 	FileReader : reads character from file
 	FileWriter : write character to file
@@ -53,54 +53,54 @@
 		fw.write("Just Awesome");
 		fw.flush();
 
-//Abstract :
+// Abstract :
 	abstract method : method without body, the class which contains abstract method must be abstract. derieved classes must provide implementation for it.
 	abstract class : it cant be instantiated i.e. cant make objects. it can have both abstract and non abstract methods
 	abstract interface : interface are always abstract, mentioning it is optional
 
 
-//Final :
+// Final :
 	final variable cant be changed.
 	final methods cant be overriden.
 	final class cant be extended. 
 
-//Static :
+// Static :
 	static methods are class methods, called with classname not object name. they are not available to derieved classes, so cant be overriden.
 	static variables are class variables, has only one copy per class and its accessed through classname.
 	static methods cant be overriden.
 	only inner class can be static not outer class.
 
-//Vector vs ArrayList :
+// Vector vs ArrayList :
 	Vector is synchronized while ArrayList is not.
 	due to no synchronization ArrayList is bit faster.
 
-//Hashtable vs Hashmap :
+// Hashtable vs Hashmap :
 	Hashtable is synchronized while Hashmap is not.
 	Hashtable does not allow null values while Hashmap allows.
 
-//Garbage collection :
+// Garbage collection :
 	process of releasing memory used by unreferenced objects.
 		it calls finalise method of object that allows us to do some things before object is destroyed.
 
 // Anonymous class :	
 	inner class that doesn't have any name.
 
-//Volatile variable :
+// Volatile variable :
 	its not allowed to have local copy. shared copy is always accessed.
 
-//Multiple inheritance :
+// Multiple inheritance :
 	causes redundancy, diamond problem. so its not present in java.
 
-//Phantom memory :
+// Phantom memory :
 	memory that doesnt exist in reality.
 
-//private constructor :
+// private constructor :
 	you cant instantiate the class directly, only way to create an object is by providing a static public method, which will create object.
 	since constructor is private the class cant be inherited.
 
 	same is in C++.
 
-//Finally block :
+// Finally block :
 	this block is optional i.e. you may have only try and catch blocks.
 	the Finally block in try-catch-block will be executed every time you come out of try block, no matter how you come out (normal, exception, return)
 
