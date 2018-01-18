@@ -16,7 +16,7 @@
 
 		Ti --> Tj  : Ti holds lock on Q before Tj holds a lock on same Q (both locks are incompatible)
 
-		Locking protocols ensure conflict serializability if for all legel schedules --> relation is acyclic.
+		Locking protocols ensure conflict serializability if for all legal schedules --> relation is acyclic.
 		While granting locks it should check if someone is already waiting for that lock,to avoid starvation
 
 		// Two phase locking protocol :
@@ -100,7 +100,7 @@
 
 	// Wound-wait : preemptive, if Ti requests lock on Q which is locked by Tj, then Ti allowed to wait only if its younger than Tj, else Tj is rolled back and preempted by Ti
 
-	// Timeout-based Scheme : when a transaction doesnt get lock for a time period it times out and roll back itself, doeing it avoids deadlock and in case deadlock has occured it can come out of it, since some of transactions will be rolled back automatically
+	// Timeout-based Scheme : when a transaction doesn't get lock for a time period it times out and roll back itself, doing it avoids deadlock and in case deadlock has occurred it can come out of it, since some of transactions will be rolled back automatically
 
 	// Detection and Recovery
 
@@ -116,10 +116,10 @@
 		most common solution is roll back some transactions. Steps:
 		1. selection of victim : consider many factors to decide which one is best
 		2. rollback : entire rollback or upto the conflicting step only
-		3. starvations : victim must not be starved in step 1
+		3. starvation : victim must not be starved in step 1
 
 		// Phantom Phenomenon :
 
-		if one transaction is finding sum(accont.balance) and other is inserting value, then by concurrency control point of view there shouldnt be any problem, since they will be working on different items, but there can be logical errors.
+		if one transaction is finding sum(account.balance) and other is inserting value, then by concurrency control point of view there shouldnt be any problem, since they will be working on different items, but there can be logical errors.
 
 		so transaction like sum should have lock on whole account relation, so that there will be real conflict and not phantom.

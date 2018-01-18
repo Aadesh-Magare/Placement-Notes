@@ -35,7 +35,7 @@
 
 // Shadow-copy method :
 
-	based on creating new copy of database and maintaining a db pointer on disk. the pointer is updated only when the transaction is commited. all changes are made to the copy of database until the pointer is updated to point to the new database.
+	based on creating new copy of database and maintaining a db pointer on disk. the pointer is updated only when the transaction is committed. all changes are made to the copy of database until the pointer is updated to point to the new database.
 
 	the motivation for concurrency in database is same as the motivation for multiprogramming in the OS.
 
@@ -51,7 +51,7 @@
 
 // Shadow Paging:
 
-	Database is devided into pages just like OS memory management.
+	Database is divided into pages just like OS memory management.
 	there are two page tables, current and shadow, current in memory and shadow in stable-storage, initially both are same, as per transactions changes are done to current page table e.g. for write(X) operation, a new block is created with the new value of x and current page table is updated with it, whereas old page containing old value remains same. in case of failure shadow page table is brought into memory and renamed as current page table, since all its old data is at right place . in case of commit the current page table is written into stable -storage which replaces shadow table, thats all we need to do
 
 	// Shadow paging overhead :
@@ -67,18 +67,18 @@
 
 // Buffer Management : 
 
-	log-record buffering : log is kept in buffer until its written to stable-storage. for this to work out some rules are to be followed -> transaction enters into commit state only when its commit log record is written to stable-storage, before commit is written all previous log records of transaction must be written to storage, before a data block is written to memory, the commit of transaction must be writen to stable storage (its called write-ahead logging)
+	log-record buffering : log is kept in buffer until its written to stable-storage. for this to work out some rules are to be followed -> transaction enters into commit state only when its commit log record is written to stable-storage, before commit is written all previous log records of transaction must be written to storage, before a data block is written to memory, the commit of transaction must be written to stable storage (its called write-ahead logging)
 	log force = writing buffered blocks to disk
 
 
-	Database buffering : blocks of database are kept in memory as buffer blocks, when a new block is to be loaded it must replace some in memory block, this creates some problem, since the in momory block has some unfinished transactions data. whenever such condition arise we shold follow some rules :
-	suppose block B1 is to be replced from memory ->
-	all transaction whoes data lies in B1, there log must be written to stable-storage, before B1 is replaced.
+	Database buffering : blocks of database are kept in memory as buffer blocks, when a new block is to be loaded it must replace some in memory block, this creates some problem, since the in memory block has some unfinished transactions data. whenever such condition arise we should follow some rules :
+	suppose block B1 is to be replaced from memory ->
+	all transaction whose data lies in B1, there log must be written to stable-storage, before B1 is replaced.
 
 	// Role of OS in buffering :
 
 	the buffered blocks can be kept in database systems memory or OS memory area, both has some pros and cons,
-	first case, it wastes memory area of OS since there isnt good utilization of memory.
+	first case, it wastes memory area of OS since there isn't good utilization of memory.
 	second case, if OS does the job, then it may write out blocks to swap area any time, at times when dbms system wants to write out blocks to disk, it may have to read blocks first from swap and then write out to disk, this slows down the task
 
 // B+ trees (indexed files) Recovery :
@@ -86,8 +86,8 @@
 	// Logical Undo Logging :
 
 	physical logging : logging of old value and new value information.
-	logical logging : logging of the form which contains how to undo the operation i.e. if its an insertion opertaion then undo operation is delete
+	logical logging : logging of the form which contains how to undo the operation i.e. if its an insertion operation then undo operation is delete
 
-	so in case of B+ trees the transactin is undone loggically
+	so in case of B+ trees the transaction is undone logically.
 
-	// on restart of the system, we redo and undo the steps, here repeating history step is followed, which means all steps from last checkpoint are repeated (all steps no matter transaction was successful or not) during it, an undo list is made for trasaction which doesnt have a commit log. after this step, undo step begins which follow the undo list 
+	// on restart of the system, we redo and undo the steps, here repeating history step is followed, which means all steps from last checkpoint are repeated (all steps no matter transaction was successful or not) during it, an undo list is made for transactions which doesn't have a commit log. after this step, undo step begins which follow the undo list.

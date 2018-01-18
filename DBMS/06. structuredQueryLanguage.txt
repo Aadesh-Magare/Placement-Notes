@@ -18,26 +18,26 @@ The queries to deal with relational database can be categories as:
 
 	By default duplicates aren't removed from query result, need to use distinct keyword to remove duplicates.
 
-	Arithmatics are supported inside the query :
+	Arithmetics are supported inside the query :
 		e.g. SELECT amount * 100 FROM loan 
-		arithmatics involving NULL results in NULL.
+		arithmetics involving NULL results in NULL.
 
 
 	// WHERE :
-		Where suppports and, or , not operators along with between and not between.
+		Where supports and, or , not operators along with between and not between.
 		e.g. SELECT loan_number from loan where branch_name = "perry" and amount > 1000 
 
 	// FROM :		
 		It does cartesian product of its arguments, so most of times you take natural join of it, using the where condition.
 		SELECT distinct customer_name, borrower.loan_number from borrower, loan where borrower.loan_number = loan.loan_number
 
-		It's called cross join. From does cross join implicitly when we give two tables seperated by comma.
+		It's called cross join. From does cross join implicitly when we give two tables separated by comma.
 			SELECT * from table1 cross join table2 
 				is equivalent to 
 			SELECT * from table1, table2
 
-		we can have subquery in the FROM clause but the result of subquery must have a name i.e. u must rename it using AS clause.
-		SELECT branch_name, avg-balance from (SELECT branch_name, avg(balance) from depositor groupby branch_name as result(branch_name, avg-balance)) where avg-balance > 1200
+		we can have sub-query in the FROM clause but the result of sub-query must have a name i.e. u must rename it using AS clause.
+		SELECT branch_name, avg-balance from (SELECT branch_name, avg(balance) from depositor group by branch_name as result(branch_name, avg-balance)) where avg-balance > 1200
 
 	// LIKE : 
 		It's used for string matching
@@ -47,13 +47,13 @@ The queries to deal with relational database can be categories as:
 
 		SELECT customer_name from customer where customer_street like "%Main%"
 
-	// AGGRATION FUNCTIONS: 
+	// Aggregation FUNCTIONS: 
 		Aggregation functions are used to perform mathematical operations on data values of a relation. All aggregation functions return only 1 row.
 
 		Some of the common aggregation functions used in SQL are: COUNT, SUM, MIN, MAX and AVG.
 		
 		COUNT(*) counts every tuple, distinct is not allowed with COUNT(*).
-		All aggregate functions excpet COUNT(*) ignore NULL.
+		All aggregate functions except COUNT(*) ignore NULL.
 		Count of empty relation results into 0, while other functions give NULL on empty relations.
 
 		Aggregate functions cant be composed.
@@ -89,10 +89,10 @@ The queries to deal with relational database can be categories as:
 
 	// COALESCE : 
 		COALESCE(A1, A2, A3, A4) 	
-		retuns first non NULL value from the list, if all are NULL then it returns NULL
+		returns first non NULL value from the list, if all are NULL then it returns NULL
 
 	// EXISTS :
-		EXISTS returns true if subquery is nonempty.
+		EXISTS returns true if sub-query is nonempty.
 		NOT EXISTS can be used to check for set containment 
 			i.e. to check if one set is subset of other.
 
@@ -102,9 +102,9 @@ The queries to deal with relational database can be categories as:
 		// Co-related Nested Queries : 
 			In co-related nested queries, the output of inner query depends on the row which is being currently executed in outer query.
 
-		In case of subquery scoping rules apply to tuple variables, in subquery you can use tuple variables defined in it or it's superquery. 
+		In case of sub-query scoping rules apply to tuple variables, in sub-query you can use tuple variables defined in it or it's super-query. 
 		
-		subquery cant have order by clause
+		sub-query cant have order by clause
 	
 	// JOIN :
 		// INNER JOIN :
@@ -128,7 +128,7 @@ The queries to deal with relational database can be categories as:
 						using (A1, A2, A3, ...)
 
 		// Order of attributes in case of NATURAL JOIN :
-			commmon attributes (in same order as that of left relation) -> uncoomon from left relation -> uncommon from right relation. 
+			common attributes (in same order as that of left relation) -> uncomon from left relation -> uncommon from right relation. 
 
 		// using is similar to natural, instead of checking all common attributes only those are checked which are passed to using. attributes passed to using must be common to both relations. results does not contain duplicate columns
 
@@ -156,7 +156,7 @@ The queries to deal with relational database can be categories as:
 
 	// SQL allows concept like typdef in C :
 		CREATE DOMAIN person-name CHAR(20)
-		now operson-name can be used to define type of attribute, just like built in types.
+		now person-name can be used to define type of attribute, just like built in types.
 
 	// CHECK : 
 		create table customer (	customer_name char(20) not NULL,
@@ -176,7 +176,7 @@ The queries to deal with relational database can be categories as:
 		Primary key doesn't allow NULLs while unique key allows.
 
 	// Truncate vs delete :
-		Truncate will delete everything all rows (but structure of table remains) it deallocates pages of the table. doest create log so cant undo it.
+		Truncate will delete everything all rows (but structure of table remains) it de-allocates pages of the table. doesn't create log so cant undo it.
 
 		delete will remove one row at time, writes log so it can be undone.
 		

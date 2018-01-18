@@ -85,7 +85,7 @@
 			if the graph contains cycle then its not conflict serializable else it is.
 			the serializability order can be obtained by topological sorting.
 
-			test for view serializability is NP-complete problem, here you need to modify the graph, i.e. conditions to include a edge are different. then if the resultant graph contains no cycle, then schedule is view serializable, if it contains cycyle then we cant say anything, it still can be view serializable.
+			test for view serializability is NP-complete problem, here you need to modify the graph, i.e. conditions to include a edge are different. then if the resultant graph contains no cycle, then schedule is view serializable, if it contains cycle then we cant say anything, it still can be view serializable.
 
 // Recoverability of schedules :
 	

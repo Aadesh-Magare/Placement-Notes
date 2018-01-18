@@ -16,30 +16,30 @@ Relational Model was proposed by E.F. Codd. it represents how data is stored in 
     // Alternate Key : candidate key other than primary key.
     // Foreign Key : If an attribute can only take the values which are present as values of some other attribute, it will be foreign key to the attribute to which it refers.
 
-	uniquness constraint is violated only if all the attributes have same value and all of them are nonnull.
+	uniqueness constraint is violated only if all the attributes have same value and all of them are non-null.
 	so even if any one attribute has a null value then its not violated even if rest values are same.
     
-// Constraints : conditions that are checked before performing any operation (insertion, updation, deletion) in database, violating which will result in operation failure.
+// Constraints : conditions that are checked before performing any operation (insertion, updating, deletion) in database, violating which will result in operation failure.
 
     // Domain Constraints : attribute level constraints. an attribute can only take values that lie in the domain range.
 
-    // Key Integrity : every relation should have atleast one set of attributes which defines a tuple uniquely.
+    // Key Integrity : every relation should have at least one set of attributes which defines a tuple uniquely.
 
     // Referential Integrity : When one attribute of a relation can only take values from other attribute of same relation or any other relation is called referential integrity.
 
-        It can also be stated as : if there is a foregin key in one relation then that must be existing primary key another relation. 
+        It can also be stated as : if there is a foreign key in one relation then that must be existing primary key another relation. 
             e.g. A and B are relations with primary keys P1 and P2.
             A contains foreign key F1 which references P2 in B.
             then for every tuple in A having value of F1 as some "X" 
             B must contain a tuple with value of P2 as same "X"
 
-            while modifing the database make sure that these conditions are not broken
+            while modifying the database make sure that these conditions are not broken
             i.e. while inserting value into F1 make sure that the same value exists in primary key P2
             while deleting value in P2 make sure no one is referencing it as foreign key
         
             we can also specify list of attributes to reference instead of primary key explicitly but these attributes must be declared as candidate key in the referenced relation.
 
-            foreign key columns are allowed to be null by default, if they are all non-null then usual behaviour of foreign key is executed. if one of the columns of foregin key is null then the tuple is considered to be satisfying the constraint.
+            foreign key columns are allowed to be null by default, if they are all non-null then usual behavior of foreign key is executed. if one of the columns of foreign key is null then the tuple is considered to be satisfying the constraint.
 
         // Anomalies:
             // Insertion anomaly in referencing relation : can't insert a row in referencing relation if referencing attribute's value is not present in referenced relation.

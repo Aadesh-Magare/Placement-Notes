@@ -6,7 +6,7 @@
     e.g.
         for	A -> B
         if two tuples have same value of A they will have same value of B i.e. the value of A uniquely determines value of B.
-        it's property of entrire schema and not of any particular tuple
+        it's property of entire schema and not of any particular tuple
     
     we say F.D. F holds on relation R when every tuple in relation R must satisfy the F.D
  
@@ -40,7 +40,7 @@
                 // Union rule : a -> b and a -> c holds then a -> bc holds.
                 // Decomposition rule : a -> bC hold then a -> b holds and a -> C holds
                 // Pseudo-transitivity rule : a -> b and Cb -> f holds then Ca -> f 
-                    holds if a->b and c->d then ac->bd
+                    holds. if a->b and c->d then ac->bd
 
         // To check whether an FD A->B can be derived from an FD set F :
             Find (A)+ using FD set F.
@@ -59,7 +59,7 @@
             Attributes which are parts of any candidate key of relation are called as prime attribute, others are non-prime attributes.
     
     // Canonical Cover :
-        Working with functional dependencies introduces more complexities while insertion / updation / deletion of data since the dependencies needs to be maintained during database updates.
+        Working with functional dependencies introduces more complexities while insertion / updating / deletion of data since the dependencies needs to be maintained during database updates.
 
         A canonical cover of a set of functional dependencies F is a simplified set of functional dependencies that has the same closure as the original set F.
 

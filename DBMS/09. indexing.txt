@@ -3,7 +3,7 @@
 	Records in file are stored one after another simply, no ordering. 
 	For deletion some bit in record is marked as deleted, searching is brute force.
 
-// Sequnetial File :
+// Sequential File :
 
 	Records in file are kept in sequential order of some attribute generally primary key.
 	Searching is easy since binary search is possible on records within one block, when that block is brought into memory.
@@ -48,7 +48,7 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 
 			​A non clustered index just tells us where the data lies, i.e. it gives us a list of virtual pointers or references to the location where the data is actually stored. Data is not physically stored in the order of the index. 
 
-			// secondary indices doesnt have the same ordering as the records in the file, so its not enough to save pointer to first entry of each search key(cause the records in file are sorted on primary key and not secondary key). so we must save pointer to every entry associated with search key. we can use indirection here, secondary indices will point to a block which in turn will point to all entries associated with that key
+			// secondary indices doesn't have the same ordering as the records in the file, so its not enough to save pointer to first entry of each search key(cause the records in file are sorted on primary key and not secondary key). so we must save pointer to every entry associated with search key. we can use indirection here, secondary indices will point to a block which in turn will point to all entries associated with that key
 
 			so secondary indices must be dense type
 
@@ -63,7 +63,7 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 		hash function must be random and uniform
 
 		// Bucket Overflow :
-		It can occure due to: 
+		It can occur due to: 
 		1. Insufficient buckets 
 		2. Bucket skew (more entries in a bucket even if others have space)
 
@@ -71,13 +71,12 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 		1.closed hashing : in case of overflow, chaining is used (overflow buckets are used for chaining)
 		2.open hashing: in case of overflow, technique like linear probing is used, or computing further hash
 
-		1. Static hashing : since the hash function is fixed, the no of buckets is fixed. over time it becomes inefficent. since if buckets are large theres's memory waste otherwise there is lot of clashing.
-		2. Dynamic hashing : allow modification of hash function to accomodate change in database
+		1. Static hashing : since the hash function is fixed, the no of buckets is fixed. over time it becomes inefficient. since if buckets are large there is memory waste otherwise there is lot of clashing.
+		2. Dynamic hashing : allow modification of hash function to accommodate change in database
 
 	// Ordered Index vs Hashed :
 		The choice depends on database requirements
 		Hashing is very inefficient for range queries, so its used only when dbms has very rare range queries otherwise ordered indexing is used
-
 
 // B+ Tree : 
 
@@ -105,7 +104,7 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 	Self-Balancing search trees, deals with huge data that can't fit in memory and has to be read from hard disk in terms of blocks.
 
 	Here internal nodes also store values as opposed to b+ trees.
-	so a node will contains pointers to keys less than its key, greater than its key jsut like B+ tree but also it will contain direct pointer to record with search key equal to its value.
+	so a node will contains pointers to keys less than its key, greater than its key just like B+ tree but also it will contain direct pointer to record with search key equal to its value.
 
 	Main idea of B-tree is to reduce no of disk accesses.
 	It's fat tree, height is kept minimum and most operations are of O(h).
@@ -124,7 +123,7 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 
 	a node must be locked in shared mode before its accessed, and lock is released before any other lock is requested
 
-	if a node split occurs during a lookup(search) is going on (due to two concurrent instructions) then our desired value may no longer appear in the same node as before the split. in such case the right pointer is used to tranverse sibling nodes until you find it
+	if a node split occurs during a lookup(search) is going on (due to two concurrent instructions) then our desired value may no longer appear in the same node as before the split. in such case the right pointer is used to traverse sibling nodes until you find it
 
 	for insertion and deletion shared mode lock is converted into exclusive, in case parent needs to be updated then lock on parent is requested
 

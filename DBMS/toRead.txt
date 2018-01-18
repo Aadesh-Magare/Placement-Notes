@@ -1,2 +1,3 @@
 joins in DBMS (cross join and union join)
-multivalued dependency
+multi-valued dependency
+B-tree B+ Tree.

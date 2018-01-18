@@ -5,7 +5,7 @@ It's procedural query language which takes relation as input and relation as out
     π(BC) => gives output as new table with two columns B and C
     output table does not contain any duplicate rows.
 
-// Selction (σ) : 
+// Selection (σ) : 
     select required rows from table.
     σ (c>3)R will select the rows which have c more than 3 from R table.
     selection operator only selects the required tuples but does not display them. For displaying, data projection operator (π) is used.
@@ -60,7 +60,7 @@ It's procedural query language which takes relation as input and relation as out
     Equijoin is a special case of conditional join where only equality condition holds between a pair of attributes.
 
 // Conditional Join :
-    in Natural join the condition by default in of equality here we can specify the condition.
+    in Natural join the condition by default is of equality here we can specify the condition.
     e.g. Join between R And S with condition  R.marks >= S.marks
 
 // Division Operator (÷) : 
