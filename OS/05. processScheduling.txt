@@ -14,7 +14,7 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 	preemptive scheduling : 
 		cpu is taken from a process due to interrupt like (end of its time slice)
 
-		it can cause problems when a process modifing data is preempted, it can leave the data in inconsistent state.
+		it can cause problems when a process modifying data is preempted, it can leave the data in inconsistent state.
 		during processing a system call for a process if that process is preempted it can corrupt the kernel data structures. in this case some os waits for sys call to complete before preempting, but this reduces the real time multi-processing.
 
 		some sections of code disable interrupt at entry and enable on exit to prevent from interrupt changing imp code.
@@ -32,7 +32,7 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 
 	1. CPU utilization : it should be maximum
 	2. Throughput : no of processes that are completed per unit time.
-	3. Turn-around time : time from submission of process till its completion, it includes all, waiting  time, runnin time, i/o etc
+	3. Turn-around time : time from submission of process till its completion, it includes all, waiting  time, running time, i/o etc
 	4. waiting time : time spent in ready  queue.
 	5. Response time : time from request submission till first response produced, i.e. time it takes for responding.
 		the response time should be uniform i.e. variance should be minimum, rather than having faster response in some cases and slower in some cases, its better to have uniform response.
@@ -57,13 +57,13 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 
 			CPU is assigned to process with smallest next cpu burst, if cpu burst are same, then to break the tie, FCFS is used.
 
-			its the optimal algorith i.e. it gives best possible results. because moving a short process before longer one decreases waiting time of shorter more than it increases waiting time for longer process.
+			its the optimal algorithm i.e. it gives best possible results. because moving a short process before longer one decreases waiting time of shorter more than it increases waiting time for longer process.
 
 			its used frequently in long term scheduling, since user can tell time limit for long term process but it cant be used for short-term scheduling since we cant know length of next cpu burst
 
 			we can approximate the next cpu burst by considering that it'll be similar to previous burst.
 
-				T(n+1) = a* tn + (1-a) * T(n)
+				T(n+1) = a * tn + (1-a) * T(n)
 
 				T(n+1) = next cpu burst guess
 				tn = actual value of cpu burst for prev 
@@ -75,15 +75,15 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 
 	3. Priority Scheduling :
 
-		SJF is speical case of Priority Scheduling where priority is inverse of cpu burst
+		SJF is special case of Priority Scheduling where priority is inverse of cpu burst
 
 		highest priority processes are scheduled first.
 		it can be  preemptive or non-preemptive.
-		preemptive Priority Scheduling algorith will preempt the currrent running process if incoming process has higher priority.
+		preemptive Priority Scheduling algorithm will preempt the current running process if incoming process has higher priority.
 
-		a problem with this algorith is indefinite blocking or starvation :
+		a problem with this algorithm is indefinite blocking or starvation :
 
-			if higher priority process keeps coming then some lower priority process may keep waiting indefinitly
+			if higher priority process keeps coming then some lower priority process may keep waiting indefinitely
 
 		// ageing : solution to above problem is ageing i.e. gradually increase the priority of processes waiting in ready queue for long period of time.
 
@@ -92,7 +92,7 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 		its like FCFS algorithm with preemption. each process is granted cpu for a specific time quantum. after which its preempted and next process is given cpu. it puts the preempted process at the end of queue. new process are also added to the end of queue. it treats ready queue as a circular queue.
 
 		// Processor sharing :
-			if time quantum is very large it essentially becomes FCFS algorith. while if the quantum is very small the situation is called Processor sharing. since it create an illusion that there are as many slow processors as the no of processes 
+			if time quantum is very large it essentially becomes FCFS algorithm. while if the quantum is very small the situation is called Processor sharing. since it create an illusion that there are as many slow processors as the no of processes 
 
 		the time quantum should be much larger than the context switch time otherwise large portion of CPU time will be wasted in context switch.
 
@@ -154,14 +154,14 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 		for NUMA and processor Afinity to work out better, os must schedule process on processor having Afinity and keep the process in the memory associated with that processor.
 
 	2. Load Balancing :
-`
+
 		in SMP system, load balancing tries to keep the load on all the processors even, so that no-one sits idle and no-one is over-burdened.
 
 		its only required when each processor has its separate ready queue. and most of times processors do have separate queue.
 
 		two methods for load balancing:
 			1. push migration :
-				specific task periodically checks if some processor is overloaded in that case it moves processes to a less busy processesor.
+				specific task periodically checks if some processor is overloaded in that case it moves processes to a less busy processor.
 			2. pull migration:
 				when a processor is idle it pulls processes from a overloaded processor
 
@@ -170,4 +170,4 @@ Scheduler (short term schedular / cpu schedular) selects process from ready Queu
 	
 	3. Multicore Processors:
 
-		SMP sytems with Multicore are faster and consume less power than systems with each processor on separate chip.
+		SMP systems with Multicore are faster and consume less power than systems with each processor on separate chip.

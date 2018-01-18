@@ -1,6 +1,7 @@
+2-d, 3-d array stored in row major, column major form, finding address of given element from base address.
+AVL trees (implementation)
 Postfix, prefix, infix conversion and solving.
 construct tree from traversals
 priority queue
-AVL trees (implementation)
 Trie
 suffix trees

@@ -1,10 +1,11 @@
 // Magnetic Disks :
-	contains platters like CDs coated with magentic materials on both sides, the read-write head flies just above platters its attached to disk arm.
+	contains platters like CDs coated with magnetic materials on both sides, the read-write head flies just above platters its attached to disk arm.
 
 	the surface of platter is divided into circular tracks, which are further divided into sectors
 
-	positioning time or random-access time consist of time necessary to move disk arm to desired cylinder called as seek time and rotaional latency i.e. time to rotate to required sector.
+	positioning time or random-access time consist of time necessary to move disk arm to desired cylinder called as seek time and rotational latency i.e. time to rotate to required sector.
 
+	rotational latency = time for 1 rotation / 2
 	head crash = when head touches platter.
 
 	block is smallest unit of transfer to disk.
@@ -18,10 +19,10 @@
 		Shortest seek time first algorithm.
 		it chooses the pending request closest to current head position.
 		its like SJF algorithm.
-		there can be indefinte starvation here since requests closer to any one end can keep coming leaving other end starved.
+		there can be indefinite starvation here since requests closer to any one end can keep coming leaving other end starved.
 	3. SCAN :
 		its also called as elevator algorithm
-		arm keeps moving in one direction servicing requests till it reaches end then it reversese direction and does the same job so it keeps moving back and forth like this.
+		arm keeps moving in one direction servicing requests till it reaches end then it reverses direction and does the same job so it keeps moving back and forth like this.
 	4. C - SCAN :
 		if head is currently at one end and about to change its direction then the chances that requests will be in front of head are less, while chances are tha requests are at other end, since there has been long time since head has been there. this algorithm is based on this idea.
 
@@ -45,7 +46,7 @@
 
 	// Boot Block :
 		a disk contains boot block at fixed location on disk (maybe the first block) that contains bootstrap loader.
-		the bootstrap loader in rom is primitive whoes only job is to load the actual bootstrap loader into memory.
+		the bootstrap loader in rom is primitive whose only job is to load the actual bootstrap loader into memory.
 
 		// windows boot :
 			it stores the bootstrap loader in sector 0 of hard disk which it calls master boot record (MBR). 
@@ -59,7 +60,7 @@
 	
 	it may be used to swap entire process or pages of process.
 
-	raw partition or fs can be used for swap. but using raw partition is more faster since it avoids all fs concepts.
+	raw partition or fs can be used for swap. but using raw partition is faster since it avoids all fs concepts.
 
 	code segment pages are avoided to be swapped because its better to read code from disk rather than write it to swap and read again. 
 
@@ -75,7 +76,7 @@
 
 // Tertiary Storage:
 	optical disks, removable disk, magnetic tapes etc.
-	magentic tape library which does automated tape changeing is called nearline storage, where as hard disk is called on-line storage.
+	magnetic tape library which does automated tape changing is called nearline storage, where as hard disk is called on-line storage.
 
 	solid-state disk (SSD) is faster than hard disk and use less energy but have short life span.
 
@@ -116,7 +117,7 @@
 		instead of 3 extra disks it only needs one disk, to store the parity.
 
 		for error correcting it uses the parity disk only as follows:
-			if some disk is corrupted, we can find out parity of remaining disks if it matches saved parity then corrupted disk's bit was 0, if parity doesnt match then corrupted disk had bit 1.
+			if some disk is corrupted, we can find out parity of remaining disks if it matches saved parity then corrupted disk's bit was 0, if parity doesn't match then corrupted disk had bit 1.
 
 		it has low storage overhead and since N way splitting of data is done, read write are faster.
 

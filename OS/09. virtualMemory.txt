@@ -8,7 +8,7 @@
 
 	sparse address space : the virtual address space which is having holes, that will be filled only when needed by allocating new page frames.
 
-	sharing of objets or library pages is very easy, each process thinks that libray is part of its address space but in reality its only linked, that same libray page can be linked with many processes.
+	sharing of objects or library pages is very easy, each process thinks that library is part of its address space but in reality its only linked, that same library page can be linked with many processes.
 
 // Demand Paging :
 	
@@ -21,19 +21,19 @@
 
 	we need some form of hardware support to detect which pages are in memory and which are swapped out. valid/invalid bit can be used for this.
 
-	now if process tries to access a page that was not swapped in memory, i.e. marked as invalid, then "page fault" occuer. page fault traps to os.
+	now if process tries to access a page that was not swapped in memory, i.e. marked as invalid, then "page fault" occurs. page fault traps to os.
 
 	what happens on page fault :
 		1. Trap to the os
 		2. Save register and current state of process
-		3. Determine that intterupt was page fault
-		4. Determine page reference was legel or not, if legel determine location of page on disk
+		3. Determine that interrupt was page fault
+		4. Determine page reference was legal or not, if legal determine location of page on disk
 		5. issue read from disk to a free frame
 				wait for device in its ready queue
 				wait for seek/latency time
 				transfer page to frame
 		6. while waiting allocate cpu to other process
-		7. recive interrupt for i/o complete (from step 5)
+		7. receive interrupt for i/o complete (from step 5)
 		8. save register and process state (new process from step 6)
 		9. Determine interrupt was from disk
 		10. correct page table to show that page is brought into memory
@@ -42,11 +42,11 @@
 
 	Pure demand paging : starts executing with zero pages, loads a page into memory only after page fault occurs for it.
 
-	the sceme could create problem when one instruction causes several page faults (i.e. it needs data from various pages) this can decrease performance a lot, but analysis show that this rarely happens processes have locality of reference due to which demand paging gives good performance.
+	the scheme could create problem when one instruction causes several page faults (i.e. it needs data from various pages) this can decrease performance a lot, but analysis show that this rarely happens processes have locality of reference due to which demand paging gives good performance.
 
-	one problem with demand paging is to resume the intterupted instruction on page fault. a simple instruction is easy to restart, but if instruction is like move  some data then its difficult to restart, since it may be intterupted when it has partially moved data. and source and destination maybe overlapping.
+	one problem with demand paging is to resume the interrupted instruction on page fault. a simple instruction is easy to restart, but if instruction is like move  some data then its difficult to restart, since it may be interrupted when it has partially moved data. and source and destination maybe overlapping.
 
-	one optimization is that we dont swap out code pages since they never change we just descard those pages and whne required read from file system again, we save cost of writing them to swap.
+	one optimization is that we dont swap out code pages since they never change we just discard those pages and when required read from file system again, we save cost of writing them to swap.
 
 // Copy-on-Write :
 	
@@ -58,13 +58,13 @@
 
 // Page replacement :
 
-	we find a victim page in memory and replace it with new page. the victim is written out to swap place.  so it involces movement of two pages, one in and other out. to optimize this we keep a modify bit with every page. which is set when that page is modified. so if the victim page has modify bit set then only write it to swap space else just discard it.
+	we find a victim page in memory and replace it with new page. the victim is written out to swap place.  so it involves movement of two pages, one in and other out. to optimize this we keep a modify bit with every page. which is set when that page is modified. so if the victim page has modify bit set then only write it to swap space else just discard it.
 
-	we must have some frame allocatino aglorithm that determines how many frames are to be given to each process and page replacement algorithm that determines which page is to be replaced. we want a algorithm that will minimize page faults.
+	we must have some frame allocation algorithm that determines how many frames are to be given to each process and page replacement algorithm that determines which page is to be replaced. we want a algorithm that will minimize page faults.
 
 	reference string : string of memory references that's used to check algorithm by finding no of page faults.
 
-	in general as the no of frames increase in system the no of page fault decreaseses
+	in general as the no of frames increase in system the no of page fault decreases.
 
 	// Algorithm :
 		a bad choice of page to be replaced does not cause any errors in execution but it increases the no of page faults.
@@ -119,7 +119,7 @@
 
 			reference bit : a reference bit is associated with each page table entry that's set when page is read/written.
 
-			this is base for many alogrithms
+			this is base for many algorithms
 
 			1. Additional reference bits algorithm :
 
@@ -155,7 +155,7 @@
 
 		6. Page-Buffering algorithm :
 
-			one approache is to keep pool of free frames and allocate one frame from pool on page fault instead of waiting for page replacement, after victim is swapped out its frame is added to pool.
+			one approach is to keep pool of free frames and allocate one frame from pool on page fault instead of waiting for page replacement, after victim is swapped out its frame is added to pool.
 
 			when system is idle it can write out modified pages and clear their modify bit so that they can be used directly.
 
@@ -174,17 +174,17 @@
 
 // Global vs Local allocation :
 	
-	Gloabal : page replacement selects pages from any process
-	local replacement : page replacement selects pages from current process only .e. process can not take pages from other proceses.
+	Global : page replacement selects pages from any process
+	local replacement : page replacement selects pages from current process only .e. process can not take pages from other processes.
 
-	in Gloabal behaviour of process is dependent on external factors (other process) so it can be unpredictable such is not case with local but in local a process may not get extra pages even if they are free.
+	in Global behavior of process is dependent on external factors (other process) so it can be unpredictable such is not case with local but in local a process may not get extra pages even if they are free.
 
 	global is widely used and gives more throughput.
 
 // NUMA systems :
 	non uniform memory access systems, memory and processors are on different boards so processor can access some part of memory faster than rest of it. it creates many troubles in our scheme.
 
-	so schedule should schedule process on the last processor it was running on, and memory management system tries to allocate frames on the closest memory then cache hits will be improved and memory access time will be less. 
+	so scheduler should schedule process on the last processor it was running on, and memory management system tries to allocate frames on the closest memory then cache hits will be improved and memory access time will be less. 
 
 // Thrashing :
 
@@ -196,30 +196,30 @@
 
 		Operating system monitors CPU utilization, if cpu utilization is too low, it increases degree of multiprogramming by adding more processes to memory. Global page replacement algorithm is used. if some process needs more pages, it starts faulting and taking away frames from other processes, so these other processes starts faulting due to lack of sufficient pages. in turn they take pages from others. due to this paging device gets lot of requests in ready queue. processes wait for paging device, and cpu utilization decreases.
 
-		as a result of this scheduler agains increases degree of 
-		multiprogramming and worsen the condition. Thrashing has occured.
+		as a result of this scheduler again increases degree of 
+		multiprogramming and worsen the condition. Thrashing has occurred.
 
-		hence cpu utilization increases with incrase in multiprogramming upto a level , but above that increase in multiprogramming decreases cpu utilization to large extent.
+		hence cpu utilization increases with increase in multiprogramming upto a level , but above that increase in multiprogramming decreases cpu utilization to large extent.
 
 		here if we used local page replacement instead of global, then only one process will be thrashing but it will still increase the queue on paging device making it slower so page fault service time increases. so memory access time increases even for those processes that aren't thrashing.
 
 		to prevent this we must allocate a process with as many frames as it needs
 
 		// Locality Model :
-				it states that access to data by a process is not random, its in form of localities. e.g. when a function is called, a new locality is defined. the memory reference are made to this functions data, when we exit the function the locality changes.
+			it states that access to data by a process is not random, its in form of localities. e.g. when a function is called, a new locality is defined. the memory reference are made to this functions data, when we exit the function the locality changes.
 
-				Locality model is unstated principle behind the working of cache, in caching we cache one locality of process so that further memory access are from cache and not memory.
-				if data access were random cache would be useless.
+			Locality model is unstated principle behind the working of cache, in caching we cache one locality of process so that further memory access are from cache and not memory.
+			if data access were random cache would be useless.
 
 	// Working-set Model :
 
 		its based on assumption of locality.
 
-		here we use a working set i.e. a window which is defined by D most recent memory references by the process. if a page is in working set then its active if it isnt then process isn't using that anymore.
+		here we use a working set i.e. a window which is defined by D most recent memory references by the process. if a page is in working set then its active if it isn't then process isn't using that anymore.
 
 		most important property for working set is its size.
 
-		os provides each process with no of frames enough for its working set, if there are extra frames another process can be brought into memory, if the sum exceeds total available frames then thrashing will occurr so os suspends some process and return its frames to free frame
+		os provides each process with no of frames enough for its working set, if there are extra frames another process can be brought into memory, if the sum exceeds total available frames then thrashing will occur so os suspends some process and return its frames to free frame
 
 		it optimizes cpu utilization by keeping multiprogramming highest without thrashing. 
 
@@ -233,7 +233,7 @@
 
 // Memory-Mapped Files :
 	
-	Memory mapping of file is achieved by mapping a block of file to pages in memory. initial access to file proceeds through page fault and portion of file is loaded into pages. further read/write happends to these pages instrea of using system calls for read/write so its much faster. the write to file are not synchronous (immediate). os may decide to write to file after some interval. on file close everything is written back to file.
+	Memory mapping of file is achieved by mapping a block of file to pages in memory. initial access to file proceeds through page fault and portion of file is loaded into pages. further read/write happens to these pages instead of using system calls for read/write so its much faster. the write to file are not synchronous (immediate). os may decide to write to file after some interval. on file close everything is written back to file.
 
 	solaris implements this like : when file is accessed by mmap its loaded into address space of process while when accessed by system calls like open/read/write its still memory mapped but in os area.		
 
@@ -253,9 +253,9 @@
 
 	1. Buddy Allocation :
 
-		buddy system allocates memory from fixed sized segment of continous memory. it uses power of 2 allocator that grants requests in terms of power of 2.
+		buddy system allocates memory from fixed sized segment of continuous memory. it uses power of 2 allocator that grants requests in terms of power of 2.
 
-		the memory segment is devided into two equal halves till it becomes smallest enough to accomodate request. the appropriate segment is then allocated to the request and remaining segments formed due to this splitting are kept in free list.
+		the memory segment is divided into two equal halves till it becomes smallest enough to accommodate request. the appropriate segment is then allocated to the request and remaining segments formed due to this splitting are kept in free list.
 
 		the benefit of this system is that adjacent free memory segments can be easily combined to get larger segments. i.e. when one segment is freed by the requester, it goes back to kernel and it sees if it can be merged with adjacent ones to get bigger segment. its called coalescing.
 
@@ -263,58 +263,57 @@
 
 	2. Slab Allocation :
 
-		a slab is made up of one or more physically continguous pages.
-		a cache consist of several slabs. ther are different cache for different type of data structures e.g. process cache, semaphore cache, file object cache etc.
+		a slab is made up of one or more physically contiguous pages.
+		a cache consist of several slabs. there are different cache for different type of data structures e.g. process cache, semaphore cache, file object cache etc.
 		every cache contains objects that are like instances of its specific data structure, when cache is created all of its objects are marked as free.
 		when a request comes to kernel it goes to corresponding cache and allocates one object from the free list. its then marked as used.
 
-		a slab can be full, empty or partially filled. slabs are so devided to cache that there's no internal fragmentation. the cache creats its objects by using all slabs and no wastage of space. since it divides the total slabs into chunks of memory equal to size of data structure.
+		a slab can be full, empty or partially filled. slabs are so divided to cache that there's no internal fragmentation. the cache creates its objects by using all slabs and no wastage of space. since it divides the total slabs into chunks of memory equal to size of data structure.
 
-		its very fast to allocate and free data structues since you only need to mark free and used.
+		its very fast to allocate and free data structures since you only need to mark free and used.
 
-// Prepaging :
+// Pre-paging :
 	
- 	in demand paging large no of page faults occur at the beginning of process, when trying to get initial locality into memory, or when swapped out process is brought into memory. all its pages are brought into memory by page fault. instead we can bring all these pages into memory at the start of process to prevent this initial paging. this is called prepaging.
+ 	in demand paging large no of page faults occur at the beginning of process, when trying to get initial locality into memory, or when swapped out process is brought into memory. all its pages are brought into memory by page fault. instead we can bring all these pages into memory at the start of process to prevent this initial paging. this is called pre-paging.
 
- 	in system using working set method, if we suspend a process we remember its working set then at the time of resuming it we bring back working set into memory. only condition to worry about here is that whether the cost of prepaging is less than inital paging. then only its useful to prepage.
+ 	in system using working set method, if we suspend a process we remember its working set then at the time of resuming it we bring back working set into memory. only condition to worry about here is that whether the cost of pre-paging is less than initial paging. then only its useful to pre-page.
 
- // Page size :
+// Page size :
+	each process maintains a copy of page table so the size of page table must be reasonable. as the page size decreases the page table becomes larger. hence page size must be chosen appropriately.
+	larger page size :
+		smaller page table
+		more internal fragmentation
+		disk i/o better speed
+		less page faults
+	smaller page size:
+		larger page table
+		less internal fragmentation
+		disk i/o speed less
+		better resolution i.e. unwanted data is not handled (if page size of 512 and we need 100 only from that we have to move entire)
+		due to above, smaller page means less i/o since locality is improved, less memory allocation.
+		more page faults
 
- 	each process maintains a copy of page table so the size of page table must be reasonable. as the page size decreases the page table becomes larger. hence page size must be chosen appropriately.
- 	larger page size :
- 		smaller page table
- 		more internal fragmentation
- 		disk i/o better speed
- 		less page faults
- 	smaller page size:
- 		larger page table
- 		less internal fragmentation
- 		disk i/o speed less
- 		better resolution i.e. unwanted data is not handled (if page size of 512 and we need 100 only from that we have to move entire)
- 		due to above, smaller page means less i/o since locality is improved, less memory allocation.
- 		more page faults
+// TLB reach :
 
- // TLB reach :
+	to increase TLB hit ratio we can increase the no of entries in TLB (its size)
+	but thats very expensive.
 
- 	to increase TLB hit ratio we can increase the no of entries in TLB (its size)
- 	but thats very expensive.
+	TLB reach : 
+		amount of memory accessible from TLB. no of entries * page size.
+		ideally we want to store the working set of process into TLB.
 
- 	TLB reach : 
- 		amount of memory accessible from TLB. no of entries * page size.
- 		ideally we want to store the working set of process into TLB.
+	to increase the reach we may increase page size or use multiple page size.
+	support for multiple page size must be provided by OS and not hardware, thus it requires managing TLB by os (i.e.in software instead of hardware) and thats slow but the advantage of multiple page size is much more which includes better hit ratio. hence recent trends are towards software managed TLB and multiple page sizes.
 
- 	to increase the reach we may increase page size or use multiple page size.
- 	support for multiple page size must be provided by OS and not hardware, thus it requires managing TLB by os (i.e.in software instead of hardware) and thats slow but the advantage of multiple page size is much more which includes better hit ratio. hence recent trends are towards software managed TLB and multiple page sizes.
+// Inverted page tables:
+	these do not work great with demand paging.
+	since on a page fault we dont know from where to swap in the page because we dont keep all information about process in Inverted page table.
+	thus it is required to keep per process tables as well (normal page tables) that must be used during page fault. since they aren't always used they themselves are paged out. so handling page fault may require handling two page faults (one for process and one for its page table) this needs to be handled carefully in kernel
 
- // Inverted page tables:
- 	these do not work great with demand paging.
- 	since on a page fault we dont know from where to swap in the page because we dont keep all information about process in Inverted page table.
- 	thus it is required to keep per process tables as well (normal page tables) that must be used during page fault. since they aren't always used they themselves are paged out. so handling page fault may require handling two page faults (one for process and one for its page table) this needs to be handled carefully in kernel
+	// Program structure
+	if programs are written keeping in mind locality concept it can significantly improve performance.
 
- // Program structure
- 	if programs are written keeping in mind locality concept it can significantly improve performance.
-`
- // I/O interlock:
+// I/O interlock:
  	if we are doing I/O using demand paging then its not acceptable that pages related to i/o gets swapped out by some other process to prevent this we allow locking of pages, by keeping a lock bit with each frame. locked pages cannot be paged out.
 
  	we may also want to lock pages that are brought into memory but haven't been used because before using the page process was scheduled. if such pages are replaced then the effort to swap in them previously was useless.

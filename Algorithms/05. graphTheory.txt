@@ -192,7 +192,7 @@ regular graph - all vertices of equal degree.
 		steps:
 			1. set distance of all vertices as inf 
 			2. set distance of source as 0 (so its picked at first)
-			3. iterate the loop V-1 times 
+			3. iterate the loop (4th step) V-1 times 
 			4th step is known as "Relaxation"
 			4. for each edge u-->v
 				if dist[v] > dist[u] + weight(u, v)

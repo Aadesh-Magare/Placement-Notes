@@ -1,6 +1,7 @@
+Recurrence relation solving.
+Dijkstra, ford, warshall, 01 knapsack, rod cutting, subset sum, longest common sub-sequence.
 Graph Coloring.
 String Matching Algorithms (rk, KMP)
 cycle detecting algorithms(implement it)
 search in rotated array  
 lines intersecting, how to find y intercept.
-huffman algorithm

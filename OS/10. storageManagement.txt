@@ -12,7 +12,7 @@
 
 	most of operations need to search file first, so os keeps a table called , open-file table containing information about all open files.
 
-	per process open files table is also kept by os, when saveral processes open same file, there is one entry in system wide table and entries in each of per process table, per process entries point to system wide table.
+	per process open files table is also kept by os, when several processes open same file, there is one entry in system wide table and entries in each of per process table, per process entries point to system wide table.
 
 	os also provide locking facility for files, two types of locks shared and exclusive locks may be provided.
 
@@ -32,7 +32,7 @@
 	// Logical Structure of Directory :
 
 	1. Tree-structured directory:
-		disadvantage of this is, it donest allow sharing of file/subdirectory.
+		disadvantage of this is, it doesn't allow sharing of file/subdirectory.
 		if we want a file to be part of two subdirectories then its not possible with this approach
 
 	2. Acyclic-Graph Directory :
@@ -47,7 +47,7 @@
 		/dev = devices
 		/dev/null = black hole
 		/dev/random = generate random no (strong) uses system noise
-		/dev/urandom genrerate random no (weaker) uses system noise but gives output even if its low noise
+		/dev/urandom generate random no (weaker) uses system noise but gives output even if its low noise
 	/var = variables : contains files which are changing
 
 	Unix directory contains filenames and corresponding inode no.
@@ -76,12 +76,12 @@
 
 	2. Remote File systems :
 		it allows a computer to mount one or more fs from one or more remote machines.
-		to share files among remote file sytems several approaches have been given:
+		to share files among remote file systems several approaches have been given:
 
 		1. FTP :
 			manually transfer files between machines using programs like ftp.
 		2. DFS :
-			destributed file system in which remote directories are visible from local machine
+			distributed file system in which remote directories are visible from local machine
 		3. WWW : 
 			it essentially uses modified version of first method.
 
@@ -89,11 +89,10 @@
 		the server machine in NFS maintains list of exports i.e. directories which are available to clients for mounting.
 		NFS works through RPC mechanism.
 
-
 // Special Files :
 
 	FIFO are otherwise called as 'named pipes'. FIFO (first-in-first-out) is a special file which is said to be data transient.
-	It is used in interprocess communication. created with mkfifo
+	It is used in inter-process communication. created with mkfifo.
 
 	The system call mknod creates special files.
 
@@ -110,7 +109,7 @@
 
 	an hard link (ln) is just a rename, its used to create another name for a file, the newly created link will point to the same inode as original. even if earlier file is deleted, nothing will change in our link, so its like the same file with diff name
 
-	cant be used on directories, and doesnt work across computers, has to be on same computer
+	cant be used on directories, and doesn't work across computers, has to be on same computer
 
 	Soft link (ln -s) is another file ( having diff inode no) that contains the file name of original file, changes made are done actually in original file. if we delete original file, this link is useless, works on directories as well and across the computers too.
 
@@ -140,7 +139,7 @@
 		1. Linked List :
 			it can be implemented using linked list but its very expensive, searching a file in directory, inserting or deleting is very costly.
 		2. Hash table :
-			here we have to take care of collisions may be with linked list but its still better than linked list approcach
+			here we have to take care of collisions may be with linked list but its still better than linked list approach.
 			also the hash table is fixed size, even if we used hash table that doubles size on doubling we have to rehash prev entries.
 
 	// Allocation Methods :
@@ -154,19 +153,19 @@
 
 			one solution to this is compacting by moving data to another disk and then copying back, this can merge all the free holes created due to external Fragmentation.
 
-			this approach needs to know the size of file before hand which is not always possible, also its not efficent to handle growth in files
+			this approach needs to know the size of file before hand which is not always possible, also its not efficient to handle growth in files
 
 		2. Linked Allocation :
 			a file is linked list of blocks scattered anywhere.
 			no external Fragmentation.
-			growth of file can be easiliy handled.
+			growth of file can be easily handled.
 			its useful for the files that need to be accessed sequentially, we cant access ith block of file, have to traverse from the first block.
 			for each block in traversal we need to read block (involves disk seek)
 			space is wasted to store pointers.
 
 			solution to this problem is to allocate clusters of blocks instead of single blocks. (though it increases internal Fragmentation)
 
-			another problem is due to slight corruption even if single pointer get corrupted it destorys the linked list.
+			another problem is due to slight corruption even if single pointer get corrupted it destroys the linked list.
 
 			// FAT :
 				it is variation of linked allocation, where there is table at the beginning of volume, which has one entry for each block and table is indexed by block no. Directory entry of file contains first block no. which in turn contains no of second block and so on. it decreases random access time, since you can find out ith block of a file from table itself.
@@ -191,12 +190,12 @@
 			free-space list is maintained as bit map or bit vector. each block is represented as one bit.
 			here the problem is Bit vector must be stored in memory for it to be efficient, but the size if too big to store it in memory.
 		2. Linked List :
-			linked list is kept of free blocks, but to traverse the list we have to read the blocks so its very costly. (we dont usually need to traverse the list, we just use the first free block whenver request comes.)
+			linked list is kept of free blocks, but to traverse the list we have to read the blocks so its very costly. (we dont usually need to traverse the list, we just use the first free block whenever request comes.)
 		3. Counting :
-			its observed that free blocks are in groups (chunks) so we can keep the first block and count of further Continous blocks. it will make the list shorter.
+			its observed that free blocks are in groups (chunks) so we can keep the first block and count of further continuous blocks. it will make the list shorter.
 	// Efficiency and Performance :
 
-		on Unix file system inodes are preallocated, so even if disk is empty there are indoes occupying some space. it does this to keep inode and its data block together to reduce disk seek time.
+		on Unix file system inodes are pre-allocated, so even if disk is empty there are inodes occupying some space. it does this to keep inode and its data block together to reduce disk seek time.
 
 		operation like storing last access date in directory entry for a file requires that we read the directories data block , modify and write it back.
 
@@ -204,13 +203,13 @@
 
 
 		// Unified Virtual Memory :
-			some systemd cache file data using page cache. it uses Virtual memory techniques to cache file data as normal pages. this is more efficient that simply cacheing the blocks from hard disk
+			some systems cache file data using page cache. it uses Virtual memory techniques to cache file data as normal pages. this is more efficient that simply caching the blocks from hard disk
 
 		// Unified Buffer cache :
 			memory mapped i/o and i/o using open read use same buffer cache, this avoids double cache by memory mapping io
 
 		// Synchronous Asynchronous write :
-			Synchronous writes are in same order as recieved by system and are not buffered., thus calling function has to wait till data is actually written. e.g. its used in databases to ensure data is written in correct order.
+			Synchronous writes are in same order as received by system and are not buffered., thus calling function has to wait till data is actually written. e.g. its used in databases to ensure data is written in correct order.
 
 			Asynchronous writes are stored in cache and control returns to function immediately. on majority Asynchronous writes are done.
 

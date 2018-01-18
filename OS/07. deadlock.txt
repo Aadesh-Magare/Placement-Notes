@@ -4,11 +4,11 @@
 	a deadlock occurs if following Conditions hold "simultaneously".
 
 	1.Mutual exclusion :
-		resource must be held in nonsharable mode, mutual exclusion is required to use that resource.
+		resource must be held in non-sharable mode, mutual exclusion is required to use that resource.
 	2. Hold and wait : 
 		A process must be holding at least one resource and waiting to acquire resource held by other processes.
 	3. No preemption : 
-		resource can be realeased voluntarily by the process and can't be taken from it.
+		resource can be released voluntarily by the process and can't be taken from it.
 	4. circular wait : 
 		processes must exist such that it forms a cycle of waiting ones for each other.
 
@@ -42,7 +42,7 @@
 			its not applicable to resources like printer, tapes etc
 		4. Circular wait :
 			to avoid circular wait, we can impose a rule for ordering of requests i.e. processes can request resources in particular order only e.g. in increasing order.
-			its the job of programmer to follow this ordering to prevent deadlock.
+			it's the job of programmer to follow this ordering to prevent deadlock.
 			
 			imposing an ordering does not guarantee deadlock prevention if locks can be acquired dynamically. consider function transaction(A,B, 50)
 			if acquire locks and transfer 50 from A to B. if transaction is executed simultaneously as transaction(A,B, 50) and transaction(B,A, 50) then deadlock is possible.			
@@ -64,13 +64,13 @@
 				the sequence of processes P1 to Pn such that, for any process Pi. all the resources required by Pi are either available or acquired by processes Pj (j < i). such that if Pi waits till all Pj terminate it will get all required resources.
 
 			using concept of safe state we can design algorithm that never deadlock: 
-				initially system is in safe state, whenver process requests resources its checked if it can be granted resources immediately or it should wait. its granted only if resulting system is in safe state.
+				initially system is in safe state, whenever process requests resources its checked if it can be granted resources immediately or it should wait. its granted only if resulting system is in safe state.
 
 			using this scheme, if process requests resources that is available still it may have to wait, causing  lower resources utilization.
 
 		2. Resource-Allocation Graph algorithm :
 
-			applicable when resources have single instaces.
+			applicable when resources have single instance.
 
 			here a new edge is introduced, claim edge . Pi to Rj it represent that process Pi may request resource Rj in future. a process must tell all of its claim edges before starting execution. now when process requests resource it can be granted only if it does not create a cycle in graph.
 
@@ -78,7 +78,7 @@
 
 		3. Bankers Algorithm :
 
-			less efficent than upper one but works even when resources have multiple instances.
+			less efficient than upper one but works even when resources have multiple instances.
 
 			when process enters into system it must declare max no of instances of each resources that it needs. when a process requests a resources , system determines whether the allocation leaves system in safe state, if it does then allocation takes place or else process has to wait.
 
@@ -86,7 +86,7 @@
 				1. available[m] no of available resources of each type.
 				2. Max[n][m] total requirement of each process for each resource.
 				3. allocation[n][m] allocated resource to each process
-				4. need[n][m] requirement of each process ater allocation.
+				4. need[n][m] requirement of each process after allocation.
 
 			// Safety algorithm :
 				
@@ -169,16 +169,16 @@
 			if for some process i finished[i] is still false then process i is deadlocked
 			if no such process then there's no deadlock.
 
-		// when to invoke the algorithm is another question, on an extreme case we can invoke it whenver a process is made to wait for resource, since deadlock can only occur when someone is made to wait. but thats not efficient. if we invoke algorithm after a long time, then lots of cycles may be created in graph and we won't be able to identify which process cause deadlock.
+		// when to invoke the algorithm is another question, on an extreme case we can invoke it whenever a process is made to wait for resource, since deadlock can only occur when someone is made to wait. but thats not efficient. if we invoke algorithm after a long time, then lots of cycles may be created in graph and we won't be able to identify which process cause deadlock.
 
 	4. Recovery from Deadlock :
 
 		1. Process Termination :
 			1. terminate all deadlocked processes (causes lot of rework)
-			2. terminate one process at a time till deadlock is elimiated. (lots of overhead, after each termination invoke deadlock detection algorithm)
+			2. terminate one process at a time till deadlock is eliminated. (lots of overhead, after each termination invoke deadlock detection algorithm)
 
 			termination may leave data in inconsistent state.
-			selecting a process for termination is pocily decision, it takes lots of factor to consider. it should also minimize cost.
+			selecting a process for termination is policy decision, it takes lots of factor to consider. it should also minimize cost.
 
 		2. Resources Preemption :
 			to break deadlock we preempt some resources from deadlocked processes and give them to others till deadlock is broken.
