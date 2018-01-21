@@ -78,7 +78,7 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 		The choice depends on database requirements
 		Hashing is very inefficient for range queries, so its used only when dbms has very rare range queries otherwise ordered indexing is used
 
-// B+ Tree : 
+// B+ Tree : 887
 
 	Imposes insertion, deletion and space overhead but its acceptable when its advantages are taken into account.
 
@@ -117,6 +117,21 @@ Indices are used to find items easily. It's smaller file (in sorted order), that
 		A node may contain at max 2n-1 keys.
 		Number of children = no of keys + 1.
 
+	// Insertion :
+		only condition is a node should not overflow on insertion i.e. it should not have more than 2n-1 keys. If it happens, split the node into two nodes and shift the middle key to parent. follow the same steps recursively if parent overflows due to this shift.
+
+	// Deletion :
+		// For leaf node :
+			if node will not have underflow (less than n-1 keys) because of deletion, simply delete it.
+			if it can cause underflow :
+			
+			case 1 : if key can be borrowed from either sibling node, borrow it with the help of parent.
+			case 2 : if key can't be borrowed from sibling (because they have minimum no of keys) merge the node with sibling node, borrow a key from parent which will be the middle key  for this merged node.
+
+		// For internal node :
+			case 1 : if the target node has immediate left child from which largest key can be borrowed then borrow the key from child and simply delete the target key.
+			case 2 : if the target node has immediate right child from which smallest key can be borrowed then borrow the key from child and simply delete the target key.
+			
 
 // Concurrency in Indexed structures :
 	to ensure this, b+ tree structure is modified a bit, now every node contains a pointer to its right sibling. (in normal B+ trees only leaf node contains pointer to right sibling)

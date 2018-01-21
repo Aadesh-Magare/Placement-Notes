@@ -1,7 +1,7 @@
 // IP addresses :
     
     32 bit addresses in ipv4 i.e. 2^32 total addresses.
-    Dotted Decimal Representation : devide 32 bit address into 4 parts of 8 bit, convert them to decimal numbers and join with dot.
+    Dotted Decimal Representation : divide 32 bit address into 4 parts of 8 bit, convert them to decimal numbers and join with dot.
     
     Total classified into 5 classes : A, B, C, D and E
     
@@ -36,4 +36,4 @@
         e.g. 12.0.0.0 => represents the network with Nid 12 and not any particular host.
     Also last host Id of the class (with all 1) is used as directed broadcast address of the network. hence it's not assigned to any host.
         e.g. 12.255.255.255 => represents broadcast address of the network with Nid 12 and not any particular host.
-    This reduces the number of hosts that can be cofigured with given class IP addresses by 2.
+    This reduces the number of hosts that can be configured with given class IP addresses by 2.

@@ -12,14 +12,14 @@
 4. If that DNS server has the address for that domain, it will return it. Otherwise, it will forward the query along to DNS server it is configured to defer to. This happens recursively until the request is fulfilled or it reaches an authoritative name server and can go no further. (If the authoritative name server doesn't recognize the domain, the response indicates failure and the browser generally gives an error like "Can't find the server at www.lkliejafadh.com".) The response makes its way back to the client machine much like the request traveled to the DNS server.
 
 
-/////// DNS/////// www.example.net////////
-browser will send dns request to default dns server which will send response to browser once it gets the right result. now the dns server works on behalf of us to find ip addresse. 
-first it will connect to root dns server, which maintains info like which dns servers are responsilbe for .net, .com, .org etc so the root server will tell us which top level dns server (TLD) is responsible for our .net domain.
-so contact TLD server now, it will tell us another server which is the authoritive server for our desired link
-contact that server to get datasww
+// DNS example : 
+	www.example.net
+	browser will send dns request to default dns server which will send response to browser once it gets the right result. now the dns server works on behalf of us to find ip address. 
+	first it will connect to root dns server, which maintains info like which dns servers are responsible for .net, .com, .org etc so the root server will tell us which top level dns server (TLD) is responsible for our .net domain.
+	so contact TLD server now, it will tell us another server which is the authoritative server for our desired link
+	contact that server to get dns
 
 
-////////////////
 
 5. Assuming the DNS request is successful, the client machine now has an IP address that uniquely identifies a machine on the Internet. The web browser then assembles an HTTP request, which consists of a header and optional content. The header includes things like the specific path being requested from the web server, the HTTP version, any relevant browser cookies, etc. In the case in question (hitting Enter in the address bar), the content will be empty. In other cases, it may include form data like a username and password (or the content of an image file being uploaded, etc.)
 

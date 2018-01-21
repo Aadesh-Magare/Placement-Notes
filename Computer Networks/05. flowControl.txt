@@ -10,17 +10,17 @@ The rate at which sender sends packets should not be too greater than receiver's
 // TimeOut (TO) =  2 * RTT
 // Time To Live (TTL) = 2 * TimeOut. (Maximum TTL is 180 seconds)
 // ARQ protocol : Automatic Repeat Request.
-    It needs error detection, reciever feedback and retransmission facility.
+    It needs error detection, receiver feedback and retransmission facility.
 
 // Stop and wait :
 	
-    Sender sends one packet and waits till it recieves ACK or NAK from other side, on NAK it resends packet and on ACK it takes new packet to send.
+    Sender sends one packet and waits till it receives ACK or NAK from other side, on NAK it resends packet and on ACK it takes new packet to send.
 
     when a packet is lost before reaching receiver there is no ack. This is packet loss problem to solve this timeout is added to Stop and wait flow. 
-	Server resends packet after some time if ACK is not recieved. this time should be more than round trip time.
+	Server resends packet after some time if ACK is not received. this time should be more than round trip time.
 
     In case ack is lost, sender will send previous packet again after timeout but receiver will receive it as a new packet hence sequence number is added to the packet.
-    sender keeps a field called sequence no in the packet for reciver to identify new packets from the retransmitted packets.
+    sender keeps a field called sequence no in the packet for receiver to identify new packets from the retransmitted packets.
     For similar reasons ack will also have sequence number.
 
     efficiency = useful time / total cycle time
@@ -34,8 +34,7 @@ The rate at which sender sends packets should not be too greater than receiver's
 
         Throughput = efficiency * bandwidth
 
-	stop and wait does not utilize the bandwidth since it keep waiting. so pipelining protocol is introduced.
-
+	stop and wait does not utilize the bandwidth properly since it keep waiting. so pipelining protocol is introduced.
 
 // Pipelining :
     instead of sending single packet, send window of packets during the wait time. hence increase the efficiency. after you get ack of a packet that packet can be removed from window. This is called as sliding window protocol.

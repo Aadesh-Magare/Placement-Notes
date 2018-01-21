@@ -73,7 +73,7 @@
 			Read rules are same as above but write rules changed:
 			if Ti does write(Q):
 				if TS(Ti) < R(Q), so later transaction read value, dont write now, or that one wont be consistent
-				if TS(Ti) < W(Q), here if TS(Ti) >= R(Q) then we dont write, but we ignore the write of Ti, since it's obsolute
+				if TS(Ti) < W(Q),  we dont write, but we ignore the write of Ti, since it's obsolute
 
 	// Validation Based Protocols :
 

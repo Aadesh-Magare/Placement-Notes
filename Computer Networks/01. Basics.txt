@@ -4,26 +4,23 @@ Open system is the one connected to network and ready for communication while cl
 
 Physical medium : which actually carry signals
 	guided media : cables
-	unguided media : wireless, satelites.
+	unguided media : wireless, satellites.
 
-Baseband vs BroadBand :
-	baseband : entire bandwidth is consumed by single signal.
+Base band vs BroadBand :
+	base band : entire bandwidth is consumed by single signal.
 	BroadBand : signals are sent on multiple frequencies.
 Transmission :
-	store and forward, the packet switches may store packets till it recieves all of them and then forward them.
+	store and forward, the packet switches may store packets till it receives all of them and then forward them.
 	if the network is conjusted, packets are saved in output buffer and this is called queue delay due to buffer. If buffer is full, incoming packets are lost.
 
 	circuit switching networks:
-	resources needed along the path are reserved while in packet switched network they aren't reserved. telephones use circuit switching, before th e call is made circuit is reserved. due to this guranteed constat rate is achieved for transfers.
+	resources needed along the path are reserved while in packet switched network they aren't reserved. telephones use circuit switching, before the call is made circuit is reserved. due to this guaranteed constant rate is achieved for transfers.
 
 Encapsulation :
 	all nodes dont use all of OSI layers. source and destination use all 7 layers, link-layer switches use only the bottom two layers, while routers use bottom 3 layers.
 
 	an application-layer message is passed to the transport layer.the transport layer takes the message and appends additional information (transport-layer header information)that will be used by the receiver-side transport layer. The application-layer message and the transport-layer header information together constitute the transport-layer segment. 
 	The transport-layer segment thus encapsulates the application-layer message. The added information might include information allowing the receiver-side transport layer to deliver the message up to the appropriate application, and error-detection bits that allow the receiver to determine whether bits in the message have been changed in route. The transport layer then passes the segment to the network layer, which adds network-layer header information such as source and destination end system addresses, creating a network-layer datagram. The datagram is then passed to the link layer, which will add its own link-layer header information and create a link-layer frame. Thus, we see that at each layer, a packet has two types of fields: header fields and a payload field. The payload is typically a packet from the layer above.
-
-
-
 
 // Socket :
 	The unique combination of IP address and Port number together are termed as Socket.
@@ -45,7 +42,7 @@ Encapsulation :
 
 // TCP : Transmission Control Protocol
 	connection oriented and Reliable service.
-	it makes sure all data in transfered to destination with no corruption and in-sequence
+	it makes sure all data is transferred to destination with no corruption and in-sequence
 	also include a congestion control mechanism.
 	it uses three way handshaking.
 
@@ -53,7 +50,7 @@ Encapsulation :
 	its an enhancement to TCP. implemented as application layer. if one wants to use ssl he must include its code. ssl provide API similar to standard TCP. application writes data on ssl socket and it does encryption.
 
 // UDP : User Datagram Protocol
-	connectionless, unreliable service.
+	connection less, unreliable service.
 	messages may get lost, and may arrive out of order.
 	no congestion control mechanism.
 
@@ -66,27 +63,26 @@ Encapsulation :
 
 // RARP : Reverse Address Resolution Protocol
 	it allows host to know ip address if it only knows its physical address. RARP has become obsolete since the time DHCP has come into picture.
+
 // HTTP : Hypertext Transfer Protocol
 	its application layer protocol. it defines how web clients request pages from server and how server transfer pages to clients. it uses TCP as underlying protocol.
-	client http makes request to its socket and gets data from socket. server http recieve request from socket and writes data to socket. all internal transfer and reliability concerns are handled by TCP.
+	client http makes request to its socket and gets data from socket. server http receive request from socket and writes data to socket. all internal transfer and reliability concerns are handled by TCP.
 
-	its said to be stateless protocol, cause server doenst remember what it just did. if client again requests the same thing server will send it again, not knowing that it just sent it.
+	its said to be stateless protocol, cause server doesn't remember what it just did. if client again requests the same thing server will send it again, not knowing that it just sent it.
 
 	there are two types of messages request and response.
 
 // URL encoding : 
 	url should have ASCII characters only so that it can be sent over network, but if url has non ASCII characters then they are encoded.  % followed by two hex digits are used for encoding.
 
-
 // Persistent non-persistent connection:
 	if a new tcp connection is made for each request then its non-persistent connection else its Persistent connection, since it maintains the connection.
-
 
 // Cookie :
 	when you visit a site for first time, server create unique id for you and saves it in database. it return the unique value to you as http response under cookie header. your browser saves that value in cookie file corresponding to that website. then all of packets for that site will contain Cookie no, from that no in packet server can identify you.
 
 // Web cache (Proxy server) :
-	it keeps copy of recently requested objects. A brower is configured so that all request go through Proxy server. it acts as destination and checks if it has that content if not it send request to original destination. it acts as both client and server.
+	it keeps copy of recently requested objects. A browser is configured so that all request go through Proxy server. it acts as destination and checks if it has that content if not it send request to original destination. it acts as both client and server.
 
 	// conditional GET :	
 		to ensure proxy server has updated copy of object http support conditional get request i.e. actual data is sent by server only if its been modified since the last time it was accessed.
@@ -100,47 +96,47 @@ Encapsulation :
 	HTTP is stateless but for FTP server must maintain state of each client to know its current directory.
 
 // SMTP: Simple Mail Transfer Protocol 
-	it transfer the mail from senders mail server to receipients mail server.
-	senders use user-agent to send mail which sends mail to his mail server. it uses client side SMTP protocol to send mail from senders pc to senders mail server.the mail server transfers it to reciepients mail server using server side SMTP, reciever uses user-agent to fetch mail from server to his pc by using mail access protocol.
+	it transfer the mail from senders mail server to recipients mail server.
+	senders use user-agent to send mail which sends mail to his mail server. it uses client side SMTP protocol to send mail from senders pc to senders mail server.the mail server transfers it to recipient's mail server using server side SMTP, receiver uses user-agent to fetch mail from server to his pc by using mail access protocol.
 
-	it uses reliabile TCP protocol.
-	it doesnt use intermediate mail servers i.e. direct tcp connection is made between senders and receipient. mail is not stored on intermediate server.
+	it uses reliable TCP protocol.
+	it doesn't use intermediate mail servers i.e. direct tcp connection is made between senders and recipient. mail is not stored on intermediate server.
 
-	http is pull ptotocol : reciepient creates connection, smtp is push senders create.
+	http is pull protocol : recipient creates connection, smtp is push senders create.
 	
 	smtp needs everything in 7bit ascii data so encoding may be required its not the case with http
 
 	mail access protocol : POP3 (Post office protocol), IMAP (Internet mail access protocol) and http. these protocols are used to transfer mail from mail server to local pc.
 
 	POP3 : uses TCP connection with mail server. it works in three phases authorization, transaction and update.
-	does not allow creating remote folders and orgnizing mails into them.
+	does not allow creating remote folders and organizing mails into them.
 
 	IMAP : mails are associated with folders, users can create folders and move mails on server. IMAP maintains this state information across sessions.
 
-	HTTP : using browser access mails. data sending and recieving occurs through http. further transfers occurs through smtp.
+	HTTP : using browser access mails. data sending and receiving occurs through http. further transfers occurs through smtp.
 
 // DNS : Domain Name System 
 
-	There can be serveral ip address for one domain name. dns servers contains all of them and send them in shuffled order for each request for load balancing on ip.	
+	There can be several ip address for one domain name. dns servers contains all of them and send them in shuffled order for each request for load balancing on ip.	
 	it uses UDP connection.
 
-	// DNS is destributed and not centralised because :
+	// DNS is distributed and not centralized because :
 
 		it uses UDP protocol.
 		to avoid single point of failure.
 		traffic overload
 		manage physical distance
-		difficult to manage centralised.
+		difficult to manage centralized.
 
 		root dns servers : 13 distributed  across globe.
 		top level domain servers : responsible for top level domains like com, net, org and country wise domains in, uk, au 
-		authorative servers : specific to orgnization like amazon.
+		authorative servers : specific to organization like amazon.
 
 		local dns server (default name server) : client request to local dns in recursive manner (i.e. local dns makes further request to root, tld and authorative servers and return final result)
 
 		the request from client to local server is recursive while further are iterative
 
-		DNS cache : dns server cache the mapping recieved for further use, further requests for the same name are processed from the cache. since the mappings are not permanent the cache is deleted after some time (e.g. two days)
+		DNS cache : dns server cache the mapping received for further use, further requests for the same name are processed from the cache. since the mappings are not permanent the cache is deleted after some time (e.g. two days)
 
 		// some sites work with www while other don't ?
 			its because dns has entries for www.sitename.com and sitename.com, the www is just convention you can put anything there, like afafa.sitename.com and add entry in dns for this then site will work.

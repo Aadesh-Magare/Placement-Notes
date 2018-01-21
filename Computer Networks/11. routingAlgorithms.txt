@@ -1,5 +1,5 @@
 // Routing Algorithms :
-	global algorithms which have info of every node in network,  called link state algorithms.
+	global algorithms which have info of every node in network, called link state algorithms.
 
 	decentralized algorithms : which dont have information about the whole network and starts with each node having knowledge of its neighbors only.
 
@@ -19,8 +19,8 @@
 	2. Distance Vector algorithm :
 		asynchronous, distributed.
 		each node maintains a distance vector i.e. vector of distances of other nodes from it.
-		it also maintains copy of distances vector of its neighbours.
-		periodically nodes send their distance vector to neighbours then neighbours use bellman ford algorithm to update their distance vector table. if its distance vector is changed it will forward it to neighbours.
+		it also maintains copy of distances vector of its neighbors.
+		periodically nodes send their distance vector to neighbors then neighbors use bellman ford algorithm to update their distance vector table. if its distance vector is changed it will forward it to neighbors.
 
 		// This algorithm is vulnerable to problem of count till infinity i.e. when two nodes think that its shortest path passes through other they keep bouncing the packet in between. to solve this issue poisoned reverse method is used. but it can only solve problem of looping for two nodes, not more than 3 nodes.
 
@@ -34,17 +34,16 @@
 				its Distance Vector protocol.
 				maximum cost is 15. so its limited to AS whose diameter is 15. 
 				in RIP routing info is shared between router every 30 sec using RIP response message (RIP advertisements.)
-				each router maintains routing table, which includes forwarding table and distance vector. after each 30 sec router receives advertisement from neighbours and so it updates its routing table, if it doesn't hear from some neighbour for 180 sec, then its considered that neighbour died, so it updates table and notifies others about this.
+				each router maintains routing table, which includes forwarding table and distance vector. after each 30 sec router receives advertisement from neighbors and so it updates its routing table, if it doesn't hear from some neighbor for 180 sec, then its considered that neighbor died, so it updates table and notifies others about this.
 
 				alternative to RIP is HELLO protocol which uses time instead of distance for optimal routing
-
 
 			// OSPF : open shortest path first.
 				(similar algorithm is IS-IS)
 				mostly its used in upper-tier ISPs while RIP is used in lower-tier ISPs
 				its linked state protocol and uses flooding of link state info and Dijkstra algorithm.
 				every router maintains complete topology of network and uses Dijkstra locally to get shortest path tree. the weight of links can be set to anything as we like e.g. 1, inverse of capacity etc.
-				router broadcasts routing info to everyone not just neighbours. whenever there's change in link's state it broadcasts link state info.
+				router broadcasts routing info to everyone not just neighbors. whenever there's change in link's state it broadcasts link state info.
 
 				using OSPF the AS can be divided into several regions (following hierarchical routing) where each area has its border router. A backbone router is used to connect all such border routers
 
@@ -55,8 +54,8 @@
 			routers from different AS are connected by TCP connection, such routers are called BGP peers.
 			the TCP connection and messages sent are called BGP session, there can be external BGP (eBGP) session between routers across AS and internal BGP session (iBGP) between routers within AS.
 
-			BGP allows AS to learn which destinations are reachable via its neighbour AS.
-			destinations are not hosts but subnets. 
+			BGP allows AS to learn which destinations are reachable via its neighbor AS.
+			destinations are not hosts but subnets.
 
 			two gateway router learn about subnets reachable in other AS by exchanging info with its gateway router using eBGP. then it shares this info within the AS by using iBGP.
 

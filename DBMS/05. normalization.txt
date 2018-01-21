@@ -138,7 +138,7 @@
         // Third Normal Form :
             A relation is in 3NF iff at least one of the following condition holds in every non-trivial function dependency X –> Y :
                 X is a super key.
-                Y is a prime attribute (each element of Y is part of some candidate key).
+                Y-X is a prime attribute (each element of Y-X is part of some candidate key).
 
             // 3NF :
                 There is no transitive dependency for non-prime attributes. 

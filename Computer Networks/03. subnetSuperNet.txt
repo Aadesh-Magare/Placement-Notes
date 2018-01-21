@@ -1,5 +1,5 @@
 take out some bits from hostId and assign them as network Id of subnet.
-no of hostIds decrease due to subnetting.
+no of hostIds decrease due to sub-netting.
 e.g.
     class C address : 
         out of 32 bit, 24 bits are Nid and 8 bits are host id.

@@ -2,7 +2,7 @@
     time taken by host to put packet onto outgoing link.
             Tt = L / B
             L : length of packet
-            B : bandwidth of network.
+            B : bandwidth of network
     
     delay at router to push packet onto network, that depends on size of packet and transmission rate of medium.
 

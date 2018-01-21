@@ -13,7 +13,7 @@
 // Broadcast protocols :
 	// N-way unicast (source duplication) : if packet is to be sent to N nodes, its N copies are made each having diff destination and are sent. but it wastes bandwidth, its complicated to know address of all destinations
 
-	// Uncontrolled flooding : send one copy to each neighbour, which will further forward copies to their neighbours except the one from which it came. but if graph contains cycle then packet may keep cycling in the network.
+	// Uncontrolled flooding : send one copy to each neighbor, which will further forward copies to their neighbors except the one from which it came. but if graph contains cycle then packet may keep cycling in the network.
 	also when a node is connected to two or more nodes (having cycle) it will go on creating multiple copies of packet on each iteration, so creating broadcast storm
 
 	// Controlled flooding :

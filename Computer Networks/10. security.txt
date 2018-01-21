@@ -6,8 +6,7 @@ DOS : denial of service, send too many requests to server and block it, or conge
 
     Connection flooding : The attacker establishes a large number of half-open or fully open TCP connections at the target host. The host can become so bogged down with these bogus connections that it stops accepting legitimate connections.
 
-DDOS : distributed DOS lot of machines at the same time try to congest the network or flood the m
-edium.
+DDOS : distributed DOS lot of machines at the same time try to congest the network or flood the medium.
 
 packet sniffer : its passive component that doesn't change anything but keep copy of every packet. 
 
@@ -40,6 +39,7 @@ internet was invented with philosophy of mutually trusting users attached to tra
             Network firewall function on network level. In other words, these firewalls filters all incoming and outgoing traffic across the network. It protects the internal network by filtering the traffic using rules defined on firewall. A Network firewall might have two or more network interface cards (NIC). Network-based firewall is usually a dedicated system with proprietary software installed.
 
 // Encryption :
+
     // Symmetric Encryption– Data is encrypted using a key and the decryption is also done using the same key.
     // Asymmetric Encryption-Asymmetric Cryptography is also known as public key cryptography. It uses public and private keys to encrypt and decrypt data. 
 

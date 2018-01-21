@@ -29,7 +29,7 @@ if many stations are sending data through medium simultaneously there should not
             L / B >= 2 * Tp
             L >= 2 * Tp * B
             hence this is minimum size of packet to be able to detect collision.
-            Padding shoud be used if packet size is smaller than this.
+            Padding should be used if packet size is smaller than this.
 
     
         efficiency = Tt / (C * 2 * Tp + Tt + Tp)
@@ -51,16 +51,16 @@ if many stations are sending data through medium simultaneously there should not
         disadvantage is if one station wins (succeeds in sending packet after collision) then it's probability of winning in next collision keeps on increasing. this is called capture effect.
 
 // Token Passing :
-    A token is passed around network a station which has token can only transmit data.
-    so only one station is transmiting at at time.
+    A token is passed around network, a station which has token can only transmit data.
+    so only one station is transmitting at at time.
 
-    We dont have Ack for data packet. hence data packets are forwarded by receiveing stations and come back to source then source is supposed to remove them from network.
+    We dont have Ack for data packet. hence data packets are forwarded by receiving stations and come back to source then source is supposed to remove them from network.
 
-    THT : token holding time : time for which station holds the token while transmiting data.
+    THT : token holding time : time for which station holds the token while transmitting data.
 
     Ring latency : in ring network time taken by a bit to complete entire circle and come back to starting position.
 
-    Cycle time : time taken by token to complete cirlce and come back to initial position.
+    Cycle time : time taken by token to complete circle and come back to initial position.
             Cycle time = Tp + N * THT 
     efficiency = N * Tt / Cycle time
 
@@ -88,7 +88,7 @@ if many stations are sending data through medium simultaneously there should not
 
     // Slotted :
         Time is divided into slots of Tt time.
-        station can start transmiting only at beginning of timeslot.
+        station can start transmitting only at beginning of time slot.
 
         hence Vulnerable time is Tt.
         efficiency = G * e^-G
